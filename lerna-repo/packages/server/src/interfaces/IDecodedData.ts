@@ -1,0 +1,4 @@
+interface IDecodedData {
+    id: string;
+}
+

@@ -8,11 +8,11 @@ const users: IUser[] = [];
 export const signup = async (req: Request, res: Response) => {
     const { email, name, password } = req.body;
     try {
-        // const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = { email, name, password };
+        const user = { email, name, password: hashedPassword };
 
-        console.log(req.body.email);
+        console.log(user);
 
         users.push(user);
         res.status(201).send('registered');
@@ -21,19 +21,23 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-// export const signin = async (req: Request, res: Response) => {
-//     const user = users.find(user => user.name === req.body.name);
-//     try {
-//     } catch (err) {
-//         res.send(500).json({ message: 'something went wrong' });
-//     }
-//     if (user != undefined) {
-//         const isPasswordCorrect: boolean = bcrypt.compare(
-//             req.body.password,
-//             user.password,
-//         );
-//     }
-// };
+export const signin = async (req: Request, res: Response) => {
+    const user = users.find(user => user.name === req.body.name);
+    try {
+        if (user != undefined) {
+            const isPasswordCorrect = await bcrypt.compare(
+                req.body.password,
+                user.password,
+            );
+            if (isPasswordCorrect) {
+                res.send('logged in');
+                console.log('logged in');
+            }
+        }
+    } catch (err) {
+        res.send(500).json({ message: 'something went wrong' });
+    }
+};
 
 export const helloWorld = (req: Request, res: Response) => {
     res.send('hello world - custom');
@@ -41,4 +45,8 @@ export const helloWorld = (req: Request, res: Response) => {
 
 export const testRegister = (req: Request, res: Response) => {
     res.json(users);
+};
+
+export const testLogin = (req: Request, res: Response) => {
+    res.send('login page');
 };
