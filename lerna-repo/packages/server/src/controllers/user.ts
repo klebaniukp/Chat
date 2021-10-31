@@ -2,14 +2,17 @@ import { Request, Response } from 'express';
 import { IUser } from '../interfaces/IUser';
 import { UserModel } from '../models/User';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+const secret = process.env.JWT_SECRET_TOKEN as string;
 
 const users: IUser[] = [];
 
-interface IresUser {
+interface IResUser {
     id: string;
     email: string;
     name: string;
-    password: string;
+    password?: string;
 }
 
 export const signup = async (req: Request, res: Response) => {
@@ -21,19 +24,31 @@ export const signup = async (req: Request, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = {
+        const newUser = await UserModel.create({
             email,
             name,
             password: hashedPassword,
-        };
+        });
 
         const result = await UserModel.findOne({ email: newUser.email }).lean();
 
-        const token = jwt.sign()
+        const token = jwt.sign(
+            { email: newUser.email, id: newUser.id },
+            secret,
+            { expiresIn: '12h' },
+        );
+
+        delete (result as IResUser).password;
 
         console.log(newUser);
 
-        res.status(201).send('registered');
+        res.status(200)
+            .cookie('token', token, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true,
+            })
+            .json({ result });
     } catch (err) {
         res.status(500).json({ message: (err as any).message });
     }
