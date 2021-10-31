@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { IDecodedData } from '../interfaces';
+// import jwt from 'jsonwebtoken';
+// import { IDecodedData } from '../interfaces';
 
 const auth = async (req: Request, res: Response) => {
     try {

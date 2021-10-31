@@ -1,4 +1,3 @@
 interface IDecodedData {
     id: string;
 }
-
