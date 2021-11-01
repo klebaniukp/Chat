@@ -14,10 +14,24 @@ export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, name, password } = req.body;
     try {
-        const oldUser = await UserModel.findOne({ email: email });
+        console.log(`secret:${secret}`);
+        let oldUser = await UserModel.findOne({ email: email });
+
+        console.log(
+            `name: ${oldUser?.name}, email:${oldUser?.email}, user:${oldUser}`,
+        );
 
         if (oldUser)
-            return res.status(400).json({ message: 'User already exists' });
+            return res
+                .status(400)
+                .json({ message: 'This email is already in use' });
+
+        oldUser = await UserModel.findOne({ name: name });
+
+        if (oldUser)
+            return res
+                .status(400)
+                .json({ message: 'This is username is taken' });
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -29,8 +43,6 @@ export const signup = async (req: Request, res: Response) => {
 
         const result = await UserModel.findOne({ email: newUser.email }).lean();
 
-        console.log(`result:${result}, secret:${secret}`);
-
         const token = jwt.sign(
             { email: newUser.email, id: newUser._id },
             secret,
@@ -40,8 +52,6 @@ export const signup = async (req: Request, res: Response) => {
         console.log(token);
 
         delete (result as IResUser).password;
-
-        console.log(newUser);
 
         res.status(200)
             .cookie('token', token, {
@@ -68,8 +78,6 @@ export const signin = async (req: Request, res: Response) => {
             password,
             oldUser.password,
         );
-
-        console.log(isPasswordCorrect);
 
         if (!isPasswordCorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
