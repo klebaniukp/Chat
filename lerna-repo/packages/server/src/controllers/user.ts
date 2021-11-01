@@ -1,12 +1,7 @@
 import { Request, Response } from 'express';
-import { IUser } from '../interfaces/IUser';
 import { UserModel } from '../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-const secret = process.env.JWT_SECRET_TOKEN as string;
-
-const users: IUser[] = [];
 
 interface IResUser {
     id: string;
@@ -16,13 +11,15 @@ interface IResUser {
 }
 
 export const signup = async (req: Request, res: Response) => {
+    const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, name, password } = req.body;
     try {
-        const oldUser = await UserModel.findOne({ email });
+        const oldUser = await UserModel.findOne({ email: email });
 
-        if (oldUser) res.status(400).json({ message: 'User already exists' });
+        if (oldUser)
+            return res.status(400).json({ message: 'User already exists' });
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 12);
 
         const newUser = await UserModel.create({
             email,
@@ -32,11 +29,15 @@ export const signup = async (req: Request, res: Response) => {
 
         const result = await UserModel.findOne({ email: newUser.email }).lean();
 
+        console.log(`result:${result}, secret:${secret}`);
+
         const token = jwt.sign(
-            { email: newUser.email, id: newUser.id },
+            { email: newUser.email, id: newUser._id },
             secret,
-            { expiresIn: '12h' },
+            { expiresIn: '1d' },
         );
+
+        console.log(token);
 
         delete (result as IResUser).password;
 
@@ -50,25 +51,49 @@ export const signup = async (req: Request, res: Response) => {
             })
             .json({ result });
     } catch (err) {
-        res.status(500).json({ message: (err as any).message });
+        res.status(500).json({ message: (err as Error).message });
     }
 };
 
 export const signin = async (req: Request, res: Response) => {
-    const user = users.find(user => user.name === req.body.name);
+    const secret = process.env.JWT_SECRET_TOKEN as string;
+    const { email, password } = req.body;
     try {
-        if (user != undefined) {
-            const isPasswordCorrect = await bcrypt.compare(
-                req.body.password,
-                user.password,
-            );
-            if (isPasswordCorrect) {
-                res.send('logged in');
-                console.log('logged in');
-            }
-        }
+        const oldUser = await UserModel.findOne({ email: email });
+
+        if (!oldUser)
+            return res.status(404).json({ message: 'User not found' });
+
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            oldUser.password,
+        );
+
+        console.log(isPasswordCorrect);
+
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: 'Invalid credentials' });
+
+        const token = jwt.sign(
+            { email: oldUser.email, id: oldUser._id },
+            secret,
+            { expiresIn: '1d' },
+        );
+
+        console.log(token);
+
+        delete (oldUser as IResUser).password;
+
+        console.log('logged in');
+        res.status(200)
+            .cookie('token', token, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true,
+            })
+            .json({ result: oldUser });
     } catch (err) {
-        res.send(500).json({ message: 'something went wrong' });
+        res.status(500).json({ message: (err as Error).message });
     }
 };
 
@@ -79,7 +104,7 @@ export const helloWorld = (req: Request, res: Response) => {
 };
 
 export const testRegister = (req: Request, res: Response) => {
-    res.json(users);
+    res.json(UserModel);
 };
 
 export const testLogin = (req: Request, res: Response) => {
