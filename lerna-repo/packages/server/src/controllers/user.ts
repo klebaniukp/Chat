@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
+import { passwordSchema } from '../models/Password';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -10,8 +11,20 @@ interface IResUser {
     password?: string;
 }
 
+function emailCheck(email: string) {
+    let areAllCredentialsValid = false;
+    for (let i = 0; i < email.length; i++) {
+        if (email[i] === '@') {
+            console.log('@ in email');
+        }
+    }
+
+    return false;
+}
+
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
+    const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, password } = req.body;
     try {
         console.log(`secret:${secret}`);
@@ -32,6 +45,16 @@ export const signup = async (req: Request, res: Response) => {
             return res
                 .status(400)
                 .json({ message: 'This is username is taken' });
+
+        if (!passwordSchema.validate(password))
+            return res
+                .status(400)
+                .json({ message: 'Password does not match credentials' });
+
+        if (!specialSigns.test(password))
+            return res
+                .status(400)
+                .json({ message: 'Password does not match credentials' });
 
         const hashedPassword = await bcrypt.hash(password, 12);
 

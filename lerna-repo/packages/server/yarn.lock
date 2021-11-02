@@ -1732,6 +1732,11 @@ parseurl@~1.3.3:
   resolved "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
 
+password-validator@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/password-validator/-/password-validator-5.2.1.tgz#51f67c33e768acbef24d8719a52ad544f7dce004"
+  integrity sha512-EfNW0akQ+YrMawF5KNXoDBTdUvXwx2vxvIuq1XXUiDmti7aaBDnqTl/IAruxztWTCN0Bt+og3LL3I9E4blCRqQ==
+
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz"
