@@ -7,6 +7,7 @@ export const SearchUser = (props: {
     width: string;
     placeholder: string;
     height: string;
+    buttonWidth: string;
 }) => {
     return (
         <form className="form-inline" style={{ width: props.width }}>
@@ -18,10 +19,18 @@ export const SearchUser = (props: {
                 />
                 <Button
                     height={props.height}
+                    width={props.buttonWidth}
                     value={'search'}
                     link={'/login'}
+                    fontSize={'medium'}
                 />
-                <Button value={'Login'} height={props.height} link={'/login'} />
+                <Button
+                    value={'Login'}
+                    height={props.height}
+                    width={props.buttonWidth}
+                    link={'/login'}
+                    fontSize={'medium'}
+                />
             </div>
         </form>
     );

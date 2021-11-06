@@ -12,7 +12,12 @@ export const ChatBar = () => {
                 fontSize: '0.8rem',
                 float: 'left',
             }}>
-            <SearchUser width={'18 rem'} height={'4vh'} placeholder={'Login'} />
+            <SearchUser
+                width={'18 rem'}
+                height={'4vh'}
+                placeholder={'Login'}
+                buttonWidth={'6 rem'}
+            />
             <ContactProfile />
             <ContactProfile />
             <ContactProfile />

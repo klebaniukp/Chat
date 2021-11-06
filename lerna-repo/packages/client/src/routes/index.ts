@@ -3,5 +3,5 @@ export const routes = {
     login: '/login',
     register: '/register',
     chat: '/chat',
+    auth: '/auth',
 };
-    

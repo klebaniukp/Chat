@@ -5,13 +5,19 @@ export const Button = (props: {
     value: string;
     height: string;
     link: string;
+    width: string;
+    fontSize: string;
 }) => {
     return (
         <Link to={props.link}>
             <button
                 className="btn btn-outline-success"
                 type="button"
-                style={{ height: props.height }}>
+                style={{
+                    height: props.height,
+                    width: props.width,
+                    fontSize: props.fontSize,
+                }}>
                 {props.value}
             </button>
         </Link>
