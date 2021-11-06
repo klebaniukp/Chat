@@ -6,12 +6,31 @@ export const ChatBar = () => {
     return (
         <div
             className="blockquote text-left overflow-auto"
-            style={{ width: '18vw', fontSize: '0.8rem', float: 'left' }}>
-            <SearchUser
-                width={'18 rem'}
-                height={'4vh'}
-                placeholder={'Search for contacts'}
-            />
+            style={{
+                height: 'vmax',
+                width: '18vw',
+                fontSize: '0.8rem',
+                float: 'left',
+            }}>
+            <SearchUser width={'18 rem'} height={'4vh'} placeholder={'Login'} />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
+            <ContactProfile />
             <ContactProfile />
             <ContactProfile />
             <ContactProfile />
