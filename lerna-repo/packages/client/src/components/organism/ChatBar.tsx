@@ -47,6 +47,5 @@ export const ChatBar = () => {
             <ContactProfile />
             <ContactProfile />
         </div>
-        // <div className="overflow-scroll" style={{ width: '19vw' }}></div>
     );
 };

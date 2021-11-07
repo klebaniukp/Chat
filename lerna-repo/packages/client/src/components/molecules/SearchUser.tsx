@@ -10,12 +10,13 @@ export const SearchUser = (props: {
     buttonWidth: string;
 }) => {
     return (
-        <form className="form-inline" style={{ width: props.width }}>
-            <div className="input-group fixed-top">
+        <form className='form-inline' style={{ width: props.width }}>
+            <div className='input-group fixed-top'>
                 <SearchUserSign height={'1.7vh'} />
                 <SearchInput
                     height={props.height}
                     placeholder={props.placeholder}
+                    type={'text'}
                 />
                 <Button
                     height={props.height}

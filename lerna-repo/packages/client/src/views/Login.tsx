@@ -1,5 +1,6 @@
 import React from 'react';
+import { AuthForm } from '../components/organism/AuthForm';
 
 export const Login = () => {
-    return <div>Login</div>;
+    return <AuthForm height={'4vh'} formType={'signin'} formMethod={'post'} />;
 };
