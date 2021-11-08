@@ -22,8 +22,6 @@ function emailCheck(email: string) {
     return false;
 }
 
-//user authentication and registration
-
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;

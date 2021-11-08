@@ -24,6 +24,7 @@ export const SearchUser = (props: {
                     value={'search'}
                     link={'/login'}
                     fontSize={'medium'}
+                    type={'button'}
                 />
                 <Button
                     value={'Login'}
@@ -31,6 +32,7 @@ export const SearchUser = (props: {
                     width={props.buttonWidth}
                     link={'/login'}
                     fontSize={'medium'}
+                    type={'button'}
                 />
             </div>
         </form>

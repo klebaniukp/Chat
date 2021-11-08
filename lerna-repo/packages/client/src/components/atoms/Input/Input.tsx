@@ -9,11 +9,11 @@ export const Input = (props: {
         <>
             <input
                 type={props.type}
-                className="form-control rounded"
+                className='form-control hover-shadow rounded'
                 placeholder={props.placeholder}
                 style={{ height: props.height }} // e.g. '4vh'
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                aria-label='Username'
+                aria-describedby='basic-addon1'
             />
         </>
     );

@@ -6,6 +6,7 @@ export const Navigation = () => {
         <div className={'d-flex justify-content-center m-3'}>
             <div className={'d-flex flex-column'}>
                 <Button
+                    type={'button'}
                     value={'Go to chat'}
                     height={'10vh'}
                     width={'10vw'}
@@ -15,6 +16,7 @@ export const Navigation = () => {
                 <hr />
                 <div className={'d-flex'}>
                     <Button
+                        type={'button'}
                         value={'Login'}
                         height={'5vh'}
                         width={'5vw'}
@@ -23,6 +25,7 @@ export const Navigation = () => {
                     />
                     <hr className={'vh-5 p-1 opacity-0'} />
                     <Button
+                        type={'button'}
                         value={'Register'}
                         height={'5vh'}
                         width={'5vw'}

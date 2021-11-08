@@ -7,12 +7,13 @@ export const Button = (props: {
     link: string;
     width: string;
     fontSize: string;
+    type: 'button' | 'submit' | 'reset';
 }) => {
     return (
         <Link to={props.link}>
             <button
-                className="btn btn-outline-success"
-                type="button"
+                className='btn btn-outline-success'
+                type={props.type}
                 style={{
                     height: props.height,
                     width: props.width,
