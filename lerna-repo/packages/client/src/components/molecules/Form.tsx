@@ -44,14 +44,6 @@ export const Form = (props: {
                         fontSize={'medium'}
                         type={'submit'}
                     />
-                    {/* <Button
-                        type={'submit'}
-                        value={'login'}
-                        height={'5vh'}
-                        width={'5vw'}
-                        link={'/register'}
-                        fontSize={'medium'}
-                    /> */}
                 </div>
             </>
         );
@@ -88,14 +80,6 @@ export const Form = (props: {
                         />
                     </div>
                     <SpacingLine isVertical={false} />
-                    {/* <Button
-                        type={'submit'}
-                        value={'Register'}
-                        height={'5vh'}
-                        width={'5vw'}
-                        link={'/register'}
-                        fontSize={'medium'}
-                    /> */}
                     <Button
                         value={'register'}
                         height={'5vh'}
