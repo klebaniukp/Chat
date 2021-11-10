@@ -1,11 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import { AuthForm, signin, signup } from '../components/organism/AuthForm';
+import React, { useState } from 'react';
+import { SignIn, SignUp } from '../components/organism/AuthForm';
+import { AuthSwitchButton } from '../components/atoms/Button/AuthSwitchButton';
 
 export const Login = () => {
+    const [isSignIn, setIsSignIn] = useState(true);
+
     return (
         <div className={'bg-secondary'}>
-            <AuthForm />
+            {isSignIn ? (
+                <SignIn value={'sign in'} setIsSignIn={setIsSignIn} />
+            ) : (
+                <SignUp value={'sign up'} setIsSignIn={setIsSignIn} />
+            )}
         </div>
     );
 };

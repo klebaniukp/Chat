@@ -5,6 +5,6 @@ import { Request, Response } from 'express';
 const auth = async (req: Request, res: Response) => {
     try {
     } catch (err) {
-        res.json({ message: (err as any).message });
+        res.json({ message: (err as Error).message }); // it was (err as any))
     }
 };
