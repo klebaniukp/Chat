@@ -47,18 +47,27 @@ export const SignUp = ({
     const handleSubmit = (e: React.SyntheticEvent, form: HTMLFormElement) => {
         e.preventDefault();
         if (form != null) {
-            console.log('clearing');
-            setForm(initialState);
-            e.preventDefault();
-            const formData = new FormData(form);
-            formData.append('email', form.email.value);
-            formData.append('password', form.password.value);
-            formData.append('confirmPassword', form.confirmPassword.value);
-            formData.append('name', form.username.value);
-            formData.append('lastName', form.lastName.value);
-            console.log(formData);
+            // setForm(initialState);
+            const email = form.email.value;
+            const name = form.username.value;
+            const lastName = form.lastName.value;
+            const password = form.password.value;
+            let formData: JSON = {
+                email: email,
+                name: name,
+                lastName: lastName,
+                password: password,
+            };
             console.log(
                 `email:${form.email.value},password:${form.password.value},name:${form.username.value}`,
+            );
+            signUp(formData).then(
+                res => {
+                    console.log(res);
+                },
+                err => {
+                    console.log(err);
+                },
             );
         }
     };

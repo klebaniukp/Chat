@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { userRouter } from './routes/user';
 
@@ -14,6 +15,18 @@ const app = express();
 app.use(express.json({ limit: '30mb' }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cookieParser());
+
+const origin =
+    process.env.NODE_ENV === 'production'
+        ? process.env.CLIENT_URL
+        : 'http://localhost:3000';
+
+app.use(
+    cors({
+        credentials: true,
+        origin,
+    }),
+);
 
 app.use('/user', userRouter);
 

@@ -136,7 +136,7 @@ export const helloWorld = (req: Request, res: Response) => {
 };
 
 export const testRegister = (req: Request, res: Response) => {
-    res.json(UserModel);
+    res.send('sign up');
 };
 
 export const testLogin = (req: Request, res: Response) => {
