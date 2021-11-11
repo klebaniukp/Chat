@@ -11,8 +11,8 @@ export const userRouter = express.Router();
 
 userRouter.use(express.json());
 
-userRouter.post('/login', signin);
-userRouter.get('/login', testLogin);
-userRouter.post('/register', signup);
-userRouter.get('/register', testRegister);
+userRouter.post('/signin', signin);
+userRouter.get('/signin', testLogin);
+userRouter.post('/signup', signup);
+userRouter.get('/signup', testRegister);
 userRouter.get('/', helloWorld);
