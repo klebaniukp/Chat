@@ -3,9 +3,10 @@ import React from 'react';
 export const CheckBox = () => {
     return (
         <input
+        onClick={() => { }}
             type='checkbox'
             className='form-check-input'
-            id='exampleCheck1'
+            id='form-checkbox'
         />
     );
 };
