@@ -25,7 +25,7 @@ function emailCheck(email: string) {
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    const { email, name, password } = req.body;
+    const { email, name, lastName, password } = req.body;
     try {
         console.log(`secret:${secret}`);
         let oldUser = await UserModel.findOne({ email: email });
@@ -61,6 +61,7 @@ export const signup = async (req: Request, res: Response) => {
         const newUser = await UserModel.create({
             email,
             name,
+            lastName,
             password: hashedPassword,
         });
 
