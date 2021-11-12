@@ -109,8 +109,6 @@ export const signin = async (req: Request, res: Response) => {
             { expiresIn: '1d' },
         );
 
-        console.log(token);
-
         delete (oldUser as IResUser).password;
 
         console.log('logged in');
@@ -120,7 +118,7 @@ export const signin = async (req: Request, res: Response) => {
                 sameSite: 'none',
                 secure: true,
             })
-            .json({ result: oldUser });
+            .json({ result: oldUser, message: 'Logged in' });
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }

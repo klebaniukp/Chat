@@ -4,8 +4,7 @@ import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/ShowPassword';
 import { Card } from '../atoms/Box/Card';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
-import { signUp } from '../../api';
-import { sign } from 'crypto';
+import { handleSubmit } from '../../events/handleSubmit';
 
 export const SignUp = ({
     value,
@@ -14,22 +13,14 @@ export const SignUp = ({
     value: string;
     setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-    const initialState = {
-        email: '',
-        name: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-    };
-
-    const [form, setForm] = useState(initialState);
+    const [showPassword, setShowPassword] = useState(false);
 
     const submitting = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = document.querySelector('form');
 
         if (form != null && passwordCheck(form)) {
-            if (form != null) handleSubmit(e, form);
+            if (form != null) handleSubmit(e, form, true);
         } else {
             alert('Passwords do not match');
         }
@@ -44,38 +35,6 @@ export const SignUp = ({
         return false;
     };
 
-    const handleSubmit = (e: React.SyntheticEvent, form: HTMLFormElement) => {
-        e.preventDefault();
-        if (form != null) {
-            setForm(initialState);
-            const email = form.email.value.toString();
-            const name = form.username.value.toString();
-            const lastName = form.lastName.value.toString();
-            const password = form.password.value.toString();
-
-            let formData = new Object();
-            formData = {
-                email: email,
-                name: name,
-                lastName: lastName,
-                password: password,
-            };
-            console.log(
-                `email:${form.email.value},password:${form.password.value},name:${form.username.value}`,
-            );
-
-            signUp(JSON.stringify(formData)).then(
-                res => {
-                    console.log(res);
-                },
-                err => {
-                    console.log(err);
-                },
-            );
-        }
-    };
-
-    const [showPassword, setShowPassword] = useState(false);
     return (
         <form
             onSubmit={e => {
