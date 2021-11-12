@@ -47,12 +47,14 @@ export const SignUp = ({
     const handleSubmit = (e: React.SyntheticEvent, form: HTMLFormElement) => {
         e.preventDefault();
         if (form != null) {
-            // setForm(initialState);
-            const email = form.email.value;
-            const name = form.username.value;
-            const lastName = form.lastName.value;
-            const password = form.password.value;
-            let formData: JSON = {
+            setForm(initialState);
+            const email = form.email.value.toString();
+            const name = form.username.value.toString();
+            const lastName = form.lastName.value.toString();
+            const password = form.password.value.toString();
+
+            let formData = new Object();
+            formData = {
                 email: email,
                 name: name,
                 lastName: lastName,
@@ -61,7 +63,8 @@ export const SignUp = ({
             console.log(
                 `email:${form.email.value},password:${form.password.value},name:${form.username.value}`,
             );
-            signUp(formData).then(
+
+            signUp(JSON.stringify(formData)).then(
                 res => {
                     console.log(res);
                 },

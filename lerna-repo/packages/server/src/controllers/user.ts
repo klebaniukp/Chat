@@ -27,12 +27,7 @@ export const signup = async (req: Request, res: Response) => {
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, lastName, password } = req.body;
     try {
-        console.log(`secret:${secret}`);
         let oldUser = await UserModel.findOne({ email: email });
-
-        console.log(
-            `name: ${oldUser?.name}, email:${oldUser?.email}, user:${oldUser}`,
-        );
 
         if (oldUser)
             return res
@@ -40,6 +35,8 @@ export const signup = async (req: Request, res: Response) => {
                 .json({ message: 'This email is already in use' });
 
         oldUser = await UserModel.findOne({ name: name });
+
+        console.log(`name: ${name} lastName: ${lastName} email: ${email}`);
 
         if (oldUser)
             return res
