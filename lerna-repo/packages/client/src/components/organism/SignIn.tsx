@@ -18,7 +18,7 @@ export const SignIn = ({
     const submitting = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = document.querySelector('form');
-        if (form != null) handleSubmit(e, form, false);
+        if (form != null) handleSubmit(e, form, false, setIsSignIn);
         else alert('fill up the form');
     };
 

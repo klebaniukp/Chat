@@ -20,7 +20,7 @@ export const SignUp = ({
         const form = document.querySelector('form');
 
         if (form != null && passwordCheck(form)) {
-            if (form != null) handleSubmit(e, form, true);
+            if (form != null) handleSubmit(e, form, true, setIsSignIn);
         } else {
             alert('Passwords do not match');
         }

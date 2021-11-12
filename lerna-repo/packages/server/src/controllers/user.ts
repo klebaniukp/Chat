@@ -11,17 +11,6 @@ interface IResUser {
     password?: string;
 }
 
-function emailCheck(email: string) {
-    let areAllCredentialsValid = false;
-    for (let i = 0; i < email.length; i++) {
-        if (email[i] === '@') {
-            console.log('@ in email');
-        }
-    }
-
-    return false;
-}
-
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -124,7 +113,6 @@ export const signin = async (req: Request, res: Response) => {
     }
 };
 
-/*  ###  */
 
 export const helloWorld = (req: Request, res: Response) => {
     res.send('hello world - custom');
