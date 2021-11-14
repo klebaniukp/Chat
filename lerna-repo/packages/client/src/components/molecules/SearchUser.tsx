@@ -22,7 +22,7 @@ export const SearchUser = (props: {
                     height={props.height}
                     width={props.buttonWidth}
                     value={'search'}
-                    link={'/login'}
+                    link={'/Auth'}
                     fontSize={'medium'}
                     type={'button'}
                 />
@@ -30,7 +30,7 @@ export const SearchUser = (props: {
                     value={'Login'}
                     height={props.height}
                     width={props.buttonWidth}
-                    link={'/login'}
+                    link={'/Auth'}
                     fontSize={'medium'}
                     type={'button'}
                 />

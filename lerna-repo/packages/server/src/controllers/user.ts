@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { UserModel } from '../models/User';
 import { passwordSchema } from '../models/Password';
 import bcrypt from 'bcrypt';
@@ -15,6 +15,8 @@ export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, lastName, password } = req.body;
+    const maxAge = 1000 * 60 * 60;
+
     try {
         let oldUser = await UserModel.findOne({ email: email });
 
@@ -56,7 +58,7 @@ export const signup = async (req: Request, res: Response) => {
         const token = jwt.sign(
             { email: newUser.email, id: newUser._id },
             secret,
-            { expiresIn: '1d' },
+            { expiresIn: '10m' },
         );
 
         console.log(token);
@@ -64,10 +66,12 @@ export const signup = async (req: Request, res: Response) => {
         delete (result as IResUser).password;
 
         res.status(200)
+            // .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,
+                maxAge: maxAge,
             })
             .json({ result });
     } catch (err) {
@@ -75,9 +79,15 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-export const signin = async (req: Request, res: Response) => {
+export const signin = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, password } = req.body;
+    const maxAge = 1000 * 60 * 60;
+
     try {
         const oldUser = await UserModel.findOne({ email: email });
 
@@ -95,33 +105,29 @@ export const signin = async (req: Request, res: Response) => {
         const token = jwt.sign(
             { email: oldUser.email, id: oldUser._id },
             secret,
-            { expiresIn: '1d' },
+            { expiresIn: '10m' },
         );
+
+        console.log(`token: ${token} type: ${typeof token}`);
 
         delete (oldUser as IResUser).password;
 
         console.log('logged in');
         res.status(200)
+            // .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,
+                maxAge: maxAge,
             })
             .json({ result: oldUser, message: 'Logged in' });
+        next(token);
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }
 };
 
-
-export const helloWorld = (req: Request, res: Response) => {
-    res.send('hello world - custom');
-};
-
-export const testRegister = (req: Request, res: Response) => {
-    res.send('sign up');
-};
-
-export const testLogin = (req: Request, res: Response) => {
-    res.send('login page');
+export const helloWorld = async (req: Request, res: Response) => {
+    res.status(200).json({ message: 'Hello World' });
 };

@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
-// import jwt from 'jsonwebtoken';
-// import { IDecodedData } from '../interfaces';
+import { Request, Response, NextFunction } from 'express';
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 
-const auth = async (req: Request, res: Response) => {
-    try {
-    } catch (err) {
-        res.json({ message: (err as Error).message }); // it was (err as any))
-    }
+interface IDecodedToken {
+    id: string;
+}
+
+export const auth = (req: Request, res: Response) => {
+    res.cookie('token', 'secret').json({
+        message: 'cookies saved succsesfully',
+    });
 };
