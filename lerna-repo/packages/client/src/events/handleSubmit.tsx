@@ -63,7 +63,6 @@ export const handleSubmit = (
                         console.log(err);
                     },
                 );
-                // window.location.href = '/chat';
             } catch (error) {
                 console.log(error);
             }

@@ -3,43 +3,37 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import sessions from 'express-session';
-import cookieSession from 'cookie-session';
+import session from 'express-session';
 import { userRouter } from './routes/user';
 
 dotenv.config();
 
 const CONNECTION_URL = process.env.CONNECTION_URL as string;
 const PORT = process.env.PORT || 5000;
-const oneDay = 86400000;
+const oneHour = 3600000;
 
 const app = express();
+
+app.set('trust proxy', 1);
 
 app.use(express.json({ limit: '30mb' }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cookieParser());
 
 app.use(
-    cookieSession({
-        name: 'session',
-        keys: ['key1', 'key2'],
+    session({
         secret: 'secret',
-        maxAge: oneDay,
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            maxAge: oneHour,
+            httpOnly: true,
+            secure: true,
+            sameSite: false,
+            path: '/',
+        },
     }),
 );
-
-// app.use(
-//     sessions({
-//         secret: 'secret',
-//         resave: false,
-//         saveUninitialized: true,
-//         cookie: {
-//             maxAge: oneDay,
-//             httpOnly: true,
-//             secure: false,
-//         },
-//     }),
-// );
 
 const origin =
     process.env.NODE_ENV === 'production'

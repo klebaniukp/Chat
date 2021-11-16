@@ -1,13 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
-
-interface IDecodedToken {
-    id: string;
-}
+import 'express-session';
 
 export const auth = (req: Request, res: Response) => {
-    res.cookie('token', 'secret').json({
-        message: 'cookies saved succsesfully',
-    });
+    try {
+        const sess = req.session;
+        sess.token = req.cookies.token;
+
+        console.log(`session: ${sess} token: ${sess.token}`);
+
+        res.status(200).json({ message: 'Hello World' });
+    } catch (err) {
+        res.status(500).json({ message: (err as Error).message });
+    }
 };

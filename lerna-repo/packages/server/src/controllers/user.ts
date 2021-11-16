@@ -27,8 +27,6 @@ export const signup = async (req: Request, res: Response) => {
 
         oldUser = await UserModel.findOne({ name: name });
 
-        console.log(`name: ${name} lastName: ${lastName} email: ${email}`);
-
         if (oldUser)
             return res
                 .status(400)
@@ -61,12 +59,9 @@ export const signup = async (req: Request, res: Response) => {
             { expiresIn: '10m' },
         );
 
-        console.log(token);
-
         delete (result as IResUser).password;
 
         res.status(200)
-            // .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',
@@ -108,13 +103,9 @@ export const signin = async (
             { expiresIn: '10m' },
         );
 
-        console.log(`token: ${token} type: ${typeof token}`);
-
         delete (oldUser as IResUser).password;
 
-        console.log('logged in');
         res.status(200)
-            // .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',

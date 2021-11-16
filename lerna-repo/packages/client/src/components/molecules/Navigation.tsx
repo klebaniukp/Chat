@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../atoms/Button/Button';
+import { checkToken } from '../../events/checkToken';
 
 export const Navigation = () => {
     return (
@@ -32,6 +33,9 @@ export const Navigation = () => {
                     />
                 </div>
                 <hr />
+            </div>
+            <div className={'d-flex margin'}>
+                <button onClick={() => checkToken()}>checkToken</button>
             </div>
         </div>
     );
