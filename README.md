@@ -1,5 +1,15 @@
 # chat
-This is supposed to be chat
 
-THINGS that I've already done: 
-	Nice authentication and authorization, ( safe password is checked only on backend so far ) 
+Tech stack:
+   - Backend:
+   - express.js
+   - node.js
+   - bcrypt
+   - jwt
+   - express-session
+   
+   - Frontend
+   - React
+   - Bootstrap
+   - React router dom
+   - axios
