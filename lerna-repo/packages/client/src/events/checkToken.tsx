@@ -1,5 +1,4 @@
 import { tokenCheck } from '../api/index';
-import jwt from 'jsonwebtoken';
 
 export const checkToken = () => {
     try {
