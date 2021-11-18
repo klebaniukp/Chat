@@ -10,6 +10,7 @@ dotenv.config();
 
 const CONNECTION_URL = process.env.CONNECTION_URL as string;
 const PORT = process.env.PORT || 5000;
+const SESSION_SECRET = process.env.SESSION_SECRET as string;
 const oneHour = 3600000;
 
 const app = express();
@@ -22,7 +23,7 @@ app.use(cookieParser());
 
 app.use(
     session({
-        secret: 'secret',
+        secret: SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
         cookie: {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import 'express-session';
 
 interface IDecodedData {
@@ -10,10 +10,19 @@ export const auth = (req: Request, res: Response) => {
     try {
         const sess = req.session;
         sess.token = req.cookies.token;
+        const token = sess.token;
+        let decodedToken: string | null | JwtPayload = '';
 
-        if (process.env.JWT_SECRET_TOKEN != undefined) {
-            jwt.verify(sess.token, process.env.JWT_SECRET_TOKEN);
-        }
+        if (process.env.JWT_SECRET_TOKEN != undefined)
+            if (jwt.verify(sess.token, process.env.JWT_SECRET_TOKEN))
+                decodedToken = jwt.decode(token);
+
+        decodedToken = JSON.stringify(decodedToken);
+
+        if (decodedToken != undefined)
+            console.log(`token: ${decodedToken}, type: ${typeof decodedToken}`);
+
+        res.status(200).send(decodedToken);
 
         // console.log(typeof process.env.JWT_SECRET_TOKEN);
         // console.log(typeof sess.token);

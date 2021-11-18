@@ -1,8 +1,8 @@
-import { tokenCheck } from '../api/index';
+import { authorize } from '../api/index';
 
 export const checkToken = () => {
     try {
-        tokenCheck().then(
+        const responseTest = authorize().then(
             res => {
                 console.log(res);
             },
@@ -10,6 +10,8 @@ export const checkToken = () => {
                 console.log(err);
             },
         );
+
+        console.log(responseTest);
     } catch (error) {
         console.log(error);
     }

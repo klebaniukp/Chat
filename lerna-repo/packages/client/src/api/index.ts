@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { hostUrl } from '../constants/url';
 const hostUrl = 'http://localhost:8000';
 
 const API = axios.create({
@@ -13,4 +12,4 @@ const API = axios.create({
 
 export const signIn = (formData: Object) => API.post('/user/signin', formData);
 export const signUp = (formData: Object) => API.post('/user/signup', formData);
-export const tokenCheck = () => API.post('/user/session');
+export const authorize = () => API.post('/user/session');

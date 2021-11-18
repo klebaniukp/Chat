@@ -1,2 +1,1 @@
-export const hostUrl =
-    process.env.NODE_ENV === 'development' ? process.env.SERVER_URL : 'api/';
+export const hostUrl = process.env.SERVER_URL;
