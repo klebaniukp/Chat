@@ -5,8 +5,13 @@ import { UserInfo } from './UserInfo';
 import { authorize } from '../../api';
 
 export const Navigation = () => {
-    const userData = authorize();
+    let userData = authorize();
+    // console.log(JSON.parse(JSON.stringify(userData)));
+    // userData = JSON.parse(JSON.stringify(userData));
+    // console.log(userData);
     console.log(JSON.stringify(userData));
+
+    // console.log(userData.email);
 
     return (
         <>
