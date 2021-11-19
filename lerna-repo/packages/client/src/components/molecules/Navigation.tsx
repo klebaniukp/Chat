@@ -5,13 +5,15 @@ import { UserInfo } from './UserInfo';
 import { authorize } from '../../api';
 
 export const Navigation = () => {
-    let userData = authorize();
-    // console.log(JSON.parse(JSON.stringify(userData)));
-    // userData = JSON.parse(JSON.stringify(userData));
-    // console.log(userData);
-    console.log(JSON.stringify(userData));
-
-    // console.log(userData.email);
+    let authorization = authorize();
+    authorization
+        .then(res => {
+            const response = res.data;
+            console.log(`response: ${response}`);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
     return (
         <>

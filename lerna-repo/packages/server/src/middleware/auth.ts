@@ -22,7 +22,11 @@ export const auth = (req: Request, res: Response) => {
         if (decodedToken != undefined)
             console.log(`token: ${decodedToken}, type: ${typeof decodedToken}`);
 
-        res.status(200).json(decodedToken);
+        const email = JSON.parse(decodedToken).email;
+
+        console.log(`email_type ${typeof email}`);
+
+        res.status(200).json(email);
 
         // console.log(typeof process.env.JWT_SECRET_TOKEN);
         // console.log(typeof sess.token);
