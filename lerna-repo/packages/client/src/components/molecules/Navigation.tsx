@@ -4,16 +4,12 @@ import { checkToken } from '../../events/checkToken';
 import { UserInfo } from './UserInfo';
 import { authorize } from '../../api';
 
-export const Navigation = () => {
-    let authorization = authorize();
-    authorization
-        .then(res => {
-            const response = res.data;
-            console.log(`response: ${response}`);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+export const Navigation = (props: {
+    firstName: string;
+    lastName: string;
+    email: string;
+}) => {
+    
 
     return (
         <>
@@ -51,7 +47,11 @@ export const Navigation = () => {
                     <button onClick={() => checkToken()}>checkToken</button>
                 </div>
             </div>
-            <UserInfo firstName={'Piotr'} lastName={'Klebaniuk'} email={'v'} />
+            <UserInfo
+                firstName={props.firstName}
+                lastName={props.lastName}
+                email={props.email}
+            />
         </>
     );
 };
