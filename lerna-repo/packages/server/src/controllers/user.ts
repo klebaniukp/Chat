@@ -16,6 +16,8 @@ export const signup = async (req: Request, res: Response) => {
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, lastName, password } = req.body;
     const maxAge = 1000 * 60 * 60;
+    const ipAddress = req.socket.remoteAddress;
+    console.log(`ip-address: ${ipAddress}`);
 
     try {
         let oldUser = await UserModel.findOne({ email: email });
@@ -83,6 +85,8 @@ export const signin = async (
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, password } = req.body;
     const maxAge = 1000 * 60 * 10;
+    const ipAddress = req.socket.remoteAddress;
+    console.log(`ip-address: ${ipAddress}`);
 
     try {
         const oldUser = await UserModel.findOne({ email: email });

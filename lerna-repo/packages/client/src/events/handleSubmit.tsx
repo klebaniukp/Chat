@@ -55,17 +55,17 @@ export const handleSubmit = (
                     `formEmail:${form.email.value}, formPassword:${form.password.value}`,
                 );
 
-                signIn(JSON.stringify(formData)).then(
-                    res => {
+                signIn(JSON.stringify(formData))
+                    .then(res => {
                         console.log(res);
-                    },
-                    err => {
+                        window.location.href = '/';
+                    })
+                    .catch(err => {
                         console.log(err);
-                    },
-                );
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 500);
+                    });
+                // setTimeout(() => {
+                //     window.location.href = '/';
+                // }, 500);
             } catch (error) {
                 console.log(error);
             }

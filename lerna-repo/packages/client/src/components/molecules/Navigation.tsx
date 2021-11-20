@@ -9,8 +9,6 @@ export const Navigation = (props: {
     lastName: string;
     email: string;
 }) => {
-    
-
     return (
         <>
             <div
@@ -42,9 +40,6 @@ export const Navigation = (props: {
                         />
                     </div>
                     <hr />
-                </div>
-                <div className={'d-flex margin'}>
-                    <button onClick={() => checkToken()}>checkToken</button>
                 </div>
             </div>
             <UserInfo
