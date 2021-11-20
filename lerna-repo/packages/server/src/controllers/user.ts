@@ -62,6 +62,7 @@ export const signup = async (req: Request, res: Response) => {
         delete (result as IResUser).password;
 
         res.status(200)
+            .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',
@@ -81,7 +82,7 @@ export const signin = async (
 ) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, password } = req.body;
-    const maxAge = 1000 * 60 * 60;
+    const maxAge = 1000 * 60 * 10;
 
     try {
         const oldUser = await UserModel.findOne({ email: email });
@@ -93,6 +94,7 @@ export const signin = async (
             password,
             oldUser.password,
         );
+        console.log(`correct: ${isPasswordCorrect}`);
 
         if (!isPasswordCorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -103,9 +105,12 @@ export const signin = async (
             { expiresIn: '10m' },
         );
 
+        console.log(`token: ${token}`);
+
         delete (oldUser as IResUser).password;
 
         res.status(200)
+            .clearCookie('token')
             .cookie('token', token, {
                 httpOnly: true,
                 sameSite: 'none',

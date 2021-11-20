@@ -63,6 +63,9 @@ export const handleSubmit = (
                         console.log(err);
                     },
                 );
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 500);
             } catch (error) {
                 console.log(error);
             }

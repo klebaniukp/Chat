@@ -4,9 +4,9 @@ import { authorize } from '../api';
 
 export const Main = () => {
     let authorization = authorize();
-    let [firstName, setFirstName] = useState('');
-    let [lastName, setLastName] = useState('');
-    let [email, setEmail] = useState('');
+    let [firstName, setFirstName] = useState('first name');
+    let [lastName, setLastName] = useState('last name');
+    let [email, setEmail] = useState('example@email.com');
 
     authorization
         .then(res => {

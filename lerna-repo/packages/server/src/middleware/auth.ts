@@ -20,16 +20,12 @@ export const auth = async (req: Request, res: Response) => {
 
         decodedToken = JSON.stringify(decodedToken);
 
-        if (decodedToken != undefined)
-            console.log(`token: ${decodedToken}, type: ${typeof decodedToken}`);
+        // if (decodedToken != undefined)
+        //     console.log(`token: ${decodedToken}, type: ${typeof decodedToken}`);
 
         const user = await UserModel.findOne({
             _id: JSON.parse(decodedToken).id,
         }).lean();
-
-        console.log(`userData: ${user?.name}`);
-
-        // const email = JSON.parse(decodedToken).email;
 
         res.status(200).json(user);
     } catch (err) {
