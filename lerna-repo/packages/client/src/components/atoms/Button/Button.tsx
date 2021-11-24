@@ -12,7 +12,7 @@ export const Button = (props: {
     return (
         <Link to={props.link}>
             <button
-                className='btn btn-outline-success'
+                className='btn btn-outline-primary'
                 type={props.type}
                 style={{
                     height: props.height,

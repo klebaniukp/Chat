@@ -42,11 +42,6 @@ export const Navigation = (props: {
                     <hr />
                 </div>
             </div>
-            <UserInfo
-                firstName={props.firstName}
-                lastName={props.lastName}
-                email={props.email}
-            />
         </>
     );
 };
