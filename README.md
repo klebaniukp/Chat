@@ -3,13 +3,12 @@
 Tech stack:
    - Backend:
    - express.js
-   - node.js
    - bcrypt
    - jwt
    - express-session
    
-   - Frontend
+   - Frontend:
    - React
    - Bootstrap
-   - React router dom
+   - react-router-dom
    - axios
