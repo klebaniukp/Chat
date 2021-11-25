@@ -33,7 +33,7 @@ export const SignIn = ({
                 style={{
                     fontSize: 'large',
                     left: '50%',
-                    top: '45%',
+                    top: '55%',
                     transform: 'translate(-50%, -50%)',
                 }}>
                 <Card value={'Login'} />
@@ -43,11 +43,6 @@ export const SignIn = ({
                     value={'Email address'}
                     name={'email'}
                 />
-                {/* <FormField
-                    inputType={'text'}
-                    value={'Name'}
-                    name={'username'}
-                /> */}
                 {showPassword ? (
                     <FormField
                         inputType={'text'}

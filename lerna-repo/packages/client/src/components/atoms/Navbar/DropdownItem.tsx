@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const DropdownItem = (props: { value: string }) => {
+export const DropdownItem = (props: { value: string; path: string }) => {
     return (
         <li>
-            <a className='dropdown-item' href='#'>
+            <Link to={props.path} className={'dropdown-item'}>
                 {props.value}
-            </a>
+            </Link>
         </li>
     );
 };

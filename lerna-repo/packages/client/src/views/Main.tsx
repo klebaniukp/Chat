@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigation } from '../components/molecules/Navigation';
 import { authorize } from '../api';
+import { Navbar } from '../components/organism/Navbar';
 
 export const Main = () => {
     let authorization = authorize();
@@ -21,6 +22,7 @@ export const Main = () => {
         });
     return (
         <>
+            <Navbar />
             <Navigation
                 firstName={firstName}
                 lastName={lastName}

@@ -46,7 +46,7 @@ export const SignUp = ({
                 style={{
                     fontSize: 'large',
                     left: '50%',
-                    top: '45%',
+                    top: '55%',
                     transform: 'translate(-50%, -50%)',
                 }}>
                 <Card value={'Register'} />

@@ -1,40 +1,22 @@
 import React from 'react';
-import { SearchUserSign } from '../atoms/Sign/SearchUserSign';
-import { Input as SearchInput } from '../atoms/Input/Input';
-import { Button } from '../atoms/Button/Button';
+import { Submit } from '../atoms/Button/Submit';
 
-export const SearchUser = (props: {
-    width: string;
-    placeholder: string;
-    height: string;
-    buttonWidth: string;
-}) => {
+export const SearchUser = () => {
     return (
-        <form className='form-inline' style={{ width: props.width }}>
-            <div className='input-group fixed-top'>
-                <SearchUserSign height={'1.7vh'} />
-                <SearchInput
-                    height={props.height}
-                    placeholder={props.placeholder}
-                    type={'text'}
-                />
-                <Button
-                    height={props.height}
-                    width={props.buttonWidth}
-                    value={'search'}
-                    link={'/Auth'}
-                    fontSize={'medium'}
-                    type={'button'}
-                />
-                <Button
-                    value={'Login'}
-                    height={props.height}
-                    width={props.buttonWidth}
-                    link={'/Auth'}
-                    fontSize={'medium'}
-                    type={'button'}
-                />
+        <div style={{ color: 'blue' }} className={''}>
+            <div className={'d-flex flex-row vh-12'}>
+                <div style={{}}>
+                    <input
+                        type='text'
+                        placeholder={'search user'}
+                        className={'rounded bg-secondary text-white'}
+                        style={{ height: '5vh', marginTop: '1.5vh' }}
+                    />
+                </div>
+                <div>
+                    <Submit value={'search'} />
+                </div>
             </div>
-        </form>
+        </div>
     );
 };

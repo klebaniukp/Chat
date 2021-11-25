@@ -17,7 +17,7 @@ export const signup = async (req: Request, res: Response) => {
     const { email, name, lastName, password } = req.body;
     const maxAge = 1000 * 60 * 60;
     const ipAddress = req.socket.remoteAddress;
-    console.log(`ip-address: ${ipAddress}`);
+    // console.log(`ip-address: ${ipAddress}`);
 
     try {
         let oldUser = await UserModel.findOne({ email: email });
@@ -58,7 +58,7 @@ export const signup = async (req: Request, res: Response) => {
         const token = jwt.sign(
             { email: newUser.email, id: newUser._id },
             secret,
-            { expiresIn: '10m' },
+            { expiresIn: '60m' },
         );
 
         delete (result as IResUser).password;
@@ -84,9 +84,9 @@ export const signin = async (
 ) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const { email, password } = req.body;
-    const maxAge = 1000 * 60 * 10;
+    const maxAge = 1000 * 60 * 60;
     const ipAddress = req.socket.remoteAddress;
-    console.log(`ip-address: ${ipAddress}`);
+    // console.log(`ip-address: ${ipAddress}`);
 
     try {
         const oldUser = await UserModel.findOne({ email: email });
@@ -106,7 +106,7 @@ export const signin = async (
         const token = jwt.sign(
             { email: oldUser.email, id: oldUser._id },
             secret,
-            { expiresIn: '10m' },
+            { expiresIn: '60m' },
         );
 
         console.log(`token: ${token}`);

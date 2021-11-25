@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { UserInfoBox } from '../atoms/Navbar/UserInfoBox';
 
 export const UserInfo = (props: { email: string }) => {
     const [isHover, setIsHover] = useState(false);
@@ -7,33 +7,25 @@ export const UserInfo = (props: { email: string }) => {
     return (
         <>
             {isHover ? (
-                <Link to='/'>
-                    <div
-                        className={`nav-item vh-6`}
-                        style={{
-                            opacity: '0.5',
-                            color: 'white',
-                            paddingTop: '0.5rem',
-                        }}
-                        onMouseEnter={() => setIsHover(true)}
-                        onMouseLeave={() => setIsHover(false)}>
-                        <h5>{props.email}</h5>
-                    </div>
-                </Link>
+                <div
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}>
+                    <UserInfoBox
+                        email={props.email}
+                        path={'/profile'}
+                        opacity={'1.0'}
+                    />
+                </div>
             ) : (
-                <Link to='/'>
-                    <div
-                        className={`nav-item vh-6`}
-                        style={{
-                            opacity: '1.0',
-                            color: 'white',
-                            paddingTop: '0.5rem',
-                        }}
-                        onMouseEnter={() => setIsHover(true)}
-                        onMouseLeave={() => setIsHover(false)}>
-                        <h5>{props.email}</h5>
-                    </div>
-                </Link>
+                <div
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}>
+                    <UserInfoBox
+                        email={props.email}
+                        path={'/profile'}
+                        opacity={'0.6'}
+                    />
+                </div>
             )}
         </>
     );

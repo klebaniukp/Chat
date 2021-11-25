@@ -11,9 +11,9 @@ export const DropdownList = () => {
                     <ul
                         className='dropdown-menu dropdown-menu-dark'
                         aria-labelledby='navbarDarkDropdownMenuLink'>
-                        <Item value={'Main'} />
-                        <Item value={'Login'} />
-                        <Item value={'User Info'} />
+                        <Item value={'Main'} path={'/'} />
+                        <Item value={'Login'} path={'/Auth'} />
+                        <Item value={'User Info'} path={'/Profile'} />
                     </ul>
                 </li>
             </ul>

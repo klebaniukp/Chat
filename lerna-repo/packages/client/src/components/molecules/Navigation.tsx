@@ -1,8 +1,5 @@
 import React from 'react';
 import { Button } from '../atoms/Button/Button';
-import { checkToken } from '../../events/checkToken';
-import { UserInfo } from './UserInfo';
-import { authorize } from '../../api';
 
 export const Navigation = (props: {
     firstName: string;
