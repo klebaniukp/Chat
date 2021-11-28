@@ -4,7 +4,8 @@ import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/ShowPassword';
 import { Card } from '../atoms/Box/Card';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
-import { handleSubmit } from '../../events/handleSubmit';
+import { handleSubmit } from '../../services/handleSubmit';
+import { CollectingUserData } from '../../services/CollectingUserData';
 
 export const SignUp = ({
     value,
@@ -20,7 +21,7 @@ export const SignUp = ({
         const form = document.querySelector('form');
 
         if (form != null && passwordCheck(form)) {
-            if (form != null) handleSubmit(e, form, true, setIsSignIn);
+            handleSubmit(e, form, true, setIsSignIn);
         } else {
             alert('Passwords do not match');
         }
@@ -39,6 +40,7 @@ export const SignUp = ({
         <form
             onSubmit={e => {
                 submitting(e);
+                CollectingUserData();
             }}>
             <div
                 className={`position-absolute w-75 d-flex align-items-center 

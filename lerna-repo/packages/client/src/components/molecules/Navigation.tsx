@@ -1,11 +1,7 @@
 import React from 'react';
 import { Button } from '../atoms/Button/Button';
 
-export const Navigation = (props: {
-    firstName: string;
-    lastName: string;
-    email: string;
-}) => {
+export const Navigation = () => {
     return (
         <>
             <div

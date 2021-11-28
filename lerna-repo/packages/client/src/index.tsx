@@ -7,7 +7,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 ReactDOM.render(
     <React.StrictMode>
+        {/* <userDataProvider> */}
         <Root />
+        {/* </userDataProvider> */}
     </React.StrictMode>,
     document.getElementById('root'),
 );

@@ -4,7 +4,8 @@ import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/ShowPassword';
 import { Card } from '../atoms/Box/Card';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
-import { handleSubmit } from '../../events/handleSubmit';
+import { handleSubmit } from '../../services/handleSubmit';
+import { CollectingUserData } from '../../services/CollectingUserData';
 
 export const SignIn = ({
     value,
@@ -18,14 +19,16 @@ export const SignIn = ({
     const submitting = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = document.querySelector('form');
-        if (form != null) handleSubmit(e, form, false, setIsSignIn);
-        else alert('fill up the form');
+        if (form != null) {
+            handleSubmit(e, form, false, setIsSignIn);
+        } else alert('fill up the form');
     };
 
     return (
         <form
             onSubmit={e => {
                 submitting(e);
+                CollectingUserData();
             }}>
             <div
                 className={`position-absolute w-75 d-flex align-items-center 

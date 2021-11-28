@@ -13,6 +13,7 @@ interface IResUser {
 
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
+    const refreshToken = process.env.JWT_REFRESH_TOKEN as string;
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, lastName, password } = req.body;
     const maxAge = 1000 * 60 * 60;
@@ -71,6 +72,12 @@ export const signup = async (req: Request, res: Response) => {
                 secure: true,
                 maxAge: maxAge,
             })
+            .cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true,
+                maxAge: maxAge,
+            })
             .json({ result });
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
@@ -83,6 +90,7 @@ export const signin = async (
     next: NextFunction,
 ) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
+    const refreshToken = process.env.JWT_REFRESH_TOKEN as string;
     const { email, password } = req.body;
     const maxAge = 1000 * 60 * 60;
     const ipAddress = req.socket.remoteAddress;
@@ -116,6 +124,12 @@ export const signin = async (
         res.status(200)
             .clearCookie('token')
             .cookie('token', token, {
+                httpOnly: true,
+                sameSite: 'none',
+                secure: true,
+                maxAge: maxAge,
+            })
+            .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,

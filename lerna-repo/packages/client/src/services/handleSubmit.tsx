@@ -1,4 +1,6 @@
-import { signUp, signIn } from '../api';
+import { signUp, signIn, authorize } from '../api';
+import { CollectingUserData } from './CollectingUserData';
+import { useUserDataContext } from '../contexts/userDataContext';
 
 export const handleSubmit = (
     e: React.SyntheticEvent,
@@ -28,12 +30,12 @@ export const handleSubmit = (
                 signUp(JSON.stringify(formData)).then(
                     res => {
                         console.log(res);
+                        setIsSignIn(true);
                     },
                     err => {
                         console.log(err);
                     },
                 );
-                setIsSignIn(true);
             } catch (error) {
                 console.log(error);
             }
@@ -58,14 +60,11 @@ export const handleSubmit = (
                 signIn(JSON.stringify(formData))
                     .then(res => {
                         console.log(res);
-                        window.location.href = '/';
+                        // window.location.href = '/';
                     })
                     .catch(err => {
                         console.log(err);
                     });
-                // setTimeout(() => {
-                //     window.location.href = '/';
-                // }, 500);
             } catch (error) {
                 console.log(error);
             }

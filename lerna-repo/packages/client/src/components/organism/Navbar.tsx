@@ -5,36 +5,42 @@ import { DropdownList } from '../molecules/DropdownList';
 import { UserInfo } from '../molecules/UserInfo';
 import { SearchUser } from '../molecules/SearchUser';
 import { authorize } from '../../api';
+import {
+    UserDataProvider,
+    useUserDataContext,
+} from '../../contexts/userDataContext';
 
 export const Navbar = () => {
     const [email, setEmail] = useState('user@example.com');
+    const { userData, setUserData } = useUserDataContext();
+    console.log(userData);
 
-    const result = authorize();
+    // setUserData(userData);
 
-    result
-        .then(res => {
-            const userData = res.data;
-            setEmail(userData.email);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    // const result = authorize();
+    // result
+    //     .then(res => {
+    //         const userData = res.data;
+    //         setEmail(userData.email);
+    //         console.log(`userData: ${userData}, type: ${typeof userData}`);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
 
     return (
-        <>
+        <UserDataProvider>
             <nav
                 className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark'
                 style={{ height: '4 vh' }}>
                 <div className='container-fluid'>
-                    <div>
-                        <Title value={'Klebaniukp Chat'} />
-                    </div>
+                    <Title value={'Klebaniukp Chat'} />
                     <DropdownButton />
                     <DropdownList />
                     <SearchUser />
-                    <UserInfo email={email} />
+                    <UserInfo email={userData} />
                 </div>
             </nav>
-        </>
+        </UserDataProvider>
     );
 };
