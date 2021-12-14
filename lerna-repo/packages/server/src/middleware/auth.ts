@@ -1,11 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import 'express-session';
-
-interface IDecodedData {
-    id: string;
-}
 
 export const auth = async (req: Request, res: Response) => {
     try {
@@ -13,7 +9,7 @@ export const auth = async (req: Request, res: Response) => {
         sess.token = req.cookies.token;
         const token = sess.token;
         let decodedToken: string | null | JwtPayload = '';
-
+``
         if (process.env.JWT_SECRET_TOKEN != undefined)
             if (jwt.verify(sess.token, process.env.JWT_SECRET_TOKEN))
                 decodedToken = jwt.decode(token);

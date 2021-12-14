@@ -5,7 +5,6 @@ import { ShowPassword } from '../molecules/ShowPassword';
 import { Card } from '../atoms/Box/Card';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
 import { handleSubmit } from '../../services/handleSubmit';
-import { CollectingUserData } from '../../services/CollectingUserData';
 
 export const SignIn = ({
     value,
@@ -28,7 +27,6 @@ export const SignIn = ({
         <form
             onSubmit={e => {
                 submitting(e);
-                CollectingUserData();
             }}>
             <div
                 className={`position-absolute w-75 d-flex align-items-center 

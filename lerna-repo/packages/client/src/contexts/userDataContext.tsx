@@ -5,7 +5,9 @@ import {
     SetStateAction,
     Dispatch,
 } from 'react';
-import { CollectingUserData } from '../services/CollectingUserData';
+import { Navbar } from '../components/organism/Navbar';
+// import { CollectingUserData } from '../services/CollectingUserData';
+// import { authorize } from '../api/index';
 
 type ContextType = {
     userData: string;
@@ -19,8 +21,6 @@ const UserDataContext = createContext<ContextType>({
 
 export const useUserDataContext = () => {
     const context = useContext(UserDataContext);
-    // const userData = JSON.stringify(CollectingUserData());
-    // context.setUserData(userData);
 
     if (!context) {
         throw new Error('Error while reading a context');
@@ -34,7 +34,18 @@ export const UserDataProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState('example@gmail.com');
+
+    // const result = authorize();
+
+    // result
+    //     .then(res => {
+    //         setUserData(res.data.email);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         setUserData('example@gmail.com');
+    //     });
 
     return (
         <UserDataContext.Provider
@@ -42,6 +53,7 @@ export const UserDataProvider = ({
                 userData,
                 setUserData,
             }}>
+            <Navbar />
             {children}
         </UserDataContext.Provider>
     );

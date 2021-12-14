@@ -1,5 +1,4 @@
 import { signUp, signIn, authorize } from '../api';
-import { CollectingUserData } from './CollectingUserData';
 import { useUserDataContext } from '../contexts/userDataContext';
 
 export const handleSubmit = (
@@ -8,6 +7,9 @@ export const handleSubmit = (
     isSignUp: boolean,
     setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
+    const result = authorize();
+    const { userData, setUserData } = useUserDataContext();
+
     if (isSignUp) {
         if (form != null) {
             try {
@@ -27,6 +29,7 @@ export const handleSubmit = (
                     `email:${form.email.value},password:${form.password.value},name:${form.username.value}`,
                 );
 
+                //verifying if the user is already registered or not, then it will be registered and signed in
                 signUp(JSON.stringify(formData)).then(
                     res => {
                         console.log(res);
@@ -34,8 +37,22 @@ export const handleSubmit = (
                     },
                     err => {
                         console.log(err);
+                        throw err;
                     },
                 );
+
+                //setting user Data to context
+                result
+                    .then(res => {
+                        const userInformation = JSON.stringify(res.data);
+                        setUserData(userInformation);
+                        console.log(
+                            `userData ${userInformation}, type: ${typeof userInformation}`,
+                        );
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             } catch (error) {
                 console.log(error);
             }
@@ -57,10 +74,25 @@ export const handleSubmit = (
                     `formEmail:${form.email.value}, formPassword:${form.password.value}`,
                 );
 
+                //verifying if the user is already registered, if so, it will be signed in, if not, it will be thrown an error
                 signIn(JSON.stringify(formData))
                     .then(res => {
                         console.log(res);
-                        // window.location.href = '/';
+                        window.location.href = '/';
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        throw err;
+                    });
+
+                //setting user Data to context
+                result
+                    .then(res => {
+                        const userInformation = JSON.stringify(res.data);
+                        // setUserData(userInformation)
+                        console.log(
+                            `userData ${userInformation}, type: ${typeof userInformation}`,
+                        );
                     })
                     .catch(err => {
                         console.log(err);
