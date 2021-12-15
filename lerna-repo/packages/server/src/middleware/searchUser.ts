@@ -19,6 +19,8 @@ export const searchUser = async (req: Request, res: Response) => {
             userByLastName,
         };
 
+        console.log(searchResult);
+
         res.status(200).json(searchResult);
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });

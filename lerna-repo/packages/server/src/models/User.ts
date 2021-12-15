@@ -6,7 +6,18 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     lastName: { type: String, required: true },
     password: { type: String, required: true },
-    friends: [{ type: String, required: false }],
+    friends: {
+        type: [
+            {
+                _id: String,
+                email: String,
+                name: String,
+                lastName: String,
+                friendRequestStatus: String,
+            },
+        ],
+        required: false,
+    },
 });
 
 export const UserModel = mongoose.model<IUser>('User', userSchema);
