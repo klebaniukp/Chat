@@ -13,5 +13,3 @@ const API = axios.create({
 export const signIn = (formData: Object) => API.post('/user/signin', formData);
 export const signUp = (formData: Object) => API.post('/user/signup', formData);
 export const getUserData = () => API.get('/user/data');
-
-export {};
