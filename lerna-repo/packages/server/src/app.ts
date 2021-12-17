@@ -50,13 +50,6 @@ app.use(
 
 app.use('/user', userRouter);
 
-// app.get('/user', (req, res) => {
-//     const ipAddress = req.socket.remoteAddress;
-//     console.log(`ip-address: ${ipAddress}`);
-// }).post('/user', (req, res) => {
-//     const ipAddress = req.socket.remoteAddress;
-//     console.log(`ip-address: ${ipAddress}`);
-// });
 
 mongoose
     .connect(CONNECTION_URL)

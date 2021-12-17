@@ -6,9 +6,9 @@ POST http://localhost:8000/user/signup
 Content-Type: application/json
 
 {
-    "email": "igor2@wrobel.com", 
-    "name": "Igor2",
-    "lastName": "Wrobel",
+    "email": "kacper@osika.com", 
+    "name": "Kacper",
+    "lastName": "Osika",
     "password": "Password1$"
 }
 
