@@ -6,4 +6,13 @@ export interface IUser extends Document {
     name: string;
     lastName: string;
     password: string;
+    friends: IFriend[];
+}
+
+export interface IFriend {
+    _id: string;
+    email: string;
+    name: string;
+    lastName: string;
+    friendRequestStatus: string;
 }

@@ -22,16 +22,16 @@ export const auth = async (req: Request, res: Response) => {
             _id: JSON.parse(decodedToken).id,
         }).lean();
 
-        const returnedUser = {
-            id: user?._id,
-            email: user?.email,
-            name: user?.name,
-            lastname: user?.name,
-        };
+        // const returnedUser = {
+        //     id: user?._id,
+        //     email: user?.email,
+        //     name: user?.name,
+        //     lastname: user?.name,
+        // };
 
-        console.log(returnedUser);
+        // console.log(returnedUser);
 
-        res.status(200).json(returnedUser);
+        res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }
