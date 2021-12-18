@@ -10,9 +10,6 @@ const userSchema = new Schema({
         type: [
             {
                 _id: String,
-                email: String,
-                name: String,
-                lastName: String,
                 friendRequestStatus: String,
             },
         ],
