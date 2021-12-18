@@ -4,7 +4,7 @@ import { Navbar } from '../components/organisms/Navbar';
 export const Main = () => {
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <div>Main</div>
         </div>
     );

@@ -6,8 +6,6 @@ import { UserInfo } from '../molecules/UserInfo';
 import { SearchUser } from '../molecules/SearchUser';
 
 export const Navbar = () => {
-    // const [email, setEmail] = useState('user@example.com');
-
     return (
         <nav
             className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark'

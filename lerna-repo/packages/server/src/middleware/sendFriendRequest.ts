@@ -1,16 +1,6 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
 import jwt from 'jsonwebtoken';
-import { IFriend } from '../interfaces/IUser';
-
-interface IResUser {
-    id: string;
-    email: string;
-    lastName: string;
-    name: string;
-    password?: string;
-    friends: IFriend[];
-}
 
 export const sendFriendRequest = async (req: Request, res: Response) => {
     try {

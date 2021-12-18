@@ -1,5 +1,9 @@
 import { IFriend } from '../../types/types';
 
+// interface IState {
+//     data: IFriend | null | undefined;
+// }
+
 export const getFriendsReducer = (
     state: IFriend[] = [],
     action: { type: string; payload: IFriend },
