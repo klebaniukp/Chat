@@ -16,8 +16,6 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
     try {
         const { userId } = req.body;
         const token: string = req.cookies.token;
-        // let decodedToken: string | null | JwtPayload = '';
-        // validate token -> get userId from token -> update model(userId, friendId) 2 models
 
         if (process.env.JWT_SECRET_TOKEN != undefined)
             if (jwt.verify(token, process.env.JWT_SECRET_TOKEN)) {
@@ -54,36 +52,9 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
                         },
                     },
                 );
-
-                // if (user !== null && searchedUser !== null) {
-                //     //userData & searchedUserData -> models that match friend array
-                //     const userData = {
-                //         _id: user._id,
-                //         friendRequestStatus: 'pending',
-                //     };
-
-                //     const searchedUserData = {
-                //         _id: searchedUser._id,
-                //         friendRequestStatus: 'pending',
-                //     };
-
-                //     user.friends.push(searchedUserData);
-                //     searchedUser.friends.push(userData);
-
-                //     await user.save();
-                //     await searchedUser.save();
-                // }
             } else {
                 res.status(401).json({ message: 'Unauthorized' });
             }
-
-        // searchedUser.friends;
-
-        // if (!searchedUser) {
-        //     res.status(404).json({ message: 'User not found' });
-        // }
-
-        // await user.save();
 
         res.status(200).json({ message: 'Friend request sent' });
     } catch (err) {
