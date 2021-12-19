@@ -4,15 +4,15 @@ export const FloatingInput = (props: {
     value: string;
     placeholder: string;
     isDisabled: boolean;
-    type?: string;
 }) => {
     return (
         <div className='form-floating mb-3'>
-            {props.type === 'email' ? (
+            {props.isDisabled ? (
                 <input
-                    type='email'
+                    type='text'
                     className='form-control'
                     placeholder={props.placeholder}
+                    disabled
                 />
             ) : (
                 <input

@@ -2,6 +2,7 @@ import React from 'react';
 import { CardHeader } from '../atoms/Card/CardHeader';
 import { FloatingInput } from '../atoms/Input/FloatingInput';
 import { DataField } from '../molecules/DataField';
+import { FriendListModel } from '../molecules/FriendListModel';
 
 export const FullCard = (props: {
     headerValue: string;
@@ -15,47 +16,38 @@ export const FullCard = (props: {
     return (
         <div className='d-flex card text-center'>
             <CardHeader value={props.headerValue} />
-            <div className='d-flex justify-content-evenly card-body'>
+            <div className='d-flex justify-content-evenly  card-body'>
                 <img src={props.img} alt='profile' style={{ height: '30vh' }} />
-                <div className='w-25'>
-                    {/* <div className='d-flex flex-row align-items-center justify-content-center'>
-                        <h5 className='mb-3 me-2' style={{ width: '6vw' }}>
-                            Firstname:
-                        </h5>
-                        <FloatingInput
-                            value={props.firstname}
-                            placeholder={props.firstname}
-                            isDisabled={false}
-                        />
-                    </div>
-                    <div className='d-flex flex-row align-items-center justify-content-center'>
-                        <h5 className='mb-3 me-2' style={{ width: '6vw' }}>
-                            Lastname:
-                        </h5>
-                        <FloatingInput
-                            value={props.lastname}
-                            placeholder={props.lastname}
-                            isDisabled={false}
-                        />
-                    </div>
-                    <div className='d-flex flex-row align-items-center justify-content-center'>
-                        <h5 className='mb-3 me-2' style={{ width: '6vw' }}>
-                            Email:
-                        </h5>
-                        <FloatingInput
-                            value={props.email}
-                            placeholder={props.email}
-                            isDisabled={false}
-                            type='email'
-                        />
-                    </div> */}
-
-                    <DataField value={props.firstname} label={'Firstname'} />
-                    <DataField value={props.lastname} label={'Lastname'} />
-                    <DataField value={props.email} label={'Email'} />
+                <div className='d-flex justify-content-center flex-column flex-column w-25 h-max'>
+                    <DataField
+                        value={props.firstname}
+                        label={'Firstname'}
+                        isDisabled={true}
+                    />
+                    <DataField
+                        value={props.lastname}
+                        label={'Lastname'}
+                        isDisabled={true}
+                    />
+                    <DataField
+                        value={props.email}
+                        label={'Email'}
+                        isDisabled={true}
+                    />
                 </div>
             </div>
-            <div className='card-footer text-muted'>{props.footerValue}</div>
+            <div className='card-footer text-muted'>
+                <i>{props.footerValue}</i>
+            </div>
+            <div>
+                <FriendListModel
+                    firstname={props.firstname}
+                    lastname={props.lastname}
+                    email={props.email}
+                    img={props.img}
+                    imgHeight={'5'}
+                />
+            </div>
         </div>
     );
 };

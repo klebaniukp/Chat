@@ -1,7 +1,11 @@
 import React from 'react';
 import { FloatingInput } from '../atoms/Input/FloatingInput';
 
-export const DataField = (props: { value: string; label: string }) => {
+export const DataField = (props: {
+    value: string;
+    label: string;
+    isDisabled: boolean;
+}) => {
     return (
         <div className='d-flex flex-row align-items-center justify-content-center'>
             <h5 className='mb-3 me-2' style={{ width: '6vw' }}>
@@ -10,7 +14,7 @@ export const DataField = (props: { value: string; label: string }) => {
             <FloatingInput
                 value={props.value}
                 placeholder={props.value}
-                isDisabled={false}
+                isDisabled={props.isDisabled}
             />
         </div>
     );
