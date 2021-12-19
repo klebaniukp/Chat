@@ -14,16 +14,16 @@ export const getUserDataReducer = (
                 return action.payload;
             default:
                 return {
-                    id: '',
-                    email: '',
-                    name: '',
-                    lastName: '',
+                    id: 'x',
+                    email: 'John@Doe.com',
+                    name: 'John',
+                    lastName: 'Doe',
                     friends: [
                         {
-                            id: '',
-                            email: '',
-                            name: '',
-                            lastName: '',
+                            id: 'y',
+                            email: 'guest@example.com',
+                            name: 'guest',
+                            lastName: 'lastname-example',
                         },
                     ],
                 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { DropdownItem as Item } from '../atoms/Navbar/DropdownItem';
-import { DropdownTitle } from '../atoms/Navbar/DropdownTitle';
+import { DropdownItem as Item } from '../../atoms/Navbar/DropdownItem';
+import { DropdownTitle } from '../../atoms/Navbar/DropdownTitle';
 
 export const DropdownList = () => {
     return (

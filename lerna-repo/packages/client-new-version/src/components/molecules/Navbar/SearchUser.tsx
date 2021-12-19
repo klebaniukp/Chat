@@ -1,11 +1,11 @@
 import React from 'react';
-import { Submit } from '../atoms/Button/Submit';
+import { Submit } from '../../atoms/Button/Submit';
 
 export const SearchUser = () => {
     return (
         <div style={{ color: 'blue' }} className={''}>
             <div className={'d-flex flex-row vh-12'}>
-                <div style={{}}>
+                <div>
                     <input
                         type='text'
                         placeholder={'search user'}

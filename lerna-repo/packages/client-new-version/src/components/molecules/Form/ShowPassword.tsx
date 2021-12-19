@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckBox } from '../atoms/Input/CheckBox';
+import { CheckBox } from '../../atoms/Input/CheckBox';
 
 export const ShowPassword = (props: { value: string }) => {
     return (

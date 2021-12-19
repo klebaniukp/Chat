@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input } from '../atoms/Input/Input';
-import { SpacingLine } from '../atoms/Line/SpacingLine';
-import { Button } from '../atoms/Button/Button';
+import { Input } from '../../atoms/Input/Input';
+import { SpacingLine } from '../../atoms/Line/SpacingLine';
+import { Button } from '../../atoms/Button/Button';
 
 export const Form = (props: {
     height: string;

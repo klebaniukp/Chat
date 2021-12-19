@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormInput } from '../atoms/Input/FormInput';
+import { FormInput } from '../../atoms/Input/FormInput';
 
 export const FormField = (props: {
     value: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '../atoms/Button/Button';
+import { Button } from '../../atoms/Button/Button';
 
 export const Navigation = () => {
     return (
@@ -38,3 +38,5 @@ export const Navigation = () => {
         </>
     );
 };
+
+//useless comp for now
