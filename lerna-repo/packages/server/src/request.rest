@@ -6,10 +6,10 @@ POST http://localhost:8000/user/signup
 Content-Type: application/json
 
 {
-    "email": "kacper@osika.com", 
-    "name": "Kacper",
-    "lastName": "Osika",
-    "password": "Password1$"
+    "email": "admin@gmail.com", 
+    "name": "Admin",
+    "lastName": "admin",
+    "password": "Abcd1234$"
 }
 
 ###

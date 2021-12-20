@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { FormField } from '../molecules/Form/FormField';
-import { FormPasswordField } from '../molecules/Form/FormPasswordField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
 import { Card } from '../atoms/Box/Card';
-// import { signInHandling } from '../../services/singInHandling';
 import { useDispatch } from 'react-redux';
-import { signIn, getUserData } from '../../api';
+import { signIn } from '../../api';
 import { useHistory } from 'react-router-dom';
 import { IUserData } from '../../types/types';
 
@@ -22,7 +20,7 @@ export const SignIn = ({
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const submitting = (e: React.FormEvent<HTMLFormElement>) => {
+    const signingIn = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const form = document.querySelector('form');
@@ -45,6 +43,7 @@ export const SignIn = ({
                         };
 
                         dispatch({ type: 'SET_USER_DATA', payload: userData });
+                        history.push('/chat');
                     })
                     .catch(err => {
                         console.log(err);
@@ -55,35 +54,10 @@ export const SignIn = ({
         }
     };
 
-    // const signinhandling = async (email: string, password: string) => {
-    //     const dispatch = useDispatch();
-
-    //     try {
-    //         signIn({ email: email, password: password })
-    //             .then(res => {
-    //                 if (res.status === 200) {
-    //                     getUserData().then(res => {
-    //                         if (res.status === 200) {
-    //                             dispatch({
-    //                                 type: 'SET_USER_DATA',
-    //                                 payload: res.data,
-    //                             });
-    //                         }
-    //                     });
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     return (
         <form
             onSubmit={e => {
-                submitting(e);
+                signingIn(e);
             }}>
             <div
                 className={`position-absolute w-75 d-flex align-items-center 

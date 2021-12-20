@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { signUp } from '../../api';
 import { FormField } from '../molecules/Form/FormField';
 import { FormPasswordField } from '../molecules/Form/FormPasswordField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { Card } from '../atoms/Box/Card';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
+import { IUserData } from '../../types/types';
 
 export const SignUp = ({
     value,
@@ -14,9 +18,48 @@ export const SignUp = ({
     setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const history = useHistory();
+    const dispatch = useDispatch();
 
-    const submitting = (e: React.FormEvent<HTMLFormElement>) => {
+    const signingUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            const form = document.querySelector('form');
+            if (
+                form !== null &&
+                form.username !== null &&
+                form.lastName !== null &&
+                form.email !== null &&
+                form.password !== null &&
+                passwordCheck(form)
+            ) {
+                signUp({
+                    email: form.email.value.toString(),
+                    name: form.username.value.toString(),
+                    lastName: form.lastName.value.toString(),
+                    password: form.password.value.toString(),
+                })
+                    .then(res => {
+                        const userData: IUserData = {
+                            id: res.data.result.id,
+                            email: res.data.result.email,
+                            name: res.data.result.name,
+                            lastName: res.data.result.lastName,
+                            friends: res.data.result.friends,
+                        };
+
+                        dispatch({ type: 'SET_USER_DATA', payload: userData });
+                        history.push('/chat');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            } else {
+                alert('Fill all the fields correctly');
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const passwordCheck = (form: HTMLFormElement) => {
@@ -31,7 +74,7 @@ export const SignUp = ({
     return (
         <form
             onSubmit={e => {
-                submitting(e);
+                signingUp(e);
             }}>
             <div
                 className={`position-absolute w-75 d-flex align-items-center 
