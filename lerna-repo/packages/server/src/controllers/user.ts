@@ -1,16 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserModel } from '../models/User';
 import { passwordSchema } from '../models/Password';
+import { IResUser } from '../types/types';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-interface IResUser {
-    id: string;
-    email: string;
-    lastName: string;
-    name: string;
-    password?: string;
-}
 
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;

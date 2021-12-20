@@ -9,7 +9,6 @@ import { RootState } from '../../redux/store';
 import { IUserData } from '../../types/types';
 
 export const Navbar = () => {
-    const dispatch = useDispatch();
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
     );

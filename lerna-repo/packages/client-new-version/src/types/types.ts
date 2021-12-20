@@ -10,5 +10,5 @@ export interface IUserData {
     email: string;
     name: string;
     lastName: string;
-    friends: IFriend[];
+    friends: IFriend[] | [];
 }

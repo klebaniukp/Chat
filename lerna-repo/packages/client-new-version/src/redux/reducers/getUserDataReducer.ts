@@ -10,7 +10,7 @@ export const getUserDataReducer = (
 ) => {
     try {
         switch (action.type) {
-            case 'GET_USER_DATA':
+            case 'SET_USER_DATA':
                 return action.payload;
             default:
                 return {

@@ -10,17 +10,17 @@ import { Profile } from './Profile';
 export const Root = () => {
     return (
         <BrowserRouter>
-            <Switch>
-                <div>
-                    <Navbar />
+            <div>
+                <Navbar />
+                <Switch>
                     <Route exact path={routes.home} component={Main}>
                         <Redirect to={routes.auth} />
                     </Route>
                     <Route exact path={routes.chat} component={Chat} />
                     <Route exact path={routes.auth} component={Auth} />
                     <Route exact path={routes.profile} component={Profile} />
-                </div>
-            </Switch>
+                </Switch>
+            </div>
         </BrowserRouter>
     );
 };

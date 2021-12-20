@@ -5,6 +5,7 @@ import { RootState } from '../redux/store';
 import { IUserData } from '../types/types';
 import { SignIn } from '../components/organisms/SignIn';
 import { SignUp } from '../components/organisms/SignUp';
+import { Navbar } from '../components/organisms/Navbar';
 
 export const Auth = () => {
     const [isSignIn, setIsSignIn] = useState(true);

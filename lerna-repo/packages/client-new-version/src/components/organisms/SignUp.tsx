@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FormField } from '../molecules/Form/FormField';
+import { FormPasswordField } from '../molecules/Form/FormPasswordField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { Card } from '../atoms/Box/Card';
@@ -57,44 +58,23 @@ export const SignUp = ({
                     value={'Last Name'}
                     name={'lastName'}
                 />
-                {showPassword ? (
-                    <>
-                        <FormField
-                            inputType={'text'}
-                            value={'Password'}
-                            name={'password'}
-                        />
-                        <FormField
-                            inputType={'text'}
-                            value={'Repeat Password'}
-                            name={'confirmPassword'}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <FormField
-                            inputType={'password'}
-                            value={'Password'}
-                            name={'password'}
-                        />
-                        <FormField
-                            inputType={'password'}
-                            value={'Repeat Password'}
-                            name={'confirmPassword'}
-                        />
-                    </>
-                )}
+
+                <FormPasswordField value={'Password'} name={'password'} />
+                <FormPasswordField
+                    value={'Repeat Password'}
+                    name={'confirmPassword'}
+                />
+
                 <div onClick={() => setShowPassword(!showPassword)}>
                     <ShowPassword value={'Show password'} />
                 </div>
                 <Submit value={'Submit'} />
                 <p>Already have an account? Click the button down below</p>
-                <div
-                    onClick={() => {
-                        setIsSignIn(true);
-                    }}>
-                    <AuthSwitchButton value={value} />
-                </div>
+                <AuthSwitchButton
+                    value={value}
+                    setIsSignIn={setIsSignIn}
+                    isSignIn={false}
+                />
             </div>
         </form>
     );

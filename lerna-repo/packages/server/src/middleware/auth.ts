@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IResUser } from '../types/types';
 // import 'express-session
 
 export const auth = async (req: Request, res: Response) => {
@@ -22,14 +23,7 @@ export const auth = async (req: Request, res: Response) => {
             _id: JSON.parse(decodedToken).id,
         }).lean();
 
-        // const returnedUser = {
-        //     id: user?._id,
-        //     email: user?.email,
-        //     name: user?.name,
-        //     lastname: user?.name,
-        // };
-
-        // console.log(returnedUser);
+        delete (user as IResUser).password;
 
         res.status(200).json(user);
     } catch (err) {

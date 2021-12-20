@@ -12,11 +12,7 @@ export const UserInfo = (props: { email: string }) => {
                     <div
                         onMouseEnter={() => setIsHover(true)}
                         onMouseLeave={() => setIsHover(false)}>
-                        <UserInfoBox
-                            email={props.email}
-                            path={'/profile'}
-                            opacity={'1.0'}
-                        />
+                        <UserInfoBox email={props.email} opacity={'1.0'} />
                     </div>
                 </Link>
             ) : (
@@ -24,11 +20,7 @@ export const UserInfo = (props: { email: string }) => {
                     <div
                         onMouseEnter={() => setIsHover(true)}
                         onMouseLeave={() => setIsHover(false)}>
-                        <UserInfoBox
-                            email={props.email}
-                            path={'/profile'}
-                            opacity={'0.6'}
-                        />
+                        <UserInfoBox email={props.email} opacity={'0.6'} />
                     </div>
                 </Link>
             )}
