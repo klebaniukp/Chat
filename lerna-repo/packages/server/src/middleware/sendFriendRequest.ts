@@ -13,7 +13,7 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
                 const userTokenId = JSON.parse(decodedToken).id;
 
                 const searchedUser = await UserModel.findOne({
-                    _id: userId, //set name of userId in frontend form
+                    _id: userId,
                 }).lean();
 
                 if (!searchedUser) {

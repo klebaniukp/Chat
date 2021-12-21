@@ -5,6 +5,7 @@ export const DataField = (props: {
     value: string;
     label: string;
     isDisabled: boolean;
+    name: string;
 }) => {
     return (
         <div className='d-flex flex-row align-items-center justify-content-center'>
@@ -12,6 +13,7 @@ export const DataField = (props: {
                 {props.label}:
             </h5>
             <FloatingInput
+                name={props.name}
                 value={props.value}
                 placeholder={props.value}
                 isDisabled={props.isDisabled}

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { CardHeader } from '../atoms/Card/CardHeader';
-import { FloatingInput } from '../atoms/Input/FloatingInput';
 import { DataField } from '../molecules/DataField';
 import { FriendListModel } from '../molecules/FriendListModel';
 
@@ -14,6 +12,7 @@ export const FullCard = (props: {
     imgHeight: string;
 }) => {
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isUpdateBtn, setIsUpdateBtn] = useState(false);
     const [display, setDisplay] = useState(true);
 
     return (
@@ -24,21 +23,26 @@ export const FullCard = (props: {
             <div className='d-flex justify-content-evenly  card-body'>
                 <img src={props.img} alt='profile' style={{ height: '30vh' }} />
                 <div className='d-flex justify-content-center flex-column flex-column w-25 h-max'>
-                    <DataField
-                        value={props.firstname}
-                        label={'Firstname'}
-                        isDisabled={isDisabled}
-                    />
-                    <DataField
-                        value={props.lastname}
-                        label={'Lastname'}
-                        isDisabled={isDisabled}
-                    />
-                    <DataField
-                        value={props.email}
-                        label={'Email'}
-                        isDisabled={isDisabled}
-                    />
+                    <form>
+                        <DataField
+                            value={props.firstname}
+                            label={'Firstname'}
+                            isDisabled={isDisabled}
+                            name={'firstname'}
+                        />
+                        <DataField
+                            value={props.lastname}
+                            label={'Lastname'}
+                            isDisabled={isDisabled}
+                            name={'lastname'}
+                        />
+                        <DataField
+                            value={props.email}
+                            label={'Email'}
+                            isDisabled={isDisabled}
+                            name={'email'}
+                        />
+                    </form>
                 </div>
 
                 {/* this friend list will be generated in another component after validation updated */}
@@ -103,6 +107,7 @@ export const FullCard = (props: {
                             onClick={() => {
                                 setIsDisabled(false);
                                 setDisplay(false);
+                                setIsUpdateBtn(true);
                             }}>
                             edit
                         </button>
@@ -112,19 +117,34 @@ export const FullCard = (props: {
                             onClick={() => {
                                 setIsDisabled(false);
                                 setDisplay(false);
+                                setIsUpdateBtn(true);
                             }}>
                             edit
                         </button>
                     )}
 
-                    <button
-                        className='btn btn-outline-primary'
-                        onClick={() => {
-                            setIsDisabled(true);
-                            setDisplay(true);
-                        }}>
-                        update
-                    </button>
+                    {isUpdateBtn ? (
+                        <button
+                            className='btn btn-outline-primary'
+                            onClick={() => {
+                                setIsDisabled(true);
+                                setDisplay(true);
+                                setIsUpdateBtn(false);
+                            }}>
+                            update
+                        </button>
+                    ) : (
+                        <button
+                            className='btn btn-outline-primary'
+                            onClick={() => {
+                                setIsDisabled(true);
+                                setDisplay(true);
+                                setIsUpdateBtn(false);
+                            }}
+                            disabled>
+                            update
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

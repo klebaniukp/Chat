@@ -4,7 +4,6 @@ import { UserModel } from '../models/User';
 export const searchUser = async (req: Request, res: Response) => {
     try {
         const { searchPhraze } = req.body;
-        //frontend form has to have name on form field: searchphraze
 
         const userByName = await UserModel.findOne({
             name: searchPhraze,

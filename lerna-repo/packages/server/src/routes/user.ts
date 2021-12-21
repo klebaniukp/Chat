@@ -3,6 +3,7 @@ import { signup, signin, helloWorld } from '../controllers/user';
 import { auth } from '../middleware/auth';
 import { searchUser } from '../middleware/searchUser';
 import { sendFriendRequest } from '../middleware/sendFriendRequest';
+import { updateUserData } from '../middleware/updateUserData';
 
 export const userRouter = express.Router();
 
@@ -12,5 +13,6 @@ userRouter.post('/signin', signin);
 userRouter.post('/signup', signup);
 userRouter.post('/', helloWorld);
 userRouter.post('/getuser', auth);
-userRouter.post('/sendfriendrequest', sendFriendRequest);
+userRouter.post('/addUser', sendFriendRequest);
 userRouter.get('/searchUser', searchUser);
+userRouter.post('/updateUser', updateUserData);
