@@ -20,10 +20,7 @@ export const getUserDataReducer = (
                     lastName: 'Doe',
                     friends: [
                         {
-                            id: 'y',
-                            email: 'guest@example.com',
-                            name: 'guest',
-                            lastName: 'lastname-example',
+                            id: '1039274',
                         },
                     ],
                 };

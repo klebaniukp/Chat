@@ -12,7 +12,7 @@ userRouter.use(express.json());
 userRouter.post('/signin', signin);
 userRouter.post('/signup', signup);
 userRouter.post('/', helloWorld);
-userRouter.post('/getuser', auth);
+userRouter.get('/getUser', auth);
 userRouter.post('/addUser', sendFriendRequest);
 userRouter.get('/searchUser', searchUser);
 userRouter.post('/updateUser', updateUserData);

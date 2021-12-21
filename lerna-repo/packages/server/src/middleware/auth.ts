@@ -1,31 +1,28 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { IResUser } from '../types/types';
-// import 'express-session
 
 export const auth = async (req: Request, res: Response) => {
     try {
-        const sess = req.session;
-        sess.token = req.cookies.token;
-        const token = sess.token;
-        let decodedToken: string | null | JwtPayload = '';
+        const token = req.cookies.token;
+        const secretToken = process.env.JWT_SECRET_TOKEN as string;
 
-        if (process.env.JWT_SECRET_TOKEN != undefined)
-            if (jwt.verify(sess.token, process.env.JWT_SECRET_TOKEN))
-                decodedToken = jwt.decode(token);
+        if (jwt.verify(token, secretToken)) {
+            const decodedToken = JSON.stringify(jwt.decode(token));
 
-        decodedToken = JSON.stringify(decodedToken);
+            console.log(`decodedToken: ${decodedToken}`);
 
-        console.log(`decodedToken: ${decodedToken}`);
+            const user = await UserModel.findOne({
+                _id: JSON.parse(decodedToken).id,
+            }).lean();
 
-        const user = await UserModel.findOne({
-            _id: JSON.parse(decodedToken).id,
-        }).lean();
+            delete (user as IResUser).password;
 
-        delete (user as IResUser).password;
-
-        res.status(200).json(user);
+            res.status(200).json(user);
+        } else {
+            res.status(401).json({ message: 'Unauthorized' });
+        }
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }

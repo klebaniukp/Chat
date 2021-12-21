@@ -20,4 +20,4 @@ export const signUp = (formData: {
     password: string;
 }) => API.post('/user/signup', formData);
 
-export const getUserData = () => API.get('/user/getuser');
+export const getUserData = () => API.get('/user/getUser');
