@@ -19,8 +19,9 @@ export const updateUserData = async (req: Request, res: Response) => {
             lastName: lastname,
         };
 
-        const user = await UserModel.findOneAndUpdate(filter, update).lean();
+        await UserModel.findOneAndUpdate(filter, update);
 
+        const user = await UserModel.findOne({ _id: userId }).lean();
         res.status(200).json({ result: user, message: 'User data updated' });
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
