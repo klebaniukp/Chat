@@ -21,3 +21,9 @@ export const signUp = (formData: {
 }) => API.post('/user/signup', formData);
 
 export const getUserData = () => API.get('/user/getUser');
+
+export const updateUserData = (formData: {
+    name: string;
+    email: string;
+    lastname: string;
+}) => API.post('/user/updateUser', formData);

@@ -41,7 +41,7 @@ export const SignUp = ({
                 })
                     .then(res => {
                         const userData: IUserData = {
-                            id: res.data.result.id,
+                            id: res.data.result._id,
                             email: res.data.result.email,
                             name: res.data.result.name,
                             lastName: res.data.result.lastName,

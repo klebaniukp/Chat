@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { routes } from '../routes/index';
 import { auth } from '../services/auth';
@@ -10,6 +10,7 @@ import { Profile } from './Profile';
 
 export const Root = () => {
     auth();
+
     return (
         <BrowserRouter>
             <div>
@@ -26,10 +27,3 @@ export const Root = () => {
         </BrowserRouter>
     );
 };
-
-{
-    /* <Route exact path="/">
-  {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-</Route> */
-}
-//on /chat it will checked if the user isn't logged in, if so then redirect to /auth, if not then render the chat page.

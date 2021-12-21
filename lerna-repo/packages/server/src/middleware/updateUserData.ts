@@ -5,26 +5,24 @@ import { UserModel } from '../models/User';
 
 export const updateUserData = async (req: Request, res: Response) => {
     try {
-        const { name, email, lastName } = req.body;
+        const { name, email, lastname } = req.body;
+
         const token = req.cookies.token;
-        const secret = process.env.JWT_SECRET_TOKEN as string;
 
-        if (jwt.verify(token, secret)) {
-            const decodedToken = JSON.stringify(jwt.decode(token));
-            const userId = JSON.parse(decodedToken).id;
+        const decodedToken = JSON.stringify(jwt.decode(token));
+        const userId = JSON.parse(decodedToken).id;
 
-            const filter = { _id: userId };
-            const update = {
-                email: email,
-                name: name,
-                lastName: lastName,
-            };
+        const filter = { _id: userId };
+        const update = {
+            email: email,
+            name: name,
+            lastName: lastname,
+        };
 
-            await UserModel.findOneAndUpdate(filter, update);
-        }
+        const user = await UserModel.findOneAndUpdate(filter, update).lean();
+
+        res.status(200).json({ result: user, message: 'User data updated' });
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: (error as Error).message });
     }
 };
-
-export {};

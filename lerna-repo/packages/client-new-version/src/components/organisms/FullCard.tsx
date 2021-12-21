@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { updateUserData } from '../../api';
 import { DataField } from '../molecules/DataField';
 import { FriendListModel } from '../molecules/FriendListModel';
+import { IUserData } from '../../types/types';
 
 export const FullCard = (props: {
     headerValue: string;
@@ -14,6 +18,60 @@ export const FullCard = (props: {
     const [isDisabled, setIsDisabled] = useState(true);
     const [isUpdateBtn, setIsUpdateBtn] = useState(false);
     const [display, setDisplay] = useState(true);
+
+    const dispatch = useDispatch();
+    const userData: IUserData = useSelector(
+        (state: RootState) => state.userData,
+    );
+
+    const updateUserDataAction = async () => {
+        try {
+            const form = document.querySelector('form');
+            if (
+                form !== null &&
+                form.firstname !== null &&
+                form.email !== null &&
+                form.lastname !== null
+            ) {
+                if (form.firstname.value.toString() === '')
+                    form.firstname.value = userData.name;
+
+                if (form.lastname.value.toString() === '')
+                    form.lastname.value = userData.lastName;
+
+                if (form.email.value.toString() === '')
+                    form.email.value = userData.email;
+
+                const updatedUser: {
+                    name: string;
+                    email: string;
+                    lastname: string;
+                } = {
+                    name: form.firstname.value.toString(),
+                    email: form.email.value.toString(),
+                    lastname: form.lastname.value.toString(),
+                };
+
+                updateUserData(updatedUser)
+                    .then(res => {
+                        const userData: IUserData = {
+                            id: res.data.result._id,
+                            email: res.data.result.email,
+                            name: res.data.result.name,
+                            lastName: res.data.result.lastName,
+                            friends: res.data.result.friends,
+                        };
+
+                        dispatch({ type: 'SET_USER_DATA', payload: userData });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className='d-flex card text-center'>
@@ -130,6 +188,7 @@ export const FullCard = (props: {
                                 setIsDisabled(true);
                                 setDisplay(true);
                                 setIsUpdateBtn(false);
+                                updateUserDataAction();
                             }}>
                             update
                         </button>
