@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Submit } from '../../atoms/Button/Submit';
 import { searchUsers } from '../../../api';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../../../routes/index';
 
 export const SearchUser = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const searchUser = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form: HTMLFormElement = e.currentTarget;
@@ -16,6 +22,12 @@ export const SearchUser = () => {
                 searchUsers({ searchPhraze: searchPhraze })
                     .then(res => {
                         console.log(res.data.searchResult);
+                        dispatch({
+                            type: 'SEARCH_USERS',
+                            payload: res.data.searchResult,
+                        });
+
+                        history.push(routes.searchUser);
                     })
                     .catch(err => {
                         console.log(err);

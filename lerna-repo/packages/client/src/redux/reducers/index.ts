@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import { getUserDataReducer as userData } from './getUserDataReducer';
-import { searchFriendsReducer as searchResults } from './searchFriendsReducer';
+import { searchUsersReducer as searchResults } from './searchUsersReducer';
 
 export const reducers = combineReducers({ searchResults, userData });

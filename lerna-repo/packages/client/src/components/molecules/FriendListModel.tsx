@@ -13,10 +13,10 @@ export const FriendListModel = (props: {
         <div className='border border-2 mb-1'>
             {isHover ? (
                 <div
-                    className='d-flex justify-content-evenly'
+                    className='d-flex justify-content-evenly bg-light'
                     style={{
                         height: `${props.imgHeight}vw`,
-                        backgroundColor: '#e6e6e6',
+                        // backgroundColor: '#e6e6e6',
                     }}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}>

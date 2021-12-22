@@ -7,6 +7,7 @@ import { Main } from './Main';
 import { Chat } from './Chat';
 import { Auth } from './Auth';
 import { Profile } from './Profile';
+import { SearchUser } from './SearchUser';
 
 export const Root = () => {
     auth();
@@ -22,6 +23,11 @@ export const Root = () => {
                     <Route exact path={routes.chat} component={Chat} />
                     <Route exact path={routes.auth} component={Auth} />
                     <Route exact path={routes.profile} component={Profile} />
+                    <Route
+                        exact
+                        path={routes.searchUser}
+                        component={SearchUser}
+                    />
                 </Switch>
             </div>
         </BrowserRouter>

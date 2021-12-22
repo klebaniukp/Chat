@@ -3,4 +3,5 @@ export const routes = {
     chat: '/chat',
     auth: '/auth',
     profile: '/profile',
+    searchUser: '/searchUser',
 };

@@ -4,13 +4,13 @@ interface IState {
     data: ISearchedUser[] | null | undefined;
 }
 
-export const searchFriendsReducer = (
+export const searchUsersReducer = (
     state: IState,
     action: { type: string; payload: ISearchedUser[] },
 ) => {
     try {
         switch (action.type) {
-            case 'SEARCH_FRIENDS':
+            case 'SEARCH_USERS':
                 return action.payload;
             default:
                 return [
