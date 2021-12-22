@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Navigation } from '../components/molecules/Navigation';
+import React from 'react';
 
 export const Main = () => {
     return (
-        <>
-            <Navigation />
-        </>
+        <div>
+            <div>Main</div>
+            {/* Carousel bootstrap with chat description*/}
+        </div>
     );
 };

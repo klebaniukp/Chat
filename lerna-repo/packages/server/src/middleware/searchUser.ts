@@ -1,26 +1,40 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
+import { IResUser } from '../types/types';
 
 export const searchUser = async (req: Request, res: Response) => {
     try {
         const { searchPhraze } = req.body;
 
-        const userByName = await UserModel.findOne({
+        console.log(searchPhraze);
+
+        const userByName = await UserModel.find({
             name: searchPhraze,
-        }).lean();
+        }).exec();
 
-        const userByLastName = await UserModel.findOne({
+        const userByLastName = await UserModel.find({
             lastName: searchPhraze,
-        }).lean();
+        }).exec();
 
-        const searchResult = {
-            userByName,
-            userByLastName,
-        };
+        console.log(`userByName: ${userByName}`);
 
-        console.log(searchResult);
+        console.log(`userByLastName: ${userByLastName}`);
 
-        res.status(200).json(searchResult);
+        if (userByName !== null) {
+            // delete (userByName as IResUser).password;
+            console.log('returning userbyname');
+            res.status(200).json({
+                searchResult: userByName,
+            });
+        } else if (userByLastName !== null) {
+            // delete (userByLastName as IResUser).password;
+            console.log('returning userbylastname');
+            res.status(200).json({
+                searchResult: userByLastName,
+            });
+        } else {
+            res.status(400).json({ message: 'No user found' });
+        }
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
     }

@@ -15,7 +15,7 @@ userRouter.post('/signup', signup);
 userRouter.post('/', helloWorld);
 userRouter.get('/getUser', auth);
 userRouter.post('/addUser', authentication, sendFriendRequest);
-userRouter.get('/searchUser', authentication, searchUser);
+userRouter.post('/searchUser', authentication, searchUser);
 userRouter.post('/updateUser', authentication, updateUserData);
 
 //authentication - check if token is valid and if so cast next()

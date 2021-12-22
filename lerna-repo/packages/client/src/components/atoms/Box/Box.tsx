@@ -9,12 +9,8 @@ export const Box = (props: {
         <>
             {props.overflow ? (
                 <div
-                    className={
-                        'overflow-scroll border border-light bg-body'
-                    }
-                    style={{ height: props.height, width: props.width }}>
-                        
-                    </div>
+                    className={'overflow-scroll border border-light bg-body'}
+                    style={{ height: props.height, width: props.width }}></div>
             ) : (
                 <div
                     className={'border border-light bg-body'}

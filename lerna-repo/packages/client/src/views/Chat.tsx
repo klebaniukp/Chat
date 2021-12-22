@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { SearchModule } from '../components/organisms/SearchModule';
+import { searchUsers } from '../api';
 
 export const Chat = () => {
     return (
-        <>
-            <div>chat</div>
-        </>
+        <div>
+            <div>Chat</div>
+        </div>
     );
 };

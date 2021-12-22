@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { SignIn } from '../components/organism/SignIn';
-import { SignUp } from '../components/organism/SignUp';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserData } from '../redux/actions/getUserData';
+import { RootState } from '../redux/store';
+import { IUserData } from '../types/types';
+import { SignIn } from '../components/organisms/SignIn';
+import { SignUp } from '../components/organisms/SignUp';
+import { Navbar } from '../components/organisms/Navbar';
 
 export const Auth = () => {
     const [isSignIn, setIsSignIn] = useState(true);
 
     return (
-        <>
-            <div className={'bg-secondary'}>
-                {isSignIn ? (
-                    <SignIn value={'sign up'} setIsSignIn={setIsSignIn} />
-                ) : (
-                    <SignUp value={'sign in'} setIsSignIn={setIsSignIn} />
-                )}
-            </div>
-        </>
+        <div>
+            {isSignIn ? (
+                <SignIn value={'Register'} setIsSignIn={setIsSignIn} />
+            ) : (
+                <SignUp value={'Login'} setIsSignIn={setIsSignIn} />
+            )}
+        </div>
     );
 };
