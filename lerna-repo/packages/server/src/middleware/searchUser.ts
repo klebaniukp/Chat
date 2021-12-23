@@ -8,25 +8,34 @@ export const searchUser = async (req: Request, res: Response) => {
 
         console.log(searchPhraze);
 
-        const searchResult: IUser[] = [];
+        // const searchResult: IUser[] = [];
 
-        const userByName = await UserModel.find({
-            name: searchPhraze,
+        // const userByName = await UserModel.find({
+        //     name: { $regex: searchPhraze, $options: 'i' },
+        // }).exec();
+
+        // const userByLastName = await UserModel.find({
+        //     lastName: { $regex: searchPhraze, $options: 'i' },
+        // }).exec();
+
+        const searchResult: IUser[] = await UserModel.find({
+            $or: [
+                { name: { $regex: searchPhraze, $options: 'i' } },
+                { lastName: { $regex: searchPhraze, $options: 'i' } },
+            ],
         }).exec();
 
-        const userByLastName = await UserModel.find({
-            lastName: searchPhraze,
-        }).exec();
+        // userByName.map(user => {
+        //     delete (user as IResUser).password;
 
-        userByName.map(user => {
-            delete (user as IResUser).password;
-            searchResult.push(user);
-        });
+        //     if (!searchResult.includes(user)) searchResult.push(user);
+        // });
 
-        userByLastName.map(user => {
-            delete (user as IResUser).password;
-            searchResult.push(user);
-        });
+        // userByLastName.map(user => {
+        //     delete (user as IResUser).password;
+
+        //     if (!searchResult.includes(user)) searchResult.push(user);
+        // });
 
         console.log(`searchResult: ${searchResult}`);
 
