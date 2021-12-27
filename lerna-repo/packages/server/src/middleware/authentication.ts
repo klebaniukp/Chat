@@ -7,7 +7,7 @@ export const authentication = async (
     next: NextFunction,
 ) => {
     try {
-        const maxAge = 1000 * 60 * 60;
+        // const maxAge = 1000 * 60 * 60;
         const token = req.cookies.token;
         const secretToken = process.env.JWT_SECRET_TOKEN as string;
 

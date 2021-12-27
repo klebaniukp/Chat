@@ -21,6 +21,9 @@ export const getUserDataReducer = (
                     friends: [
                         {
                             id: '1039274',
+                            email: 'johny@doe.com',
+                            name: 'Johny',
+                            lastName: 'Doe',
                         },
                     ],
                 };

@@ -11,7 +11,7 @@ export interface IUserData {
 }
 
 export interface ISearchedUser {
-    id: string;
+    _id: string;
     email: string;
     name: string;
     lastName: string;

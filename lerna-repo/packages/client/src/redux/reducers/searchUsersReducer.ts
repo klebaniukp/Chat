@@ -15,7 +15,7 @@ export const searchUsersReducer = (
             default:
                 return [
                     {
-                        id: 'x',
+                        _id: 'x',
                         email: 'example@gmail.com',
                         name: 'Example',
                         lastName: 'Friend',
