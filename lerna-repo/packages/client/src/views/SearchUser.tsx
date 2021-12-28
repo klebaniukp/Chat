@@ -4,7 +4,6 @@ import { RootState } from '../redux/store';
 import { ISearchedUser, IUserData } from '../types/types';
 import { SearchFriendModel } from '../components/molecules/SearchFriendModel';
 import profile from '../img/profilePicture.png';
-import { profileEnd } from 'console';
 
 export const SearchUser = () => {
     const searchResults: ISearchedUser[] = useSelector(

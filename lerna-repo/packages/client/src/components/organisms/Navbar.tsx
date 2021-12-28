@@ -4,7 +4,7 @@ import { NavbarTitle as Title } from '../atoms/Navbar/NavbarTitle';
 import { DropdownList } from '../molecules/Navbar/DropdownList';
 import { UserInfo } from '../molecules/Navbar/UserInfo';
 import { SearchUser } from '../molecules/Navbar/SearchUser';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { IUserData, ISearchedUser } from '../../types/types';
 
@@ -12,6 +12,8 @@ export const Navbar = () => {
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
     );
+
+    console.log(`userData: ${JSON.stringify(userData)}`);
 
     return (
         <nav
@@ -22,7 +24,11 @@ export const Navbar = () => {
                 <DropdownButton />
                 <DropdownList />
                 <SearchUser />
-                <UserInfo email={userData.email} />
+                {userData !== undefined && userData !== null ? (
+                    <UserInfo email={userData.email} />
+                ) : (
+                    <UserInfo email={'john@doe.com'} />
+                )}
             </div>
         </nav>
     );

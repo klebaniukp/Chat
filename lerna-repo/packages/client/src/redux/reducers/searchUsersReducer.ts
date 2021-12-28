@@ -1,11 +1,11 @@
 import { ISearchedUser } from '../../types/types';
 
-interface IState {
-    data: ISearchedUser[] | null | undefined;
-}
+// interface IState {
+//     data: ISearchedUser[] | null | undefined;
+// }
 
 export const searchUsersReducer = (
-    state: IState,
+    state: ISearchedUser[],
     action: { type: string; payload: ISearchedUser[] },
 ) => {
     try {
@@ -13,14 +13,18 @@ export const searchUsersReducer = (
             case 'SEARCH_USERS':
                 return action.payload;
             default:
-                return [
-                    {
-                        _id: 'x',
-                        email: 'example@gmail.com',
-                        name: 'Example',
-                        lastName: 'Friend',
-                    },
-                ];
+                if (state) {
+                    return state;
+                } else {
+                    return [
+                        {
+                            _id: 'x',
+                            email: 'example@gmail.com',
+                            name: 'Example',
+                            lastName: 'Friend',
+                        },
+                    ];
+                }
         }
     } catch (error) {
         console.log(error);

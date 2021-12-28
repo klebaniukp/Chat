@@ -12,6 +12,7 @@ export const authentication = async (
         const secretToken = process.env.JWT_SECRET_TOKEN as string;
 
         if (jwt.verify(token, secretToken)) {
+            console.log('authentified');
             // res.status(200).clearCookie('token').cookie('token', token, {
             //     httpOnly: true,
             //     sameSite: 'none',
