@@ -100,7 +100,7 @@ export const signin = async (
             password,
             oldUser.password,
         );
-        console.log(`correct: ${isPasswordCorrect}`);
+        // console.log(`correct: ${isPasswordCorrect}`);
 
         if (!isPasswordCorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -111,7 +111,7 @@ export const signin = async (
             { expiresIn: '60m' },
         );
 
-        console.log(`token: ${token}`);
+        // console.log(`token: ${token}`);
 
         delete (oldUser as IResUser).password;
 

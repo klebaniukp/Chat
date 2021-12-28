@@ -13,7 +13,7 @@ export const auth = async (req: Request, res: Response) => {
         if (jwt.verify(token, secretToken)) {
             const decodedToken = JSON.stringify(jwt.decode(token));
 
-            console.log(`decodedToken: ${decodedToken}`);
+            // console.log(`decodedToken: ${decodedToken}`);
 
             const user: IUser = await UserModel.findOne({
                 _id: JSON.parse(decodedToken).id,

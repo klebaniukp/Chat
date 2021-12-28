@@ -10,6 +10,8 @@ export const searchUser = async (req: Request, res: Response) => {
             $or: [
                 { name: { $regex: searchPhraze, $options: 'i' } },
                 { lastName: { $regex: searchPhraze, $options: 'i' } },
+                { email: { $regex: searchPhraze, $options: 'i' } },
+                { id: { $regex: searchPhraze, $options: 'i' } },
             ],
         }).exec();
 

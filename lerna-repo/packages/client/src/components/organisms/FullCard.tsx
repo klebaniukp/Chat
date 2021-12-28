@@ -5,6 +5,7 @@ import { updateUserData } from '../../api';
 import { DataField } from '../molecules/DataField';
 import { FriendListModel } from '../molecules/FriendListModel';
 import { IUserData } from '../../types/types';
+import { UserFriendListDisplay } from './UserFriendListDisplay';
 
 export const FullCard = (props: {
     headerValue: string;
@@ -115,7 +116,16 @@ export const FullCard = (props: {
                     <div
                         className='overflow-auto w-25'
                         style={{ height: '30vh' }}>
-                        <FriendListModel
+                        <UserFriendListDisplay />
+
+                        {/* <FriendListModel
+                            firstname={props.firstname}
+                            lastname={props.lastname}
+                            email={props.email}
+                            img={props.img}
+                            imgHeight={'3'}
+                        /> */}
+                        {/* <FriendListModel
                             firstname={props.firstname}
                             lastname={props.lastname}
                             email={props.email}
@@ -156,14 +166,7 @@ export const FullCard = (props: {
                             email={props.email}
                             img={props.img}
                             imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
-                            imgHeight={'3'}
-                        />
+                        /> */}
                     </div>
                 </div>
                 <div className='card-footer text-muted'>

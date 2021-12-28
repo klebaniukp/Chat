@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { ISearchedUser, IUserData } from '../types/types';
 import { SearchFriendModel } from '../components/molecules/SearchFriendModel';
+import { IFriend } from '../types/types';
 import profile from '../img/profilePicture.png';
 
 export const SearchUser = () => {
@@ -17,8 +18,22 @@ export const SearchUser = () => {
     const [isFriend, setIsFriend] = useState(false);
 
     const isUserFriend = (id: string) => {
-        const userFriendList = userData.friends;
+        const userFriendList: IFriend[] = userData.friends;
         // setIsFriend(!isFriend);
+
+        // if (userFriendList.includes(id)) {
+        //     setIsFriend(true);
+        // } else {
+        //     setIsFriend(false);
+        // }
+        userFriendList.map(friend => {
+            if (friend._id.toString() === id) {
+                // return setIsFriend(true);
+                return true;
+            }
+        });
+
+        return false;
     };
 
     return (

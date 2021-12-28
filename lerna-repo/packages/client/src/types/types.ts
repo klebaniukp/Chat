@@ -1,5 +1,12 @@
 export interface IFriend {
-    id: string;
+    _id: string;
+    friendRequestStatus: 'pending' | 'fullfilled';
+}
+
+export interface IFullFriendData {
+    email: string;
+    name: string;
+    lastName: string;
 }
 
 export interface IUserData {
@@ -15,4 +22,9 @@ export interface ISearchedUser {
     email: string;
     name: string;
     lastName: string;
+}
+
+export interface IReducedFriend {
+    _id: string;
+    password?: string;
 }

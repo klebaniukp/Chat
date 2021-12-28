@@ -9,7 +9,6 @@ export const getUserDataReducer = (
     action: { type: string; payload: IUserData },
 ) => {
     try {
-        console.log(`userdata changed: ${JSON.stringify(action.payload)}`);
         switch (action.type) {
             case 'SET_USER_DATA':
                 return {
@@ -32,9 +31,6 @@ export const getUserDataReducer = (
                         friends: [
                             {
                                 id: '1039274',
-                                email: 'johny@doe.com',
-                                name: 'Johny',
-                                lastName: 'Doe',
                             },
                         ],
                     };

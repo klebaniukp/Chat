@@ -1,10 +1,16 @@
 export interface IResUser {
-    id: string;
+    _id?: string;
     email: string;
     lastName: string;
     name: string;
     password?: string;
     friends?: IUserFriend[] | [];
+}
+
+export interface IFriend {
+    email: string;
+    name: string;
+    lastName: string;
 }
 
 export interface IUser {
