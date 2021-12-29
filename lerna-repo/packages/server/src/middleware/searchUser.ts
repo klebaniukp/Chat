@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
+import { userInfo } from 'os';
 import { UserModel } from '../models/User';
-import { IUser, IResUser } from '../types/types';
+import { IUser, IFriend, IResUser } from '../types/types';
 
 export const searchUser = async (req: Request, res: Response) => {
     try {
         const { searchPhraze } = req.body;
+        const searchResult: IFriend[] = [];
 
-        const searchResult: IUser[] = await UserModel.find({
+        const search: IUser[] = await UserModel.find({
             $or: [
                 { name: { $regex: searchPhraze, $options: 'i' } },
                 { lastName: { $regex: searchPhraze, $options: 'i' } },
@@ -15,12 +17,20 @@ export const searchUser = async (req: Request, res: Response) => {
             ],
         }).exec();
 
-        searchResult.map(user => {
-            delete (user as IResUser).password;
-        });
+        Promise.all(search).then(() => {
+            search.map(user => {
+                const reducedUser: IFriend = {
+                    email: user.email,
+                    name: user.name,
+                    lastName: user.lastName,
+                };
 
-        res.status(200).json({
-            searchResult: searchResult,
+                searchResult.push(reducedUser);
+            });
+
+            res.status(200).json({
+                searchResult: searchResult,
+            });
         });
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });

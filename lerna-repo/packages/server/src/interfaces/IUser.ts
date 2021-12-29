@@ -11,5 +11,5 @@ export interface IUser extends Document {
 
 export interface IFriend {
     _id: string;
-    friendRequestStatus: string;
+    friendRequestStatus: boolean;
 }

@@ -116,7 +116,7 @@ export const FullCard = (props: {
                     <div
                         className='overflow-auto w-25'
                         style={{ height: '30vh' }}>
-                        <UserFriendListDisplay />
+                        {/* <UserFriendListDisplay /> */}
 
                         {/* <FriendListModel
                             firstname={props.firstname}

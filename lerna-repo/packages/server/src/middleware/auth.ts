@@ -12,30 +12,41 @@ export const auth = async (req: Request, res: Response) => {
 
         if (jwt.verify(token, secretToken)) {
             const decodedToken = JSON.stringify(jwt.decode(token));
+            const userId = JSON.parse(decodedToken).id;
 
             // console.log(`decodedToken: ${decodedToken}`);
 
-            const user: IUser = await UserModel.findOne({
-                _id: JSON.parse(decodedToken).id,
-            }).lean();
+            UserModel.findOne({ _id: userId })
+                .then(response => {
+                    if (response) {
+                        const user = {
+                            _id: response._id,
+                            email: response.email,
+                            name: response.name,
+                            lastName: response.lastName,
+                            friends: response.friends,
+                        };
 
-            delete (user as IResUser).password;
+                        const token = jwt.sign(
+                            { email: user.email, id: user._id },
+                            secretToken,
+                            { expiresIn: '60m' },
+                        );
 
-            const newToken = jwt.sign(
-                { email: user.email, id: user._id },
-                secretToken,
-                { expiresIn: '60m' },
-            );
-
-            res.status(200)
-                .clearCookie('token')
-                .cookie('token', newToken, {
-                    httpOnly: true,
-                    sameSite: 'none',
-                    secure: true,
-                    maxAge: maxAge,
+                        res.status(200)
+                            .clearCookie('token')
+                            .cookie('token', token, {
+                                httpOnly: true,
+                                sameSite: 'none',
+                                secure: true,
+                                maxAge: maxAge,
+                            })
+                            .json(user);
+                    }
                 })
-                .json(user);
+                .catch(error => {
+                    console.log(error);
+                });
         } else {
             res.status(401).json({ message: 'Unauthorized' });
         }

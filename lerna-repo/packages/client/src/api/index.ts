@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IReducedFriend } from '../types/types';
+// import { IReducedFriend } from '../types/types';
 
 const url = 'http://localhost:8000/';
 
@@ -33,6 +33,4 @@ export const updateUserData = (formData: {
 export const searchUsers = (formData: { searchPhraze: string }) =>
     API.post('/user/searchUser', formData);
 
-export const generateFriendList = (formData: {
-    friendList: IReducedFriend[];
-}) => API.post('/user/generateFriendList', formData);
+export const generateFriendList = () => API.get('/user/generateFriendList');

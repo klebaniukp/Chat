@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, response } from 'express';
 import { UserModel } from '../models/User';
 import { passwordSchema } from '../models/Password';
 import { IResUser } from '../types/types';
@@ -11,8 +11,6 @@ export const signup = async (req: Request, res: Response) => {
     const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     const { email, name, lastName, password } = req.body;
     const maxAge = 1000 * 60 * 60;
-    const ipAddress = req.socket.remoteAddress;
-    // console.log(`ip-address: ${ipAddress}`);
 
     try {
         let oldUser = await UserModel.findOne({ email: email });
@@ -48,33 +46,45 @@ export const signup = async (req: Request, res: Response) => {
             password: hashedPassword,
         });
 
-        const result = await UserModel.findOne({ email: newUser.email }).lean();
-
         const token = jwt.sign(
             { email: newUser.email, id: newUser._id },
             secret,
             { expiresIn: '60m' },
         );
 
-        delete (result as IResUser).password;
+        UserModel.findOne({ email: newUser.email })
+            .then(response => {
+                if (response) {
+                    const result = {
+                        _id: response._id,
+                        name: response.name,
+                        lastName: response.lastName,
+                        friends: response.friends,
+                    };
 
-        res.status(200)
-            .clearCookie('token')
-            .cookie('token', token, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: maxAge,
+                    return res
+                        .status(200)
+                        .clearCookie('token')
+                        .cookie('token', token, {
+                            httpOnly: true,
+                            sameSite: 'none',
+                            secure: true,
+                            maxAge: maxAge,
+                        })
+                        .cookie('refreshToken', refreshToken, {
+                            httpOnly: true,
+                            sameSite: 'none',
+                            secure: true,
+                            maxAge: maxAge,
+                        })
+                        .json({ result });
+                }
             })
-            .cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: maxAge,
-            })
-            .json({ result });
-    } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+            .catch(error => {
+                console.log(error);
+            });
+    } catch (error) {
+        res.status(500).json({ message: (error as Error).message });
     }
 };
 
@@ -88,7 +98,6 @@ export const signin = async (
     const { email, password } = req.body;
     const maxAge = 1000 * 60 * 60;
     const ipAddress = req.socket.remoteAddress;
-    // console.log(`ip-address: ${ipAddress}`);
 
     try {
         const oldUser = await UserModel.findOne({ email: email });
@@ -100,7 +109,6 @@ export const signin = async (
             password,
             oldUser.password,
         );
-        // console.log(`correct: ${isPasswordCorrect}`);
 
         if (!isPasswordCorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -111,26 +119,39 @@ export const signin = async (
             { expiresIn: '60m' },
         );
 
-        // console.log(`token: ${token}`);
+        UserModel.findOne({ email: email })
+            .then(response => {
+                if (response) {
+                    console.log(`friends: ${response.friends}`);
+                    const user = {
+                        _id: response._id,
+                        email: response.email,
+                        name: response.name,
+                        lastName: response.lastName,
+                        friends: response.friends,
+                    };
 
-        delete (oldUser as IResUser).password;
-
-        res.status(200)
-            .clearCookie('token')
-            .cookie('token', token, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: maxAge,
+                    return res
+                        .status(200)
+                        .clearCookie('token')
+                        .cookie('token', token, {
+                            httpOnly: true,
+                            sameSite: 'none',
+                            secure: true,
+                            maxAge: maxAge,
+                        })
+                        .cookie('refreshToken', refreshToken, {
+                            httpOnly: true,
+                            sameSite: 'none',
+                            secure: true,
+                            maxAge: maxAge,
+                        })
+                        .json({ result: user, message: 'Logged in' });
+                }
             })
-            .cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: maxAge,
-            })
-            .json({ result: oldUser, message: 'Logged in' });
-        next(token);
+            .catch(error => {
+                console.log(error);
+            });
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }
