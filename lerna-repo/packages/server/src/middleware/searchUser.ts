@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { userInfo } from 'os';
 import { UserModel } from '../models/User';
-import { IUser, IFriend, IResUser } from '../types/types';
+import { IUser, IFriend } from '../types/types';
 
 export const searchUser = async (req: Request, res: Response) => {
     try {

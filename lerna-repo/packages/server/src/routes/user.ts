@@ -18,7 +18,7 @@ userRouter.get('/getUser', auth);
 userRouter.post('/searchUser', authentication, searchUser);
 userRouter.post('/updateUser', authentication, updateUserData);
 userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
-userRouter.post('/generateFriendList', authentication, generateFriendList);
+userRouter.get('/generateFriendList', authentication, generateFriendList);
 
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token

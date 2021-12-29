@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DropdownButton } from '../atoms/Button/DropdownButton';
 import { NavbarTitle as Title } from '../atoms/Navbar/NavbarTitle';
 import { DropdownList } from '../molecules/Navbar/DropdownList';
@@ -6,14 +6,12 @@ import { UserInfo } from '../molecules/Navbar/UserInfo';
 import { SearchUser } from '../molecules/Navbar/SearchUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { IUserData, ISearchedUser } from '../../types/types';
+import { IUserData } from '../../types/types';
 
 export const Navbar = () => {
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
     );
-
-    console.log(`userData: ${JSON.stringify(userData)}`);
 
     return (
         <nav

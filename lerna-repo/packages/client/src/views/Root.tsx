@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { getUserData } from '../api/index';
-import { useDispatch } from 'react-redux';
-import { IUserData } from '../types/types';
 import { routes } from '../routes/index';
 import { auth } from '../services/auth';
 import { Navbar } from '../components/organisms/Navbar';
@@ -17,30 +14,6 @@ let i = 0;
 export const Root = () => {
     auth(i);
     i = i + 1;
-    // useEffect(() => {
-    // auth();
-    // try {
-    //     const dispatch = useDispatch();
-
-    //     getUserData()
-    //         .then((res: any) => {
-    //             const userData: IUserData = {
-    //                 id: res.data._id,
-    //                 email: res.data.email,
-    //                 name: res.data.name,
-    //                 lastName: res.data.lastName,
-    //                 friends: res.data.friends,
-    //             };
-
-    //             dispatch({ type: 'SET_USER_DATA', payload: userData });
-    //         })
-    //         .catch((err: string | undefined) => {
-    //             console.log(err);
-    //         });
-    // } catch (err) {
-    //     console.log(err);
-    // }
-    // }, [i]);
 
     return (
         <BrowserRouter>
