@@ -1,9 +1,54 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
+import { IUser } from '../interfaces/IUser';
+import { IUserFriend, IFriend } from '../types/types';
+import jwt from 'jsonwebtoken';
+
+//NOT FINISHED
 
 export const generateFriendList = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
+
+        const decodedToken = JSON.stringify(jwt.decode(token));
+        const userId = JSON.parse(decodedToken).id;
+
+        const filter = { _id: userId };
+
+        const user = await UserModel.findOne(filter);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Invalid jwt token' });
+        }
+
+        const friendList = user.friends;
+        const filledFriendList: IFriend[] = [];
+
+        friendList.map((friend: IUserFriend) => {
+            // const convertedFriend: IFriend = {};
+            // filledFriendList.push(convertedFriend);
+        });
+
+        // Promise.all(user).then(() => {
+        //     if (user.length === 1) {
+        //         const friendList: IUserFriend[] = user[0].friends;
+
+        //         const filledFriendList: IFriend[] = [];
+        //         //converting friendlist so it can be fulfilled
+        //         friendList.map(friend => {
+        //             // console.log(friend)
+        //             UserModel.findOne({ _id: friend._id }).then(response => {
+        //                 if (response) {
+        //                     const user: IFriend = {
+        //                         email: response.email,
+        //                         name: response.name,
+        //                         lastName: response.lastName,
+        //                     };
+        //                 }
+        //             });
+        //         });
+        //     }
+        // });
 
         // const { friendList } = req.body;
 

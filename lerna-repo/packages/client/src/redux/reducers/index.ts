@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import { getUserDataReducer as userData } from './getUserDataReducer';
 import { searchUsersReducer as searchResults } from './searchUsersReducer';
-import { setFulfilledFriendList as fulfilledFriendList } from '../actions/setFulfilledFriendList';
+// import { setFulfilledFriendList as fulfilledFriendList } from '../actions/setFulfilledFriendList';
+import { setFulfilledFriendListReducer as fulfilledFriendList } from './setFulfilledFriendListReducer';
 
 export const reducers = combineReducers({
     searchResults,

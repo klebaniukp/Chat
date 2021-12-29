@@ -11,14 +11,15 @@ export const getUserDataReducer = (
     try {
         switch (action.type) {
             case 'SET_USER_DATA':
-                return {
-                    ...state,
-                    id: action.payload.id,
-                    email: action.payload.email,
-                    name: action.payload.name,
-                    lastName: action.payload.lastName,
-                    friends: action.payload.friends,
-                };
+                // return {
+
+                //     id: action.payload.id,
+                //     email: action.payload.email,
+                //     name: action.payload.name,
+                //     lastName: action.payload.lastName,
+                //     friends: action.payload.friends,
+                // };r
+                return action.payload;
             default:
                 if (state) {
                     return state;

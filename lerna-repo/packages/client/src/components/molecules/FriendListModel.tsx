@@ -10,10 +10,10 @@ export const FriendListModel = (props: {
     const [isHover, setIsHover] = useState(false);
 
     return (
-        <div className='border border-2 mb-1'>
+        <div className='border border-2 mb-1 w-100'>
             {isHover ? (
                 <div
-                    className='d-flex justify-content-evenly bg-light'
+                    className='d-flex justify-content-evenly bg-light w-50'
                     style={{
                         height: `${props.imgHeight}vw`,
                         // backgroundColor: '#e6e6e6',
@@ -25,7 +25,7 @@ export const FriendListModel = (props: {
                         src={props.img}
                         alt='profile picture'
                     />
-                    <div className='d-flex flex-column justify-content-between'>
+                    <div className='d-flex flex-column justify-content-between p-2'>
                         <h5>
                             {props.firstname} {props.lastname}
                         </h5>
@@ -34,7 +34,7 @@ export const FriendListModel = (props: {
                 </div>
             ) : (
                 <div
-                    className='d-flex justify-content-evenly'
+                    className='d-flex justify-content-evenly w-50'
                     style={{ height: `${props.imgHeight}vw` }}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}>

@@ -14,7 +14,7 @@ export interface IFriend {
 }
 
 export interface IUser {
-    _id: string
+    _id: string;
     email: string;
     name: string;
     lastName: string;
@@ -22,7 +22,7 @@ export interface IUser {
     friends: IUserFriend[] | [];
 }
 
-interface IUserFriend {
+export interface IUserFriend {
     _id: string;
     friendRequestStatus: boolean;
 }

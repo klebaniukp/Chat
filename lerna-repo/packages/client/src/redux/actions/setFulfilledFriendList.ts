@@ -5,7 +5,7 @@ export const setFulfilledFriendList =
     (dispatch: (arg0: { type: string; payload: IFullFriendData }) => void) => {
         try {
             dispatch({
-                type: 'SET_FULFILLED_FRIEND_DATA',
+                type: 'SET_FULFILLED_FRIENDLIST',
                 payload: fulfilledFriendData,
             });
         } catch (error) {

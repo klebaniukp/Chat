@@ -17,7 +17,7 @@ export const SearchFriendModel = (props: {
     const [isFriend, setIsFriend] = useState(false);
 
     return (
-        <div className='d-flex justify-content-evenly border border-2 mb-1 mt-1 w-25'>
+        <div className='d-flex justify-content-evenly border border-2 mb-1 mt-1 w-50'>
             {isHover ? (
                 <div
                     className='d-flex flex-row justify-content-evenly align-items-center bg-light'

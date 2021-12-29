@@ -11,7 +11,9 @@ export const SearchModule = () => {
     );
 
     return (
-        <div className='overflow-auto w-25' style={{ height: '30vh' }}>
+        <div
+            className='overflow-auto w-50'
+            style={{ height: '33vh', width: '50vw' }}>
             {searchResult.map(user => (
                 <div key={user._id}>
                     <FriendListModel

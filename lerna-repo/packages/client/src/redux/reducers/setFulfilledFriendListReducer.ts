@@ -1,12 +1,12 @@
 import { IFullFriendData } from '../../types/types';
 
-export const getFulfilledFriendList = (
+export const setFulfilledFriendListReducer = (
     state: IFullFriendData[],
     action: { type: string; payload: IFullFriendData[] },
 ) => {
     try {
         switch (action.type) {
-            case 'SET_FULLFILLED_FRIEND_DATA':
+            case 'SET_FULFILLED_FRIENDLIST':
                 return action.payload;
             default:
                 if (state) {

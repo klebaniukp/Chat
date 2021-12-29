@@ -5,6 +5,12 @@ import { searchUsers } from '../../../api';
 import { useHistory } from 'react-router-dom';
 import { routes } from '../../../routes/index';
 
+interface ISearchResult {
+    email: string;
+    name: string;
+    lastName: string;
+}
+
 export const SearchUser = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,9 +28,12 @@ export const SearchUser = () => {
                 searchUsers({ searchPhraze: searchPhraze })
                     .then(res => {
                         console.log(res.data.searchResult);
+                        const searchResult: ISearchResult =
+                            res.data.searchResult;
+
                         dispatch({
                             type: 'SEARCH_USERS',
-                            payload: res.data.searchResult,
+                            payload: searchResult,
                         });
 
                         history.push(routes.searchUser);

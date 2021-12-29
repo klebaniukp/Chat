@@ -17,7 +17,7 @@ export const Navbar = () => {
 
     return (
         <nav
-            className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark'
+            className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-1'
             style={{ height: '10vh' }}>
             <div className='container-fluid'>
                 <Title value={'Klebaniukp Chat'} />

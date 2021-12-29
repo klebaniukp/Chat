@@ -17,10 +17,10 @@ export const UserFriendListDisplay = () => {
         generateFriendList()
             .then(response => {
                 console.log(`friendlist: ${JSON.stringify(response.data)}`);
-                dispatch({
-                    type: 'SET_FULLFILLED_FRIEND_DATA',
-                    payload: response.data.friendList,
-                });
+                // dispatch({
+                //     type: 'SET_FULLFILLED_FRIEND_DATA',
+                //     payload: response.data.friendList,
+                // });
             })
             .catch(error => {
                 console.log(error);

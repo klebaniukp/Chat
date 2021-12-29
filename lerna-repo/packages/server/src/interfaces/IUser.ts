@@ -10,6 +10,9 @@ export interface IUser extends Document {
 }
 
 export interface IFriend {
+    lastName: string;
+    name: string;
+    email: string;
     _id: string;
     friendRequestStatus: boolean;
 }
