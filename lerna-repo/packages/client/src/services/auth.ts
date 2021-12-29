@@ -2,7 +2,8 @@ import { getUserData } from '../api/index';
 import { useDispatch } from 'react-redux';
 import { IUserData } from '../types/types';
 
-export const auth = () => {
+export const auth = (i: number) => {
+    if (i !== 0) return 1;
     try {
         const dispatch = useDispatch();
 
