@@ -7,10 +7,15 @@ import { SearchUser } from '../molecules/Navbar/SearchUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { IUserData } from '../../types/types';
+import { Logout } from '../molecules/Navbar/Logout';
 
 export const Navbar = () => {
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
+    );
+
+    const authStatus: boolean = useSelector(
+        (state: RootState) => state.authStatus,
     );
 
     return (
@@ -22,10 +27,16 @@ export const Navbar = () => {
                 <DropdownButton />
                 <DropdownList />
                 <SearchUser />
-                {userData !== undefined && userData !== null ? (
-                    <UserInfo email={userData.email} />
+                {authStatus ? (
+                    <>
+                        <Logout />
+                        <UserInfo email={userData.email} />
+                    </>
                 ) : (
-                    <UserInfo email={'john@doe.com'} />
+                    <>
+                        <Logout />
+                        <UserInfo email={'john@doe.com'} />
+                    </>
                 )}
             </div>
         </nav>

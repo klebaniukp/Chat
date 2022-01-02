@@ -34,16 +34,25 @@ export const SignIn = ({
                     password: form.password.value.toString(),
                 })
                     .then(res => {
-                        const userData: IUserData = {
-                            id: res.data.result._id,
-                            email: res.data.result.email,
-                            name: res.data.result.name,
-                            lastName: res.data.result.lastName,
-                            friends: res.data.result.friends,
-                        };
+                        if (res.status === 200) {
+                            const userData: IUserData = {
+                                id: res.data.result._id,
+                                email: res.data.result.email,
+                                name: res.data.result.name,
+                                lastName: res.data.result.lastName,
+                                friends: res.data.result.friends,
+                            };
 
-                        dispatch({ type: 'SET_USER_DATA', payload: userData });
-                        history.push('/chat');
+                            dispatch({
+                                type: 'SET_USER_DATA',
+                                payload: userData,
+                            });
+                            dispatch({
+                                type: 'SET_IS_LOGGED_IN',
+                                payload: true,
+                            });
+                            history.push('/chat');
+                        }
                     })
                     .catch(err => {
                         console.log(err);

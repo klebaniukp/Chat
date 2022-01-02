@@ -5,7 +5,9 @@ export const ButtonNoLink = (props: {
     value: string;
 }) => {
     return (
-        <button type={props.type} className='btn btn-outline-primary'>
+        <button
+            type={props.type}
+            className='btn btn-outline-primary m-2 btn-lg vh-5'>
             {props.value}
         </button>
     );

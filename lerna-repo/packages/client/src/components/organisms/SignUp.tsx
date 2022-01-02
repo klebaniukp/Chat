@@ -54,6 +54,12 @@ export const SignUp = ({
                                 type: 'SET_USER_DATA',
                                 payload: userData,
                             });
+
+                            dispatch({
+                                type: 'SET_IS_LOGGED_IN',
+                                payload: true,
+                            });
+
                             history.push('/chat');
                         } else {
                             // alert(res.data.message);

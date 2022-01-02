@@ -6,6 +6,7 @@ import { DataField } from '../molecules/DataField';
 import { FriendListModel } from '../molecules/FriendListModel';
 import { IUserData } from '../../types/types';
 import { UserFriendListDisplay } from './UserFriendListDisplay';
+import profile from '../../img/profilePicture.png';
 
 export const FullCard = (props: {
     headerValue: string;
@@ -117,54 +118,25 @@ export const FullCard = (props: {
                         className='overflow-auto w-25'
                         style={{ height: '30vh' }}>
                         <UserFriendListDisplay />
-
                         {/* <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
-                            imgHeight={'3'}
-                        /> */}
-                        {/* <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
+                            firstname={'Some'}
+                            lastname={'Name'}
+                            email={'somename@gmail.com'}
+                            img={profile}
                             imgHeight={'3'}
                         />
                         <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
+                            firstname={'Some'}
+                            lastname={'Name'}
+                            email={'somename@gmail.com'}
+                            img={profile}
                             imgHeight={'3'}
                         />
                         <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
-                            imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
-                            imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
-                            imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={props.firstname}
-                            lastname={props.lastname}
-                            email={props.email}
-                            img={props.img}
+                            firstname={'Some'}
+                            lastname={'Name'}
+                            email={'somename@gmail.com'}
+                            img={profile}
                             imgHeight={'3'}
                         /> */}
                     </div>

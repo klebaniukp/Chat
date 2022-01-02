@@ -1,5 +1,5 @@
 import express from 'express';
-import { signup, signin } from '../controllers/user';
+import { signup, signin, logout } from '../controllers/user';
 import { auth } from '../middleware/auth';
 import { searchUser } from '../middleware/searchUser';
 import { sendFriendRequest } from '../middleware/sendFriendRequest';
@@ -18,6 +18,7 @@ userRouter.post('/searchUser', authentication, searchUser);
 userRouter.post('/updateUser', authentication, updateUserData);
 userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
 userRouter.get('/generateFriendList', authentication, generateFriendList);
+userRouter.get('/logout', logout);
 
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token

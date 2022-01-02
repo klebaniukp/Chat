@@ -31,13 +31,17 @@ export const UserFriendListDisplay = () => {
     return (
         <>
             {friendList.map(friend => {
-                <FriendListModel
-                    firstname={friend.name}
-                    lastname={friend.lastName}
-                    email={friend.email}
-                    img={profile}
-                    imgHeight={'3'}
-                />;
+                return (
+                    <>
+                        <FriendListModel
+                            firstname={friend.name}
+                            lastname={friend.lastName}
+                            email={friend.email}
+                            img={profile}
+                            imgHeight={'3'}
+                        />
+                    </>
+                );
             })}
         </>
     );

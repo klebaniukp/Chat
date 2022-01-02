@@ -1,9 +1,5 @@
 import { ISearchedUser } from '../../types/types';
 
-// interface IState {
-//     data: ISearchedUser[] | null | undefined;
-// }
-
 export const searchUsersReducer = (
     state: ISearchedUser[],
     action: { type: string; payload: ISearchedUser[] },

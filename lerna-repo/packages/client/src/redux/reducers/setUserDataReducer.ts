@@ -1,9 +1,5 @@
 import { IUserData } from '../../types/types';
 
-// interface IState {
-//     data: IUserData | null | undefined;
-// }
-
 export const setUserDataReducer = (
     state: IUserData,
     action: { type: string; payload: IUserData },
@@ -12,6 +8,18 @@ export const setUserDataReducer = (
         switch (action.type) {
             case 'SET_USER_DATA':
                 return action.payload;
+            case 'LOGOUT':
+                return {
+                    id: 'x',
+                    email: 'John@Doe.com',
+                    name: 'John',
+                    lastName: 'Doe',
+                    friends: [
+                        {
+                            id: '1039274',
+                        },
+                    ],
+                };
             default:
                 if (state) {
                     return state;

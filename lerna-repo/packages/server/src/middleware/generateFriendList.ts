@@ -27,11 +27,32 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
         const friendList = user.friends.map(friend => friend._id);
 
-        const filledFriendList = await UserModel.find({
+        const filledFriendList = UserModel.find({
             _id: { $in: friendList },
         });
 
-        res.status(200).json({ friendList: filledFriendList });
+        filledFriendList
+            .then(users => {
+                if (users.length === 0) {
+                    return res
+                        .status(404)
+                        .json({ message: 'No friends found' });
+                }
+
+                const convertedUsers = users.map(user => {
+                    return {
+                        email: user.email,
+                        name: user.name,
+                        lastName: user.lastName,
+                    };
+                });
+                return res.status(200).json({ friendList: convertedUsers });
+            })
+            .catch(err => {
+                return res
+                    .status(500)
+                    .json({ message: (err as Error).message });
+            });
     } catch (err) {
         res.status(501).json({ message: (err as Error).message });
     }

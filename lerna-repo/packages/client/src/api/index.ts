@@ -34,3 +34,5 @@ export const searchUsers = (formData: { searchPhraze: string }) =>
     API.post('/user/searchUser', formData);
 
 export const generateFriendList = () => API.get('/user/generateFriendList');
+
+export const logout = () => API.get('/user/logout');

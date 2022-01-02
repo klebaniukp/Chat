@@ -16,7 +16,6 @@ export const FriendListModel = (props: {
                     className='d-flex justify-content-evenly bg-light w-50'
                     style={{
                         height: `${props.imgHeight}vw`,
-                        // backgroundColor: '#e6e6e6',
                     }}
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}>

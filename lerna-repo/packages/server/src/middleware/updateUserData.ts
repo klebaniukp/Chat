@@ -1,9 +1,9 @@
 //update user data from mongoDb model
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import { UserModel } from '../models/User';
 import { IUser } from '../interfaces/IUser';
 import { IFriend } from '../types/types';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const updateUserData = async (req: Request, res: Response) => {
     try {
@@ -11,8 +11,8 @@ export const updateUserData = async (req: Request, res: Response) => {
 
         const token = req.cookies.token;
 
-        const decodedToken = JSON.stringify(jwt.decode(token));
-        const userId = JSON.parse(decodedToken).id;
+        const decodedToken = jwt.decode(token) as JwtPayload;
+        const userId = decodedToken.id;
 
         const filter = { _id: userId };
         const update = {
