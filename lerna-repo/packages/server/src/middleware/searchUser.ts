@@ -12,26 +12,46 @@ export const searchUser = async (req: Request, res: Response) => {
                 { name: { $regex: searchPhraze, $options: 'i' } },
                 { lastName: { $regex: searchPhraze, $options: 'i' } },
                 { email: { $regex: searchPhraze, $options: 'i' } },
-                // { _id: { $regex: searchPhraze, $options: 'i' } },
-                // { _id: searchPhraze },
             ],
         }).exec();
 
-        Promise.all(search).then(() => {
-            search.map(user => {
-                const reducedUser: IFriend = {
-                    email: user.email,
-                    name: user.name,
-                    lastName: user.lastName,
-                };
+        if (search.length !== 0) {
+            Promise.all(search).then(() => {
+                search.map(user => {
+                    const reducedUser: IFriend = {
+                        _id: user._id,
+                        email: user.email,
+                        name: user.name,
+                        lastName: user.lastName,
+                    };
 
-                searchResult.push(reducedUser);
-            });
+                    searchResult.push(reducedUser);
+                });
 
-            res.status(200).json({
-                searchResult: searchResult,
+                res.status(200).json({
+                    searchResult: searchResult,
+                });
             });
-        });
+        } else {
+            const search = await UserModel.findOne({
+                _id: searchPhraze,
+            }).exec();
+
+            if (!search) {
+                return res.status(200).json({ message: 'No user found' });
+            }
+
+            const reducedUser = [
+                {
+                    _id: search._id,
+                    email: search.email,
+                    name: search.name,
+                    lastName: search.lastName,
+                },
+            ];
+
+            return res.status(200).json({ searchResult: reducedUser });
+        }
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
     }

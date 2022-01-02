@@ -1,8 +1,15 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
+import { IUserFriend } from '../types/types';
 import jwt from 'jsonwebtoken';
-import { IResUser } from '../types/types';
-import { IUser } from '../interfaces/IUser';
+
+interface IUser {
+    _id: string;
+    email: string;
+    name: string;
+    lastName: string;
+    friends: IUserFriend[];
+}
 
 export const auth = async (req: Request, res: Response) => {
     try {
@@ -19,11 +26,11 @@ export const auth = async (req: Request, res: Response) => {
             UserModel.findOne({ _id: userId })
                 .then(response => {
                     if (response) {
-                        const user = {
+                        const user: IUser = {
                             _id: response._id,
                             email: response.email,
                             name: response.name,
-                            lastName: response.lastName,
+                            lastName: response.lastName, 
                             friends: response.friends,
                         };
 

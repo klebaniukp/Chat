@@ -14,8 +14,6 @@ export const generateFriendList = async (req: Request, res: Response) => {
         const decodedToken = jwt.decode(token) as JwtPayload;
         const userId = decodedToken.id;
 
-        console.log(`userId: ${userId}`);
-
         const filter = { _id: userId };
         const user = await UserModel.findOne(filter);
 
@@ -26,6 +24,10 @@ export const generateFriendList = async (req: Request, res: Response) => {
         }
 
         const friendList = user.friends.map(friend => friend._id);
+
+        if (!friendList.length) {
+            return res.status(200).json({ message: 'No friends' });
+        }
 
         const filledFriendList = UserModel.find({
             _id: { $in: friendList },
@@ -41,6 +43,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
                 const convertedUsers = users.map(user => {
                     return {
+                        _id: user._id,
                         email: user.email,
                         name: user.name,
                         lastName: user.lastName,

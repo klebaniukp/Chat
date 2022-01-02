@@ -8,6 +8,15 @@ export const setFulfilledFriendListReducer = (
         switch (action.type) {
             case 'SET_FULFILLED_FRIENDLIST':
                 return action.payload;
+            case 'CLEAR_FULFILLED_FRIENDLIST':
+                return [
+                    {
+                        _id: 'x',
+                        email: 'John@Doe.com',
+                        name: 'John',
+                        lastName: 'Doe',
+                    },
+                ];
             default:
                 if (state) {
                     return state;

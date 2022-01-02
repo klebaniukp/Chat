@@ -118,27 +118,6 @@ export const FullCard = (props: {
                         className='overflow-auto w-25'
                         style={{ height: '30vh' }}>
                         <UserFriendListDisplay />
-                        {/* <FriendListModel
-                            firstname={'Some'}
-                            lastname={'Name'}
-                            email={'somename@gmail.com'}
-                            img={profile}
-                            imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={'Some'}
-                            lastname={'Name'}
-                            email={'somename@gmail.com'}
-                            img={profile}
-                            imgHeight={'3'}
-                        />
-                        <FriendListModel
-                            firstname={'Some'}
-                            lastname={'Name'}
-                            email={'somename@gmail.com'}
-                            img={profile}
-                            imgHeight={'3'}
-                        /> */}
                     </div>
                 </div>
                 <div className='card-footer text-muted'>

@@ -16,12 +16,15 @@ export const UserFriendListDisplay = () => {
     useEffect(() => {
         generateFriendList()
             .then(response => {
-                console.log(`friendlist: ${JSON.stringify(response.data)}`);
-                const friendList: IFullFriendData[] = response.data.friendList;
-                dispatch({
-                    type: 'SET_FULFILLED_FRIENDLIST',
-                    payload: friendList,
-                });
+                if (response.status === 200) {
+                    console.log(`friendlist: ${JSON.stringify(response.data)}`);
+                    const friendList: IFullFriendData[] =
+                        response.data.friendList;
+                    dispatch({
+                        type: 'SET_FULFILLED_FRIENDLIST',
+                        payload: friendList,
+                    });
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -32,7 +35,7 @@ export const UserFriendListDisplay = () => {
         <>
             {friendList.map(friend => {
                 return (
-                    <>
+                    <div key={friend._id}>
                         <FriendListModel
                             firstname={friend.name}
                             lastname={friend.lastName}
@@ -40,7 +43,7 @@ export const UserFriendListDisplay = () => {
                             img={profile}
                             imgHeight={'3'}
                         />
-                    </>
+                    </div>
                 );
             })}
         </>

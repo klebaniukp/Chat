@@ -27,16 +27,18 @@ export const SearchUser = () => {
 
                 searchUsers({ searchPhraze: searchPhraze })
                     .then(res => {
-                        console.log(res.data.searchResult);
-                        const searchResult: ISearchResult =
-                            res.data.searchResult;
+                        if (res.status === 200) {
+                            console.log(res.data.searchResult);
+                            const searchResult: ISearchResult =
+                                res.data.searchResult;
 
-                        dispatch({
-                            type: 'SEARCH_USERS',
-                            payload: searchResult,
-                        });
+                            dispatch({
+                                type: 'SEARCH_USERS',
+                                payload: searchResult,
+                            });
 
-                        history.push(routes.searchUser);
+                            history.push(routes.searchUser);
+                        }
                     })
                     .catch(err => {
                         console.log(err);
