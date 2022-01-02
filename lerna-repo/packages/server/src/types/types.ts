@@ -8,7 +8,6 @@ export interface IResUser {
 }
 
 export interface IFriend {
-    _id: string;
     email: string;
     name: string;
     lastName: string;

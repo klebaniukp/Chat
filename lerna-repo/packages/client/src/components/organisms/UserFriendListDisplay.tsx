@@ -17,13 +17,20 @@ export const UserFriendListDisplay = () => {
         generateFriendList()
             .then(response => {
                 if (response.status === 200) {
-                    console.log(`friendlist: ${JSON.stringify(response.data)}`);
                     const friendList: IFullFriendData[] =
                         response.data.friendList;
-                    dispatch({
-                        type: 'SET_FULFILLED_FRIENDLIST',
-                        payload: friendList,
-                    });
+
+                    if (friendList.length > 0) {
+                        dispatch({
+                            type: 'SET_FULFILLED_FRIENDLIST',
+                            payload: friendList,
+                        });
+                    } else {
+                        dispatch({
+                            type: 'SET_FULFILLED_FRIENDLIST',
+                            payload: [],
+                        });
+                    }
                 }
             })
             .catch(error => {
@@ -35,7 +42,7 @@ export const UserFriendListDisplay = () => {
         <>
             {friendList.map(friend => {
                 return (
-                    <div key={friend._id}>
+                    <div key={friend.email}>
                         <FriendListModel
                             firstname={friend.name}
                             lastname={friend.lastName}

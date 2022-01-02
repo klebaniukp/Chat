@@ -7,7 +7,8 @@ export const ButtonNoLink = (props: {
     return (
         <button
             type={props.type}
-            className='btn btn-outline-primary m-2 btn-lg vh-5'>
+            className='btn btn-outline-primary m-2 btn-lg'
+            style={{ height: '6vh' }}>
             {props.value}
         </button>
     );

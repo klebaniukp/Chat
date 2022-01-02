@@ -34,7 +34,7 @@ export const SearchUser = () => {
             style={{ width: '100vw' }}>
             {searchResults.length > 1 ? (
                 searchResults.map(user => (
-                    <div key={user._id}>
+                    <div key={user.email}>
                         <div className='d-flex flex-row justify-content-center'>
                             <SearchFriendModel
                                 img={profile}
@@ -49,7 +49,7 @@ export const SearchUser = () => {
                     </div>
                 ))
             ) : (
-                <div key={searchResults[0]._id}>
+                <div key={searchResults[0].email}>
                     <div className='d-flex flex-row justify-content-center'>
                         <SearchFriendModel
                             img={profile}

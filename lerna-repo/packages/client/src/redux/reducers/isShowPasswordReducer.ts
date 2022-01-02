@@ -1,17 +1,13 @@
-export const authStatusReducer = (
+export const isShowPasswordReducer = (
     state: boolean,
     action: { type: string; payload: boolean },
 ) => {
     try {
         switch (action.type) {
-            case 'SET_IS_LOGGED_IN':
+            case 'SET_IS_SHOW_PASSWORD':
                 return action.payload;
             default:
-                if (state) {
-                    return state;
-                } else {
-                    return false;
-                }
+                return false;
         }
     } catch (error) {
         console.log(error);

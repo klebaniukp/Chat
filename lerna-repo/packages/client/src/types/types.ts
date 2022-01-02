@@ -4,7 +4,6 @@ export interface IFriend {
 }
 
 export interface IFullFriendData {
-    _id: string;
     email: string;
     name: string;
     lastName: string;

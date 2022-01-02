@@ -11,7 +11,6 @@ export const setFulfilledFriendListReducer = (
             case 'CLEAR_FULFILLED_FRIENDLIST':
                 return [
                     {
-                        _id: 'x',
                         email: 'John@Doe.com',
                         name: 'John',
                         lastName: 'Doe',
@@ -23,7 +22,6 @@ export const setFulfilledFriendListReducer = (
                 } else {
                     return [
                         {
-                            _id: 'x',
                             email: 'John@Doe.com',
                             name: 'John',
                             lastName: 'Doe',

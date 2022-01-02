@@ -38,7 +38,7 @@ export const signup = async (req: Request, res: Response) => {
             lastName: lastName,
             password: hashedPassword,
             friends: {
-                _id: '61c337a2ba0b0fc612881eab',
+                _id: '61d1a8a5683071df282bf664',
                 friendRequestStatus: true,
             },
         });
@@ -54,6 +54,7 @@ export const signup = async (req: Request, res: Response) => {
                 if (response) {
                     const result = {
                         _id: response._id,
+                        email: response.email,
                         name: response.name,
                         lastName: response.lastName,
                         friends: response.friends,

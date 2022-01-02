@@ -28,7 +28,6 @@ export const updateUserData = async (req: Request, res: Response) => {
         Promise.all(user).then(() => {
             if (user.length === 1) {
                 const convertedUser: IFriend = {
-                    _id: user[0]._id,
                     email: user[0].email,
                     name: user[0].name,
                     lastName: user[0].lastName,

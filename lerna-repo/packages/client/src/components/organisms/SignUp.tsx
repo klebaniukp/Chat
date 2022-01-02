@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { useHistory } from 'react-router-dom';
 import { signUp } from '../../api';
 import { FormField } from '../molecules/Form/FormField';
-import { FormPasswordField } from '../molecules/Form/FormPasswordField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { Card } from '../atoms/Box/Card';
@@ -17,14 +17,15 @@ export const SignUp = ({
     value: string;
     setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-    const [showPassword, setShowPassword] = useState(false);
+    const showPassword: boolean = useSelector(
+        (state: RootState) => state.showPassword,
+    );
     const history = useHistory();
     const dispatch = useDispatch();
 
     const signingUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            // const form = document.querySelector('form');
             const form: HTMLFormElement = e.currentTarget;
             if (
                 form !== null &&
@@ -49,6 +50,9 @@ export const SignUp = ({
                                 lastName: res.data.result.lastName,
                                 friends: res.data.result.friends,
                             };
+                            console.log(
+                                `userdata: ${JSON.stringify(userData)}`,
+                            );
 
                             dispatch({
                                 type: 'SET_USER_DATA',
@@ -62,7 +66,6 @@ export const SignUp = ({
 
                             history.push('/chat');
                         } else {
-                            // alert(res.data.message);
                             console.log(res);
                         }
                     })
@@ -117,15 +120,35 @@ export const SignUp = ({
                     name={'lastName'}
                 />
 
-                <FormPasswordField value={'Password'} name={'password'} />
-                <FormPasswordField
-                    value={'Repeat Password'}
-                    name={'confirmPassword'}
-                />
+                {showPassword ? (
+                    <>
+                        <FormField
+                            value={'Password'}
+                            inputType={'text'}
+                            name={'password'}
+                        />
+                        <FormField
+                            value={'Repeat Password'}
+                            inputType={'text'}
+                            name={'password'}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <FormField
+                            value={'Password'}
+                            inputType={'password'}
+                            name={'password'}
+                        />
+                        <FormField
+                            value={'Repeat Password'}
+                            inputType={'password'}
+                            name={'password'}
+                        />
+                    </>
+                )}
 
-                <div onClick={() => setShowPassword(!showPassword)}>
-                    <ShowPassword value={'Show password'} />
-                </div>
+                <ShowPassword value={'Show password'} />
                 <Submit value={'Submit'} />
                 <p>Already have an account? Click the button down below</p>
                 <AuthSwitchButton

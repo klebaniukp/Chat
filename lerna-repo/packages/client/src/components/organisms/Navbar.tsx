@@ -28,14 +28,17 @@ export const Navbar = () => {
                 <DropdownList />
                 <SearchUser />
                 {authStatus ? (
-                    <>
-                        <Logout />
-                        <UserInfo email={userData.email} />
-                    </>
+                    (console.log(userData),
+                    (
+                        <>
+                            <UserInfo email={userData.email} />
+                            <Logout />
+                        </>
+                    ))
                 ) : (
                     <>
-                        <Logout />
                         <UserInfo email={'john@doe.com'} />
+                        <Logout />r
                     </>
                 )}
             </div>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { FormField } from '../molecules/Form/FormField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
 import { Card } from '../atoms/Box/Card';
-import { useDispatch } from 'react-redux';
 import { signIn } from '../../api';
 import { useHistory } from 'react-router-dom';
 import { IUserData } from '../../types/types';
@@ -16,7 +17,9 @@ export const SignIn = ({
     value: string;
     setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-    const [showPassword, setShowPassword] = useState(false);
+    const showPassword: boolean = useSelector(
+        (state: RootState) => state.showPassword,
+    );
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -85,9 +88,6 @@ export const SignIn = ({
                     value={'Email address'}
                     name={'email'}
                 />
-
-                {/* <FormPasswordField value={'Password'} name={'password'} /> */}
-
                 {showPassword ? (
                     <FormField
                         value={'Password'}
@@ -102,9 +102,7 @@ export const SignIn = ({
                     />
                 )}
 
-                <div onClick={() => setShowPassword(!showPassword)}>
-                    <ShowPassword value={'Show password'} />
-                </div>
+                <ShowPassword value={'Show password'} />
                 <Submit value={'Submit'} />
                 <p>Don't have an account yet? Click the button down below</p>
                 <AuthSwitchButton

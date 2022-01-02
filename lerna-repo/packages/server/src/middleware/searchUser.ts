@@ -19,7 +19,6 @@ export const searchUser = async (req: Request, res: Response) => {
             Promise.all(search).then(() => {
                 search.map(user => {
                     const reducedUser: IFriend = {
-                        _id: user._id,
                         email: user.email,
                         name: user.name,
                         lastName: user.lastName,
@@ -43,7 +42,6 @@ export const searchUser = async (req: Request, res: Response) => {
 
             const reducedUser = [
                 {
-                    _id: search._id,
                     email: search.email,
                     name: search.name,
                     lastName: search.lastName,

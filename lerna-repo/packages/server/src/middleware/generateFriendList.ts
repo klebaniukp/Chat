@@ -25,8 +25,13 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
         const friendList = user.friends.map(friend => friend._id);
 
-        if (!friendList.length) {
-            return res.status(200).json({ message: 'No friends' });
+        if (friendList.length === 0) {
+            return res.status(200).json({
+                message: 'No friends',
+                friendList: [
+                    { email: 'Forever', name: 'Your', lastname: 'Friend' },
+                ],
+            });
         }
 
         const filledFriendList = UserModel.find({
@@ -35,15 +40,8 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
         filledFriendList
             .then(users => {
-                if (users.length === 0) {
-                    return res
-                        .status(404)
-                        .json({ message: 'No friends found' });
-                }
-
                 const convertedUsers = users.map(user => {
                     return {
-                        _id: user._id,
                         email: user.email,
                         name: user.name,
                         lastName: user.lastName,
