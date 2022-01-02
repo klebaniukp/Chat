@@ -24,7 +24,8 @@ export const SignUp = ({
     const signingUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const form = document.querySelector('form');
+            // const form = document.querySelector('form');
+            const form: HTMLFormElement = e.currentTarget;
             if (
                 form !== null &&
                 form.username !== null &&

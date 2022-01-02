@@ -13,7 +13,7 @@ const userSchema = new Schema({
                 friendRequestStatus: String,
             },
         ],
-        required: false,
+        required: true,
     },
 });
 

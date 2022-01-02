@@ -1,7 +1,6 @@
-import { Request, Response, NextFunction, response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { UserModel } from '../models/User';
 import { passwordSchema } from '../models/Password';
-import { IResUser } from '../types/types';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -13,37 +12,35 @@ export const signup = async (req: Request, res: Response) => {
     const maxAge = 1000 * 60 * 60;
 
     try {
-        let oldUser = await UserModel.findOne({ email: email });
+        const oldUser = await UserModel.findOne({ email: email });
 
         if (oldUser)
             return res
                 .status(400)
                 .json({ message: 'This email is already in use' });
 
-        oldUser = await UserModel.findOne({ name: name });
-
-        if (oldUser)
-            return res
-                .status(400)
-                .json({ message: 'This is username is taken' });
-
         if (!passwordSchema.validate(password))
-            return res
-                .status(400)
-                .json({ message: 'Password does not match credentials' });
+            return res.status(400).json({
+                message:
+                    'Invalid password, check length, capital letters and number appearance',
+            });
 
         if (!specialSigns.test(password))
-            return res
-                .status(400)
-                .json({ message: 'Password does not match credentials' });
+            return res.status(400).json({
+                message: 'Invalid password, provide special sign',
+            });
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const newUser = await UserModel.create({
-            email,
-            name,
-            lastName,
+            email: email,
+            name: name,
+            lastName: lastName,
             password: hashedPassword,
+            friends: {
+                _id: '61c337a2ba0b0fc612881eab',
+                friendRequestStatus: true,
+            },
         });
 
         const token = jwt.sign(
@@ -61,6 +58,8 @@ export const signup = async (req: Request, res: Response) => {
                         lastName: response.lastName,
                         friends: response.friends,
                     };
+
+                    console.log(`result: ${JSON.stringify(result)}`);
 
                     return res
                         .status(200)
@@ -88,16 +87,11 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-export const signin = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) => {
+export const signin = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const refreshToken = process.env.JWT_REFRESH_TOKEN as string;
     const { email, password } = req.body;
     const maxAge = 1000 * 60 * 60;
-    const ipAddress = req.socket.remoteAddress;
 
     try {
         const oldUser = await UserModel.findOne({ email: email });
@@ -155,8 +149,4 @@ export const signin = async (
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });
     }
-};
-
-export const helloWorld = async (req: Request, res: Response) => {
-    res.status(200).json({ message: 'Hello World' });
 };

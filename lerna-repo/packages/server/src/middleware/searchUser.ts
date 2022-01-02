@@ -12,7 +12,8 @@ export const searchUser = async (req: Request, res: Response) => {
                 { name: { $regex: searchPhraze, $options: 'i' } },
                 { lastName: { $regex: searchPhraze, $options: 'i' } },
                 { email: { $regex: searchPhraze, $options: 'i' } },
-                { id: { $regex: searchPhraze, $options: 'i' } },
+                // { _id: { $regex: searchPhraze, $options: 'i' } },
+                // { _id: searchPhraze },
             ],
         }).exec();
 

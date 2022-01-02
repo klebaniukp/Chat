@@ -10,7 +10,6 @@ export const SearchFriendModel = (props: {
     firstname: string;
     lastname: string;
     email: string;
-    userId: string;
     imgHeight: string;
 }) => {
     const [isHover, setIsHover] = useState(false);

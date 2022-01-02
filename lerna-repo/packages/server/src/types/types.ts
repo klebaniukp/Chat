@@ -26,3 +26,7 @@ export interface IUserFriend {
     _id: string;
     friendRequestStatus: boolean;
 }
+
+export interface IIdOnlyFriendList {
+    _id: string;
+}

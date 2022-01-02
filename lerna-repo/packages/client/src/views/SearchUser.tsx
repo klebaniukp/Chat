@@ -19,16 +19,8 @@ export const SearchUser = () => {
 
     const isUserFriend = (id: string) => {
         const userFriendList: IFriend[] = userData.friends;
-        // setIsFriend(!isFriend);
-
-        // if (userFriendList.includes(id)) {
-        //     setIsFriend(true);
-        // } else {
-        //     setIsFriend(false);
-        // }
         userFriendList.map(friend => {
             if (friend._id.toString() === id) {
-                // return setIsFriend(true);
                 return true;
             }
         });
@@ -41,19 +33,18 @@ export const SearchUser = () => {
             className='d-flex flex-wrap flex-column justify-content-center align-item-center m-auto '
             style={{ width: '100vw' }}>
             {searchResults.map(user => (
-                <div
-                    key={user._id}
-                    className='d-flex flex-row justify-content-center'>
-                    <SearchFriendModel
-                        img={profile}
-                        width={'49.5'}
-                        height={'10'}
-                        imgHeight={'6'}
-                        firstname={user.name}
-                        lastname={user.lastName}
-                        email={user.email}
-                        userId={user._id}
-                    />
+                <div key={user.email}>
+                    <div className='d-flex flex-row justify-content-center'>
+                        <SearchFriendModel
+                            img={profile}
+                            width={'49.5'}
+                            height={'10'}
+                            imgHeight={'6'}
+                            firstname={user.name}
+                            lastname={user.lastName}
+                            email={user.email}
+                        />
+                    </div>
                 </div>
             ))}
         </div>

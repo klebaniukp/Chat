@@ -1,6 +1,6 @@
 import { IUserData } from '../../types/types';
 
-export const getUserData =
+export const setUserData =
     (userData: IUserData) =>
     (dispatch: (arg0: { type: string; payload: IUserData }) => void) => {
         try {

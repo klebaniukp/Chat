@@ -1,6 +1,6 @@
 export interface IFriend {
     _id: string;
-    friendRequestStatus: 'pending' | 'fullfilled';
+    friendRequestStatus: boolean;
 }
 
 export interface IFullFriendData {
