@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useHistory } from 'react-router-dom';
@@ -130,7 +130,7 @@ export const SignUp = ({
                         <FormField
                             value={'Repeat Password'}
                             inputType={'text'}
-                            name={'password'}
+                            name={'confirmPassword'}
                         />
                     </>
                 ) : (
@@ -143,7 +143,7 @@ export const SignUp = ({
                         <FormField
                             value={'Repeat Password'}
                             inputType={'password'}
-                            name={'password'}
+                            name={'confirmPassword'}
                         />
                     </>
                 )}

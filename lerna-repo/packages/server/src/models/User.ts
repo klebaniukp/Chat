@@ -10,7 +10,8 @@ const userSchema = new Schema({
         type: [
             {
                 _id: String,
-                friendRequestStatus: String,
+                email: String,
+                friendRequestStatus: Boolean,
             },
         ],
         required: true,

@@ -19,14 +19,19 @@ export interface IUser {
     name: string;
     lastName: string;
     password: string;
-    friends: IUserFriend[] | [];
+    friends: IUserFriend[];
 }
 
 export interface IUserFriend {
     _id: string;
+    email: string;
     friendRequestStatus: boolean;
 }
 
 export interface IIdOnlyFriendList {
     _id: string;
+}
+
+export interface IFriendReqStatus {
+    friendRequestStatus: null | false | true;
 }

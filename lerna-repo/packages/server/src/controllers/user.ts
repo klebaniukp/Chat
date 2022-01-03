@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { UserModel } from '../models/User';
 import { passwordSchema } from '../models/Password';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IUser } from '../interfaces/IUser';
 
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
@@ -32,16 +33,46 @@ export const signup = async (req: Request, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const newUser = await UserModel.create({
+        const defaultFriend = await UserModel.findOne({
+            email: 'default@friend.com',
+        });
+
+        if (!defaultFriend) {
+            return res.status(500).json({
+                message: 'Default friend not found, probably connection issue',
+            });
+        }
+
+        const friendObj = {
+            _id: defaultFriend._id,
+            email: defaultFriend.email,
+            friendRequestStatus: true,
+        };
+
+        const newUser: IUser = await UserModel.create({
             email: email,
             name: name,
             lastName: lastName,
             password: hashedPassword,
-            friends: {
-                _id: '61d1a8a5683071df282bf664',
-                friendRequestStatus: true,
-            },
+            friends: [friendObj],
         });
+
+        console.log(`newuser email: ${newUser.email}`);
+
+        const newUserObjectToUpdate = {
+            _id: newUser._id,
+            email: newUser.email,
+            friendRequestStatus: true,
+        };
+
+        await UserModel.findOneAndUpdate(
+            { email: 'default@friend.com' },
+            {
+                $push: {
+                    friends: newUserObjectToUpdate,
+                },
+            },
+        );
 
         const token = jwt.sign(
             { email: newUser.email, id: newUser._id },
@@ -152,14 +183,20 @@ export const signin = async (req: Request, res: Response) => {
     }
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const isUserMyFriend = async (req: Request, res: Response) => {
     try {
-        return res
-            .status(200)
-            .clearCookie('token')
-            .clearCookie('refreshToken')
-            .json({ message: 'Logged out' });
-    } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+        const { possibleFriendEmail } = req.body;
+        const token = req.cookies.token;
+
+        if (jwt.decode(token) === null) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
+        const decodedToken = jwt.decode(token) as JwtPayload;
+        const userId = decodedToken.id;
+
+        const user = await UserModel.findById(userId);
+    } catch (error) {
+        res.status(500).json({ message: (error as Error).message });
     }
 };

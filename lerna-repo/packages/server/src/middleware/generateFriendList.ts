@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import cookieParser from 'cookie-parser';
 import { UserModel } from '../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
@@ -23,7 +22,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
                 .json({ message: 'Invalid jwt token, user not found' });
         }
 
-        const friendList = user.friends.map(friend => friend._id);
+        const friendList = user.friends.map(friend => friend.email);
 
         if (friendList.length === 0) {
             return res.status(200).json({
@@ -35,7 +34,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
         }
 
         const filledFriendList = UserModel.find({
-            _id: { $in: friendList },
+            email: { $in: friendList },
         });
 
         filledFriendList
