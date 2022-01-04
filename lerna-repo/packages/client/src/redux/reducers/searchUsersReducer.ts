@@ -15,6 +15,7 @@ export const searchUsersReducer = (
                         email: 'example@gmail.com',
                         name: 'Example',
                         lastName: 'Friend',
+                        friendRequestStatus: null,
                     },
                 ];
             default:
@@ -27,6 +28,7 @@ export const searchUsersReducer = (
                             email: 'example@gmail.com',
                             name: 'Example',
                             lastName: 'Friend',
+                            friendRequestStatus: null,
                         },
                     ];
                 }

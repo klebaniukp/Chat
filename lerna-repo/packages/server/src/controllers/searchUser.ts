@@ -19,8 +19,6 @@ export const searchUser = async (
             return res.status(404).json({ message: 'Unauthorized' });
         }
 
-        // const friendList = user.friends;
-
         const { searchPhraze } = req.body;
 
         const search = await UserModel.find({
@@ -60,7 +58,7 @@ export const searchUser = async (
                     return reducerUser;
                 });
 
-                res.locals.searchResult = searchResult;
+                res.locals.possibleFriendArray = searchResult;
                 next();
             });
         } else {
@@ -84,7 +82,7 @@ export const searchUser = async (
                 },
             ];
 
-            res.locals.searchResult = reducedUser;
+            res.locals.possibleFriendArray = reducedUser;
             next();
         }
     } catch (error) {

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
 import { ButtonNoLink } from '../atoms/Button/ButtonNoLink';
 import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
@@ -11,20 +13,36 @@ export const SearchFriendModel = (props: {
     lastname: string;
     email: string;
     imgHeight: string;
+    isFriend: null | boolean;
 }) => {
     const [isHover, setIsHover] = useState(false);
-    const [isFriend, setIsFriend] = useState(false);
+
+    const decideWhichButtonToRender = () => {
+        if (props.isFriend === true) {
+            return <DisabledSuccessBtt value='friend' />;
+        } else if (props.isFriend === false) {
+            return <DisabledSuccessBtt value='pending request' />;
+        } else if (props.isFriend === null) {
+            return <ButtonNoLink type='submit' value='add' />;
+        }
+    };
 
     return (
-        <div className='d-flex justify-content-evenly border border-2 mb-1 mt-1 w-50'>
+        <div
+            className='d-flex justify-content-evenly border border-2 mb-1 mt-1'
+            style={{ width: `${props.width}vw` }}>
             {isHover ? (
                 <div
-                    className='d-flex flex-row justify-content-evenly align-items-center bg-light'
+                    className='d-flex flex-row justify-content-evenly align-items-center'
                     style={{
                         width: `${props.width}vw`,
                         height: `${props.height}vh`,
+                        backgroundColor: '#e6e6e6',
                     }}
-                    onMouseEnter={() => setIsHover(true)}
+                    onMouseEnter={() => {
+                        setIsHover(true);
+                        console.log('mouse enter');
+                    }}
                     onMouseLeave={() => setIsHover(false)}>
                     <img
                         style={{ height: `${props.imgHeight}vh` }}
@@ -39,11 +57,7 @@ export const SearchFriendModel = (props: {
                             email={props.email}
                         />
                     </div>
-                    {isFriend ? (
-                        <DisabledSuccessBtt value={'friend'} />
-                    ) : (
-                        <ButtonNoLink type='submit' value='add' />
-                    )}
+                    {decideWhichButtonToRender()}
                 </div>
             ) : (
                 <div
@@ -67,11 +81,7 @@ export const SearchFriendModel = (props: {
                             email={props.email}
                         />
                     </div>
-                    {isFriend ? (
-                        <DisabledSuccessBtt value={'friend'} />
-                    ) : (
-                        <ButtonNoLink type='submit' value='add' />
-                    )}
+                    {decideWhichButtonToRender()}
                 </div>
             )}
         </div>

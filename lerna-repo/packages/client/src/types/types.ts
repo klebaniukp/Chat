@@ -22,6 +22,7 @@ export interface ISearchedUser {
     email: string;
     name: string;
     lastName: string;
+    friendRequestStatus: null | boolean;
 }
 
 export interface IReducedFriend {

@@ -4,7 +4,7 @@ import { logout } from '../controllers/user/logout';
 import { auth } from '../middleware/auth';
 import { searchUser } from '../controllers/searchUser';
 // import { sendFriendRequest } from '../middleware/sendFriendRequest';
-import { isSearchResultUsersFriend } from '../middleware/isSearchResultUsersFriend';
+import { doesArrayContainFriends } from '../middleware/doesArrayContainFriends';
 import { updateUserData } from '../controllers/user/updateUserData';
 import { authentication } from '../middleware/authentication';
 import { generateFriendList } from '../controllers/user/generateFriendList';
@@ -20,7 +20,7 @@ userRouter.post(
     '/searchUser',
     authentication,
     searchUser,
-    isSearchResultUsersFriend,
+    doesArrayContainFriends,
 );
 userRouter.post('/updateUser', authentication, updateUserData);
 // userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);

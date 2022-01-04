@@ -28,9 +28,8 @@ export const SearchUser = () => {
                 searchUsers({ searchPhraze: searchPhraze })
                     .then(res => {
                         if (res.status === 200) {
-                            console.log(res.data.searchResult);
-                            const searchResult: ISearchResult =
-                                res.data.searchResult;
+                            console.log(res.data.result);
+                            const searchResult: ISearchResult = res.data.result;
 
                             dispatch({
                                 type: 'SEARCH_USERS',
