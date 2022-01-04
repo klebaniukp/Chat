@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/User';
+import { UserModel } from '../../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const generateFriendList = async (req: Request, res: Response) => {

@@ -1,8 +1,8 @@
 //update user data from mongoDb model
 import { Request, Response } from 'express';
-import { UserModel } from '../models/User';
-import { IUser } from '../interfaces/IUser';
-import { IFriend } from '../types/types';
+import { UserModel } from '../../models/User';
+import { IUser } from '../../interfaces/IUser';
+import { IFriend } from '../../types/types';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const updateUserData = async (req: Request, res: Response) => {

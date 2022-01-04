@@ -8,6 +8,15 @@ export const searchUsersReducer = (
         switch (action.type) {
             case 'SEARCH_USERS':
                 return action.payload;
+            case 'CLEAR_SEARCH_USERS':
+                return [
+                    {
+                        _id: 'x',
+                        email: 'example@gmail.com',
+                        name: 'Example',
+                        lastName: 'Friend',
+                    },
+                ];
             default:
                 if (state) {
                     return state;

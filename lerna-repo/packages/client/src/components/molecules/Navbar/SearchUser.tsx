@@ -40,8 +40,9 @@ export const SearchUser = () => {
                             history.push(routes.searchUser);
                         }
                     })
-                    .catch(err => {
-                        console.log(err);
+                    .catch(() => {
+                        dispatch({ type: 'CLEAR_SEARCH_USERS' });
+                        alert('No users found');
                     });
             } else {
                 alert('Fill the form');

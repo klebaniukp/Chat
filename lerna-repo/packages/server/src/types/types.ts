@@ -25,7 +25,7 @@ export interface IUser {
 export interface IUserFriend {
     _id: string;
     email: string;
-    friendRequestStatus: boolean;
+    friendRequestStatus: null | boolean;
 }
 
 export interface IIdOnlyFriendList {
@@ -33,5 +33,13 @@ export interface IIdOnlyFriendList {
 }
 
 export interface IFriendReqStatus {
-    friendRequestStatus: null | false | true;
+    friendRequestStatus: null | boolean;
+}
+
+export interface ISearchResult {
+    _id: string;
+    email: string;
+    name: string;
+    lastName: string;
+    friendRequestStatus: null | boolean;
 }

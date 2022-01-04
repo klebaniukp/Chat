@@ -1,12 +1,13 @@
 import express from 'express';
-import { signup, signin } from '../controllers/user';
-import { logout } from '../controllers/logout';
+import { signup, signin } from '../controllers/user/user';
+import { logout } from '../controllers/user/logout';
 import { auth } from '../middleware/auth';
-import { searchUser } from '../middleware/searchUser';
+import { searchUser } from '../controllers/searchUser';
 // import { sendFriendRequest } from '../middleware/sendFriendRequest';
-import { updateUserData } from '../middleware/updateUserData';
+import { isSearchResultUsersFriend } from '../middleware/isSearchResultUsersFriend';
+import { updateUserData } from '../controllers/user/updateUserData';
 import { authentication } from '../middleware/authentication';
-import { generateFriendList } from '../middleware/generateFriendList';
+import { generateFriendList } from '../controllers/user/generateFriendList';
 
 export const userRouter = express.Router();
 
@@ -15,7 +16,12 @@ userRouter.use(express.json());
 userRouter.post('/signin', signin);
 userRouter.post('/signup', signup);
 userRouter.get('/getUser', auth);
-userRouter.post('/searchUser', authentication, searchUser);
+userRouter.post(
+    '/searchUser',
+    authentication,
+    searchUser,
+    isSearchResultUsersFriend,
+);
 userRouter.post('/updateUser', authentication, updateUserData);
 // userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
 userRouter.get('/generateFriendList', authentication, generateFriendList);

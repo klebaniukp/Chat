@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-import { UserModel } from '../models/User';
-import { passwordSchema } from '../models/Password';
+import { Request, Response } from 'express';
+import { UserModel } from '../../models/User';
+import { passwordSchema } from '../../models/Password';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { IUser } from '../interfaces/IUser';
+import { IUser } from '../../interfaces/IUser';
 
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
