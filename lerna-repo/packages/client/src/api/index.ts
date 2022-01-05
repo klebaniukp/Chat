@@ -36,3 +36,6 @@ export const searchUsers = (formData: { searchPhraze: string }) =>
 export const generateFriendList = () => API.get('/user/generateFriendList');
 
 export const logout = () => API.get('/user/logout');
+
+export const sendFriendRequestAPI = (formData: { id: string }) =>
+    API.post('/user/sendFriendRequest', formData);

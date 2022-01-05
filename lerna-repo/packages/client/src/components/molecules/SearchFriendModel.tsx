@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { sendFriendRequestAPI } from '../../api';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
@@ -14,8 +15,27 @@ export const SearchFriendModel = (props: {
     email: string;
     imgHeight: string;
     isFriend: null | boolean;
+    id: string;
 }) => {
     const [isHover, setIsHover] = useState(false);
+
+    const sendFriendRequest = () => {
+        //send friend request (send id to backend)
+        //set isFriend to false (to show that you have sent friend request)
+        //udpate store ^^
+        // const id = props.id;
+
+        sendFriendRequestAPI({ id: props.id })
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    props.isFriend = false;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     const decideWhichButtonToRender = () => {
         if (props.isFriend === true) {
@@ -23,7 +43,11 @@ export const SearchFriendModel = (props: {
         } else if (props.isFriend === false) {
             return <DisabledSuccessBtt value='pending request' />;
         } else if (props.isFriend === null) {
-            return <ButtonNoLink type='submit' value='add' />;
+            return (
+                <div onClick={() => sendFriendRequest()}>
+                    <ButtonNoLink type='submit' value='add' />
+                </div>
+            );
         }
     };
 
@@ -41,7 +65,6 @@ export const SearchFriendModel = (props: {
                     }}
                     onMouseEnter={() => {
                         setIsHover(true);
-                        console.log('mouse enter');
                     }}
                     onMouseLeave={() => setIsHover(false)}>
                     <img

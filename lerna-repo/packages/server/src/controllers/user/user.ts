@@ -57,8 +57,6 @@ export const signup = async (req: Request, res: Response) => {
             friends: [friendObj],
         });
 
-        console.log(`newuser email: ${newUser.email}`);
-
         const newUserObjectToUpdate = {
             _id: newUser._id,
             email: newUser.email,
@@ -90,8 +88,6 @@ export const signup = async (req: Request, res: Response) => {
                         lastName: response.lastName,
                         friends: response.friends,
                     };
-
-                    console.log(`result: ${JSON.stringify(result)}`);
 
                     return res
                         .status(200)
@@ -148,7 +144,6 @@ export const signin = async (req: Request, res: Response) => {
         UserModel.findOne({ email: email })
             .then(response => {
                 if (response) {
-                    console.log(`friends: ${response.friends}`);
                     const user = {
                         _id: response._id,
                         email: response.email,

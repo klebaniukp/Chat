@@ -58,18 +58,28 @@ export const FullCard = (props: {
 
                 updateUserData(updatedUser)
                     .then(res => {
-                        const userData: IUserData = {
-                            id: res.data.result._id,
-                            email: res.data.result.email,
-                            name: res.data.result.name,
-                            lastName: res.data.result.lastName,
-                            friends: res.data.result.friends,
-                        };
+                        if (res.status === 200) {
+                            const userData: IUserData = {
+                                id: res.data.result._id,
+                                email: res.data.result.email,
+                                name: res.data.result.name,
+                                lastName: res.data.result.lastName,
+                                friends: res.data.result.friends,
+                            };
 
-                        dispatch({ type: 'SET_USER_DATA', payload: userData });
-                        setIsDisabled(true);
-                        setDisplay(true);
-                        setIsUpdateBtn(false);
+                            dispatch({
+                                type: 'SET_USER_DATA',
+                                payload: userData,
+                            });
+                            setIsDisabled(true);
+                            setDisplay(true);
+                            setIsUpdateBtn(false);
+                        } else if (res.status === 201) {
+                            console.log(res.data.message);
+                            alert(
+                                res.data.message + ' change to antoher email',
+                            );
+                        }
                     })
                     .catch(err => {
                         console.log(err);
@@ -149,22 +159,12 @@ export const FullCard = (props: {
                         {isUpdateBtn ? (
                             <button
                                 type='submit'
-                                className='btn btn-outline-primary'
-                                onChange={() => {
-                                    setIsDisabled(true);
-                                    setDisplay(true);
-                                    setIsUpdateBtn(false);
-                                }}>
+                                className='btn btn-outline-primary'>
                                 update
                             </button>
                         ) : (
                             <button
                                 className='btn btn-outline-primary'
-                                onChange={() => {
-                                    setIsDisabled(true);
-                                    setDisplay(true);
-                                    setIsUpdateBtn(false);
-                                }}
                                 disabled>
                                 update
                             </button>

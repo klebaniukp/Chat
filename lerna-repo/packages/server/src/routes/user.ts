@@ -3,7 +3,7 @@ import { signup, signin } from '../controllers/user/user';
 import { logout } from '../controllers/user/logout';
 import { auth } from '../middleware/auth';
 import { searchUser } from '../controllers/searchUser';
-// import { sendFriendRequest } from '../middleware/sendFriendRequest';
+import { sendFriendRequest } from '../controllers/usersModifications/sendFriendRequest';
 import { doesArrayContainFriends } from '../middleware/doesArrayContainFriends';
 import { updateUserData } from '../controllers/user/updateUserData';
 import { authentication } from '../middleware/authentication';
@@ -23,9 +23,9 @@ userRouter.post(
     doesArrayContainFriends,
 );
 userRouter.post('/updateUser', authentication, updateUserData);
-// userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
 userRouter.get('/generateFriendList', authentication, generateFriendList);
 userRouter.get('/logout', logout);
+userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
 
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token

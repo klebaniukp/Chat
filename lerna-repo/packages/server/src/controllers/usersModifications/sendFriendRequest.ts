@@ -1,56 +1,59 @@
-// import { Request, Response } from 'express';
-// import { UserModel } from '../models/User';
-// import jwt, { JwtPayload } from 'jsonwebtoken';
+import { Request, Response } from 'express';
+import { UserModel } from '../../models/User';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IFriendReqStatus } from '../../types/types';
 
-// export const sendFriendRequest = async (req: Request, res: Response) => {
-//     try {
-//         const { userToAddId } = req.body;
-//         const token = req.cookies.token;
+export const sendFriendRequest = async (req: Request, res: Response) => {
+    const updateUserFriendList = async (
+        userId: string,
+        idToUpdate: string,
+        email: string,
+        friendRequestStatus: boolean,
+    ) => {
+        try {
+            const filter = { _id: userId };
+            const userObjectToUpdate = {
+                _id: idToUpdate,
+                email: email,
+                friendRequestStatus: friendRequestStatus,
+            };
+            const update = {
+                $push: { friends: userObjectToUpdate },
+            };
 
-//         const decodedToken = jwt.decode(token) as JwtPayload;
-//         const userId = decodedToken.id;
+            await UserModel.findOneAndUpdate(filter, update);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-//         const searchedUser = await UserModel.findOne({
-//             _id: userToAddId,
-//         }).lean();
+    try {
+        const friendToAddId = req.body.id;
+        const token = req.cookies.token;
 
-//         if (!searchedUser) {
-//             res.status(404).json({ message: 'User not found' });
-//         }
+        const decodedToken = jwt.decode(token) as JwtPayload;
+        const userId = decodedToken.id;
 
-//         //updating user from token
-//         await UserModel.findOneAndUpdate(
-//             { _id: userId },
-//             {
-//                 $push: {
-//                     friends: {
-//                         _id: userId,
-//                         friendRequestStatus: 'pending',
-//                     },
-//                 },
-//             },
-//         );
+        const user = await UserModel.findById(userId);
 
-//         //updating user that has been added by token user
-//         await UserModel.findOneAndUpdate(
-//             { _id: userToAddId },
-//             {
-//                 $push: {
-//                     friends: {
-//                         _id: userId,
-//                         friendRequestStatus: 'pending',
-//                     },
-//                 },
-//             },
-//         );
+        if (!user) {
+            return res.status(404).json({ message: 'Unauthorized' });
+        }
 
-//         const updatedUser = await UserModel.findOne({ _id: userId }).lean();
+        const friendToAdd = await UserModel.findById(friendToAddId);
 
-//         res.status(200).json({
-//             message: 'Friend request sent',
-//             updatedUser: updatedUser,
-//         });
-//     } catch (err) {
-//         res.status(500).json({ message: (err as Error).message });
-//     }
-// };
+        if (!friendToAdd) {
+            return res
+                .status(404)
+                .json({ message: 'User you are trying to add do not exist' });
+        }
+
+        updateUserFriendList(friendToAddId, userId, user.email, false);
+
+        updateUserFriendList(userId, friendToAddId, friendToAdd.email, false);
+
+        return res.status(200).json({ message: 'Friend request sent' });
+    } catch (error) {
+        res.status(500).json({ message: (error as Error).message });
+    }
+};

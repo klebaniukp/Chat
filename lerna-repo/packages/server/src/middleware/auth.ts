@@ -21,8 +21,6 @@ export const auth = async (req: Request, res: Response) => {
             const decodedToken = JSON.stringify(jwt.decode(token));
             const userId = JSON.parse(decodedToken).id;
 
-            // console.log(`decodedToken: ${decodedToken}`);
-
             UserModel.findOne({ _id: userId })
                 .then(response => {
                     if (response) {
@@ -30,7 +28,7 @@ export const auth = async (req: Request, res: Response) => {
                             _id: response._id,
                             email: response.email,
                             name: response.name,
-                            lastName: response.lastName, 
+                            lastName: response.lastName,
                             friends: response.friends,
                         };
 

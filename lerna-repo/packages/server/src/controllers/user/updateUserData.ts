@@ -21,6 +21,21 @@ export const updateUserData = async (req: Request, res: Response) => {
             lastName: lastname,
         };
 
+        const takenData = await UserModel.findOne({ email: email }).exec();
+
+        const userCheck = await UserModel.findOne(filter).exec();
+
+        if (!userCheck) {
+            return res.status(404).json({ message: 'Unauthorized' });
+        }
+
+        if (takenData && userCheck.email !== email) {
+            console.log(takenData);
+            return res
+                .status(201)
+                .json({ message: 'This email address is already taken' });
+        }
+
         await UserModel.findOneAndUpdate(filter, update);
 
         const user: IUser[] = await UserModel.find(filter).exec();

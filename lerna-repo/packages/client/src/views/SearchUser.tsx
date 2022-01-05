@@ -20,7 +20,7 @@ export const SearchUser = () => {
                     user => (
                         console.log(user.friendRequestStatus),
                         (
-                            <div key={user.email}>
+                            <div key={user._id}>
                                 <div className='d-flex flex-row justify-content-center'>
                                     <SearchFriendModel
                                         img={profile}
@@ -31,6 +31,7 @@ export const SearchUser = () => {
                                         lastname={user.lastName}
                                         email={user.email}
                                         isFriend={user.friendRequestStatus}
+                                        id={user._id}
                                     />
                                 </div>
                             </div>
@@ -38,7 +39,7 @@ export const SearchUser = () => {
                     ),
                 )
             ) : (
-                <div key={searchResults[0].email}>
+                <div key={searchResults[0]._id}>
                     {console.log(searchResults[0].friendRequestStatus)}
                     <div className='d-flex flex-row justify-content-center'>
                         <SearchFriendModel
@@ -50,6 +51,7 @@ export const SearchUser = () => {
                             lastname={searchResults[0].lastName}
                             email={searchResults[0].email}
                             isFriend={searchResults[0].friendRequestStatus}
+                            id={searchResults[0]._id}
                         />
                     </div>
                 </div>
