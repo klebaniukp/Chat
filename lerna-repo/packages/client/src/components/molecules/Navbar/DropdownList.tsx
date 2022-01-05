@@ -14,6 +14,7 @@ export const DropdownList = () => {
                         <Item value={'Main'} path={'/'} />
                         <Item value={'Login'} path={'/Auth'} />
                         <Item value={'User Info'} path={'/Profile'} />
+                        <Item value={'Friend Requests'} path={'/friends'} />
                     </ul>
                 </li>
             </ul>

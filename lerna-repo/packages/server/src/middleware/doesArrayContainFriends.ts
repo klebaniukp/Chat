@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { ISearchResult } from '../types/types';
+import { ISearchResult, IUser } from '../types/types';
+import { IUserFriend } from '../types/types';
 
 export const doesArrayContainFriends = async (req: Request, res: Response) => {
     try {
@@ -16,6 +17,7 @@ export const doesArrayContainFriends = async (req: Request, res: Response) => {
         }
 
         const friendList = user.friends;
+        // console.log(`friendList: ${friendList}`);
 
         const possibleFriendArray: ISearchResult[] =
             res.locals.possibleFriendArray;
@@ -24,25 +26,48 @@ export const doesArrayContainFriends = async (req: Request, res: Response) => {
 
         const friendIdsList = friendList.map(user => user._id);
 
-        console.log('possible friend array:');
-        console.log(possibleFriendArray);
-
-        console.log('friend list:');
-        console.log(friendList);
+        // console.log(`friendIdsList: ${friendIdsList}`);
+        // console.log(`searchResultIdsList: ${searchResultIdsList}`);
 
         for (let i = 0; i < searchResultIdsList.length; i++) {
-            console.log(i);
             if (friendIdsList.includes(`${searchResultIdsList[i]}`)) {
+                const friendRequestStatus = searchForFieldWithCertainId(
+                    searchResultIdsList[i],
+                    friendList,
+                );
+
+                console.log(`friendRequestStatus: ${friendRequestStatus}`);
+
                 possibleFriendArray[i].friendRequestStatus =
-                    friendList[i].friendRequestStatus;
+                    friendRequestStatus;
             }
         }
         //przekraczane są indexy, friendIdsList ma np. 4 znajomych,
         //a na 5 indexie jest w searchresultIDsList jest friend
 
+        // console.log(`possibleFriendArray: ${possibleFriendArray}`);
+        possibleFriendArray.forEach(element => {
+            console.log(`element: ${JSON.stringify(element)}`);
+        });
         return res.status(200).json({ result: possibleFriendArray });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });
     }
+};
+
+const searchForFieldWithCertainId = (
+    _id: string,
+    array: IUserFriend[],
+): boolean | null => {
+    _id = _id.toString();
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i]._id === _id) {
+            const friendRequestStatus = array[i].friendRequestStatus;
+            return friendRequestStatus;
+        }
+    }
+
+    return null;
 };
