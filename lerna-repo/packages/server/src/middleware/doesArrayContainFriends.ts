@@ -17,7 +17,6 @@ export const doesArrayContainFriends = async (req: Request, res: Response) => {
         }
 
         const friendList = user.friends;
-        // console.log(`friendList: ${friendList}`);
 
         const possibleFriendArray: ISearchResult[] =
             res.locals.possibleFriendArray;
@@ -26,9 +25,6 @@ export const doesArrayContainFriends = async (req: Request, res: Response) => {
 
         const friendIdsList = friendList.map(user => user._id);
 
-        // console.log(`friendIdsList: ${friendIdsList}`);
-        // console.log(`searchResultIdsList: ${searchResultIdsList}`);
-
         for (let i = 0; i < searchResultIdsList.length; i++) {
             if (friendIdsList.includes(`${searchResultIdsList[i]}`)) {
                 const friendRequestStatus = searchForFieldWithCertainId(
@@ -36,19 +32,10 @@ export const doesArrayContainFriends = async (req: Request, res: Response) => {
                     friendList,
                 );
 
-                console.log(`friendRequestStatus: ${friendRequestStatus}`);
-
                 possibleFriendArray[i].friendRequestStatus =
                     friendRequestStatus;
             }
         }
-        //przekraczane są indexy, friendIdsList ma np. 4 znajomych,
-        //a na 5 indexie jest w searchresultIDsList jest friend
-
-        // console.log(`possibleFriendArray: ${possibleFriendArray}`);
-        possibleFriendArray.forEach(element => {
-            console.log(`element: ${JSON.stringify(element)}`);
-        });
         return res.status(200).json({ result: possibleFriendArray });
     } catch (error) {
         console.log(error);

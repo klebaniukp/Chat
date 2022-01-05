@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { ISearchedUser, IUserData } from '../types/types';
@@ -11,51 +11,44 @@ export const SearchUser = () => {
         (state: RootState) => state.searchResults,
     );
 
-    return (
-        <div
-            className='d-flex flex-wrap flex-column justify-content-center align-item-center m-auto '
-            style={{ width: '100vw' }}>
-            {searchResults.length > 1 ? (
-                searchResults.map(
-                    user => (
-                        console.log(user.friendRequestStatus),
-                        (
-                            <div key={user._id}>
-                                <div className='d-flex flex-row justify-content-center'>
-                                    <SearchFriendModel
-                                        img={profile}
-                                        width={'50'}
-                                        height={'10'}
-                                        imgHeight={'6'}
-                                        firstname={user.name}
-                                        lastname={user.lastName}
-                                        email={user.email}
-                                        isFriend={user.friendRequestStatus}
-                                        id={user._id}
-                                    />
-                                </div>
-                            </div>
-                        )
-                    ),
-                )
-            ) : (
-                <div key={searchResults[0]._id}>
-                    {console.log(searchResults[0].friendRequestStatus)}
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
+
+    const generatingSearchResults = () => {
+        const jsxToReturn: JSX.Element[] = [];
+        for (let i = 0; i < searchResults.length; i++) {
+            const jsxElement = (
+                <div key={searchResults[i]._id}>
                     <div className='d-flex flex-row justify-content-center'>
                         <SearchFriendModel
                             img={profile}
                             width={'50'}
                             height={'10'}
-                            imgHeight={'8'}
-                            firstname={searchResults[0].name}
-                            lastname={searchResults[0].lastName}
-                            email={searchResults[0].email}
-                            isFriend={searchResults[0].friendRequestStatus}
-                            id={searchResults[0]._id}
+                            imgHeight={'6'}
+                            firstname={searchResults[i].name}
+                            lastname={searchResults[i].lastName}
+                            email={searchResults[i].email}
+                            isFriend={searchResults[i].friendRequestStatus}
+                            id={searchResults[i]._id}
+                            index={i}
                         />
                     </div>
                 </div>
-            )}
+            );
+
+            jsxToReturn.push(jsxElement);
+        }
+
+        scrollToTop();
+        return jsxToReturn;
+    };
+
+    return (
+        <div
+            className='d-flex flex-wrap flex-column justify-content-center align-item-center m-auto '
+            style={{ width: '100vw' }}>
+            {generatingSearchResults()}
         </div>
     );
 };

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { sendFriendRequestAPI } from '../../api';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
 import { ButtonNoLink } from '../atoms/Button/ButtonNoLink';
 import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
+import { ISearchedUser } from '../../types/types';
 
 export const SearchFriendModel = (props: {
     img: string;
@@ -16,20 +17,37 @@ export const SearchFriendModel = (props: {
     imgHeight: string;
     isFriend: null | boolean;
     id: string;
+    index: number;
 }) => {
     const [isHover, setIsHover] = useState(false);
+    const dispatch = useDispatch();
+
+    const searchResults: ISearchedUser[] = useSelector(
+        (state: RootState) => state.searchResults,
+    );
 
     const sendFriendRequest = () => {
-        //send friend request (send id to backend)
-        //set isFriend to false (to show that you have sent friend request)
-        //udpate store ^^
-        // const id = props.id;
-
         sendFriendRequestAPI({ id: props.id })
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
-                    props.isFriend = false;
+                    const modifiedSearchresults = searchResults.map(user => {
+                        if (user._id === props.id) {
+                            const friendRequestStatus = false;
+
+                            return {
+                                ...user,
+                                friendRequestStatus: friendRequestStatus,
+                            };
+                        }
+                        return {
+                            ...user,
+                        };
+                    });
+
+                    dispatch({
+                        type: 'SEARCH_USERS',
+                        payload: modifiedSearchresults,
+                    });
                 }
             })
             .catch(err => {
@@ -41,7 +59,7 @@ export const SearchFriendModel = (props: {
         if (props.isFriend === true) {
             return <DisabledSuccessBtt value='friend' />;
         } else if (props.isFriend === false) {
-            return <DisabledSuccessBtt value='pending request' />;
+            return <DisabledSuccessBtt value='pending' />;
         } else if (props.isFriend === null) {
             return (
                 <div onClick={() => sendFriendRequest()}>
