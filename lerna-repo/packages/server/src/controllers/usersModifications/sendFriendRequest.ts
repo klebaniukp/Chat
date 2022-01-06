@@ -14,7 +14,7 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
             const filter = { _id: userId };
             const userObjectToUpdate = {
                 _id: idToUpdate,
-                email: email,
+                // email: email,
                 friendRequestStatus: friendRequestStatus,
             };
             const update = {

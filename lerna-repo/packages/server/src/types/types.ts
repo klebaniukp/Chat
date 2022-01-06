@@ -24,7 +24,6 @@ export interface IUser {
 
 export interface IUserFriend {
     _id: string;
-    email: string;
     friendRequestStatus: null | boolean;
 }
 

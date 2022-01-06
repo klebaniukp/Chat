@@ -8,6 +8,7 @@ import { Chat } from './Chat';
 import { Auth } from './Auth';
 import { Profile } from './Profile';
 import { SearchUser } from './SearchUser';
+import { Friends } from './Friends';
 
 let i = 0;
 
@@ -31,6 +32,7 @@ export const Root = () => {
                         path={routes.searchUser}
                         component={SearchUser}
                     />
+                    <Route exact path={routes.friends} component={Friends} />
                 </Switch>
             </div>
         </BrowserRouter>

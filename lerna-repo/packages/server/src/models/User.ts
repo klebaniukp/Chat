@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { IUser } from '../interfaces/IUser';
 
 const userSchema = new Schema({
+    _id: { type: String, required: false },
     email: { type: String, required: true },
     name: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -10,7 +11,6 @@ const userSchema = new Schema({
         type: [
             {
                 _id: String,
-                email: String,
                 friendRequestStatus: Boolean,
             },
         ],

@@ -5,6 +5,15 @@ import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { IUser } from '../../interfaces/IUser';
 
+const generateId = () => {
+    const randomString = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    return `${randomString()}-${randomString()}-${randomString()}-${randomString()}-${randomString()}-${randomString()}${randomString()}${randomString()}`;
+};
+
 export const signup = async (req: Request, res: Response) => {
     const secret = process.env.JWT_SECRET_TOKEN as string;
     const refreshToken = process.env.JWT_REFRESH_TOKEN as string;
@@ -33,85 +42,93 @@ export const signup = async (req: Request, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const defaultFriend = await UserModel.findOne({
-            email: 'default@friend.com',
-        });
+        for (let i = 0; i <= 1; i++) {
+            const id = generateId().toString();
+            const user = await UserModel.findOne({ _id: id });
 
-        if (!defaultFriend) {
-            return res.status(500).json({
-                message: 'Default friend not found, probably connection issue',
-            });
-        }
+            if (!user) {
+                const defaultFriend = await UserModel.findOne({
+                    email: 'default@friend.com',
+                });
 
-        const friendObj = {
-            _id: defaultFriend._id,
-            email: defaultFriend.email,
-            friendRequestStatus: true,
-        };
-
-        const newUser: IUser = await UserModel.create({
-            email: email,
-            name: name,
-            lastName: lastName,
-            password: hashedPassword,
-            friends: [friendObj],
-        });
-
-        const newUserObjectToUpdate = {
-            _id: newUser._id,
-            email: newUser.email,
-            friendRequestStatus: true,
-        };
-
-        await UserModel.findOneAndUpdate(
-            { email: 'default@friend.com' },
-            {
-                $push: {
-                    friends: newUserObjectToUpdate,
-                },
-            },
-        );
-
-        const token = jwt.sign(
-            { email: newUser.email, id: newUser._id },
-            secret,
-            { expiresIn: '60m' },
-        );
-
-        UserModel.findOne({ email: newUser.email })
-            .then(response => {
-                if (response) {
-                    const result = {
-                        _id: response._id,
-                        email: response.email,
-                        name: response.name,
-                        lastName: response.lastName,
-                        friends: response.friends,
-                    };
-
-                    return res
-                        .status(200)
-                        .clearCookie('token')
-                        .cookie('token', token, {
-                            httpOnly: true,
-                            sameSite: 'none',
-                            secure: true,
-                            maxAge: maxAge,
-                        })
-                        .cookie('refreshToken', refreshToken, {
-                            httpOnly: true,
-                            sameSite: 'none',
-                            secure: true,
-                            maxAge: maxAge,
-                        })
-                        .json({ result });
+                if (!defaultFriend) {
+                    return res.status(500).json({
+                        message:
+                            'Default friend not found, probably connection issue',
+                    });
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+
+                const friendObj = {
+                    _id: defaultFriend._id,
+                    email: defaultFriend.email,
+                    friendRequestStatus: true,
+                };
+
+                const newUser: IUser = await UserModel.create({
+                    _id: id,
+                    email: email,
+                    name: name,
+                    lastName: lastName,
+                    password: hashedPassword,
+                    friends: [friendObj],
+                });
+
+                const newUserObjectToUpdate = {
+                    _id: newUser._id,
+                    email: newUser.email,
+                    friendRequestStatus: true,
+                };
+
+                await UserModel.findOneAndUpdate(
+                    { email: 'default@friend.com' },
+                    { $push: { friends: newUserObjectToUpdate } },
+                );
+
+                const token = jwt.sign(
+                    { email: newUser.email, id: newUser._id },
+                    secret,
+                    { expiresIn: '60m' },
+                );
+
+                UserModel.findOne({ email: newUser.email })
+                    .then(response => {
+                        if (response) {
+                            const result = {
+                                _id: response._id,
+                                email: response.email,
+                                name: response.name,
+                                lastName: response.lastName,
+                                friends: response.friends,
+                            };
+
+                            return res
+                                .status(200)
+                                .clearCookie('token')
+                                .cookie('token', token, {
+                                    httpOnly: true,
+                                    sameSite: 'none',
+                                    secure: true,
+                                    maxAge: maxAge,
+                                })
+                                .cookie('refreshToken', refreshToken, {
+                                    httpOnly: true,
+                                    sameSite: 'none',
+                                    secure: true,
+                                    maxAge: maxAge,
+                                })
+                                .json({ result });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                break;
+            } else {
+                break;
+            }
+        }
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        return res.status(500).json({ message: (error as Error).message });
     }
 };
 
@@ -174,7 +191,7 @@ export const signin = async (req: Request, res: Response) => {
                 console.log(error);
             });
     } catch (err) {
-        res.status(500).json({ message: (err as Error).message });
+        return res.status(500).json({ message: (err as Error).message });
     }
 };
 
@@ -192,6 +209,6 @@ export const isUserMyFriend = async (req: Request, res: Response) => {
 
         const user = await UserModel.findById(userId);
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        return res.status(500).json({ message: (error as Error).message });
     }
 };

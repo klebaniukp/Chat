@@ -17,6 +17,7 @@ export const setUserDataReducer = (
                     friends: [
                         {
                             id: '1039274',
+                            friendRequestStatus: false,
                         },
                     ],
                 };
@@ -32,6 +33,7 @@ export const setUserDataReducer = (
                         friends: [
                             {
                                 id: '1039274',
+                                friendRequestStatus: false,
                             },
                         ],
                     };

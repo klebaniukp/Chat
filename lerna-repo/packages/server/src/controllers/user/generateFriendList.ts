@@ -22,7 +22,13 @@ export const generateFriendList = async (req: Request, res: Response) => {
                 .json({ message: 'Invalid jwt token, user not found' });
         }
 
-        const friendList = user.friends.map(friend => friend.email);
+        const friendList = user.friends.map(friend => {
+            return {
+                friendRequestStatus: friend.friendRequestStatus,
+            };
+        });
+
+        const idsFriendList = user.friends.map(friend => friend._id);
 
         if (friendList.length === 0) {
             return res.status(200).json({
@@ -34,19 +40,24 @@ export const generateFriendList = async (req: Request, res: Response) => {
         }
 
         const filledFriendList = UserModel.find({
-            email: { $in: friendList },
+            _id: { $in: idsFriendList },
         });
 
         filledFriendList
             .then(users => {
-                const convertedUsers = users.map(user => {
-                    return {
-                        email: user.email,
-                        name: user.name,
-                        lastName: user.lastName,
+                const convertedUsersList = [];
+
+                for (let i = 0; i < users.length; i++) {
+                    const user = {
+                        email: users[i].email,
+                        name: users[i].name,
+                        lastName: users[i].lastName,
+                        friendRequestStatus: friendList[i].friendRequestStatus,
                     };
-                });
-                return res.status(200).json({ friendList: convertedUsers });
+
+                    convertedUsersList.push(user);
+                }
+                return res.status(200).json({ friendList: convertedUsersList });
             })
             .catch(err => {
                 return res
