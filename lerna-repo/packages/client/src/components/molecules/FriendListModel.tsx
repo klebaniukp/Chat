@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { sendFriendRequestAPI } from '../../api';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
+import React, { useState, useEffect } from 'react';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
-import { ButtonNoLink } from '../atoms/Button/ButtonNoLink';
 import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
-import { DisabledInfoBtt } from '../atoms/Button/DisabledInfoBtt';
 import { DangerButton } from '../atoms/Button/DangerButton';
+import { AcceptButton } from '../atoms/Button/AcceptButton';
+import { RejectButton } from '../atoms/Button/RejectButton';
 import { ISearchedUser } from '../../types/types';
 
 export const FriendListModel = (props: {
@@ -17,12 +14,43 @@ export const FriendListModel = (props: {
     imgHeight: string;
     width: string;
     height: string;
+    isUserSender: boolean;
+    friendRequestStatus: boolean;
 }) => {
     const [isHover, setIsHover] = useState(false);
 
-    const decideWhichButtonToRender = () => {
+    useEffect(() => {
+        console.log([
+            props.isUserSender,
+            props.friendRequestStatus,
+            props.lastname,
+        ]);
+    }, []);
 
-    }
+    const decideWhichButtonToRender = () => {
+        if (props.friendRequestStatus) {
+            return <DisabledSuccessBtt value='friend' />;
+        }
+
+        if (props.isUserSender) {
+            return (
+                <div>
+                    <DangerButton value={'cancel'} />
+                </div>
+            );
+        } else {
+            return (
+                <>
+                    <div>
+                        <AcceptButton />
+                    </div>
+                    <div>
+                        <RejectButton />
+                    </div>
+                </>
+            );
+        }
+    };
 
     return (
         <div
@@ -53,7 +81,7 @@ export const FriendListModel = (props: {
                             email={props.email}
                         />
                     </div>
-                    {/* {decideWhichButtonToRender()} */}
+                    {decideWhichButtonToRender()}
                 </div>
             ) : (
                 <div
@@ -77,7 +105,7 @@ export const FriendListModel = (props: {
                             email={props.email}
                         />
                     </div>
-                    {/* {decideWhichButtonToRender()} */}
+                    {decideWhichButtonToRender()}
                 </div>
             )}
         </div>

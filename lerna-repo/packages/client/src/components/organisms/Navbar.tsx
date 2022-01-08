@@ -14,10 +14,6 @@ export const Navbar = () => {
         (state: RootState) => state.userData,
     );
 
-    // const authStatus: boolean = useSelector(
-    //     (state: RootState) => state.authStatus,
-    // );
-
     return (
         <nav
             className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-1'
@@ -28,13 +24,10 @@ export const Navbar = () => {
                 <DropdownList />
                 <SearchUser />
                 {userData.isUserLoggedIn ? (
-                    (console.log(userData),
-                    (
-                        <>
-                            <UserInfo email={userData.email} />
-                            <Logout />
-                        </>
-                    ))
+                    <>
+                        <UserInfo email={userData.email} />
+                        <Logout />
+                    </>
                 ) : (
                     <>
                         <UserInfo email={'john@doe.com'} />

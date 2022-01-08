@@ -9,7 +9,7 @@ import profile from '../../img/profilePicture.png';
 export const UserFriendListDisplay = () => {
     let i = 1;
     const friendList: IFullFriendData[] = useSelector(
-        (state: RootState) => state.fulfilledFriendList,
+        (state: RootState) => state.friendList,
     );
     const dispatch = useDispatch();
 
