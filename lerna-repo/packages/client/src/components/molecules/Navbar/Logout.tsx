@@ -4,12 +4,15 @@ import { RootState } from '../../../redux/store';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../../api';
 import { ButtonNoLink } from '../../atoms/Button/ButtonNoLink';
+import { IUserData } from '../../../types/types';
 
 export const Logout = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const authStatus = useSelector((state: RootState) => state.authStatus);
+    const userData: IUserData = useSelector(
+        (state: RootState) => state.userData,
+    );
 
     const logoutAction = () => {
         logout().then(() => {
@@ -21,7 +24,7 @@ export const Logout = () => {
 
     return (
         <>
-            {authStatus ? (
+            {userData.isUserLoggedIn ? (
                 <div
                     onClick={() => {
                         logoutAction();

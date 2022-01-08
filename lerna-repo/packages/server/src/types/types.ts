@@ -1,3 +1,5 @@
+import e from "express";
+
 export interface IResUser {
     _id?: string;
     email: string;
@@ -25,6 +27,7 @@ export interface IUser {
 export interface IUserFriend {
     _id: string;
     friendRequestStatus: null | boolean;
+    senderId: string;
 }
 
 export interface IIdOnlyFriendList {

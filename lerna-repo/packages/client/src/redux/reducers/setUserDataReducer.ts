@@ -20,6 +20,7 @@ export const setUserDataReducer = (
                             friendRequestStatus: false,
                         },
                     ],
+                    isUserLoggedIn: false,
                 };
             default:
                 if (state) {
@@ -36,6 +37,7 @@ export const setUserDataReducer = (
                                 friendRequestStatus: false,
                             },
                         ],
+                        isUserLoggedIn: false,
                     };
                 }
         }

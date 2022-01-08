@@ -40,7 +40,7 @@ export const UserFriendListDisplay = () => {
 
     return (
         <>
-            {friendList.map(friend => {
+            {/* {friendList.map(friend => {
                 return (
                     <div key={friend.email}>
                         <FriendListModel
@@ -48,11 +48,11 @@ export const UserFriendListDisplay = () => {
                             lastname={friend.lastName}
                             email={friend.email}
                             img={profile}
-                            imgHeight={'3'}
+                            imgHeight={''}
                         />
                     </div>
                 );
-            })}
+            })} */}
         </>
     );
 };

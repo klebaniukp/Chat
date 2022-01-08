@@ -46,7 +46,7 @@ export const SearchUser = () => {
 
     return (
         <div
-            className='d-flex flex-wrap flex-column justify-content-center align-item-center m-auto '
+            className='d-flex flex-wrap flex-column justify-content-center align-item-center m-auto'
             style={{ width: '100vw' }}>
             {generatingSearchResults()}
         </div>

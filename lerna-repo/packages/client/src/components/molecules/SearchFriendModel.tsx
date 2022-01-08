@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
 import { ButtonNoLink } from '../atoms/Button/ButtonNoLink';
 import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
+import { DisabledInfoBtt } from '../atoms/Button/DisabledInfoBtt';
 import { ISearchedUser } from '../../types/types';
 
 export const SearchFriendModel = (props: {
@@ -59,7 +60,7 @@ export const SearchFriendModel = (props: {
         if (props.isFriend === true) {
             return <DisabledSuccessBtt value='friend' />;
         } else if (props.isFriend === false) {
-            return <DisabledSuccessBtt value='pending' />;
+            return <DisabledInfoBtt value='pending' />;
         } else if (props.isFriend === null) {
             return (
                 <div onClick={() => sendFriendRequest()}>

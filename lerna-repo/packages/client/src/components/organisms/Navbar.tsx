@@ -14,9 +14,9 @@ export const Navbar = () => {
         (state: RootState) => state.userData,
     );
 
-    const authStatus: boolean = useSelector(
-        (state: RootState) => state.authStatus,
-    );
+    // const authStatus: boolean = useSelector(
+    //     (state: RootState) => state.authStatus,
+    // );
 
     return (
         <nav
@@ -27,7 +27,7 @@ export const Navbar = () => {
                 <DropdownButton />
                 <DropdownList />
                 <SearchUser />
-                {authStatus ? (
+                {userData.isUserLoggedIn ? (
                     (console.log(userData),
                     (
                         <>

@@ -1,9 +1,10 @@
 import React from 'react';
+import { FriendListManagement } from '../components/organisms/FriendListManagement';
 
 export const Friends = () => {
     return (
-        <div>
-            <h1>Friends</h1>
-        </div>
+        <>
+            <FriendListManagement />
+        </>
     );
 };

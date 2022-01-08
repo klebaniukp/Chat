@@ -44,6 +44,7 @@ export const SignIn = ({
                                 name: res.data.result.name,
                                 lastName: res.data.result.lastName,
                                 friends: res.data.result.friends,
+                                isUserLoggedIn: true,
                             };
 
                             dispatch({

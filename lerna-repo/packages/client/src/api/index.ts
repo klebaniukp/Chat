@@ -39,3 +39,8 @@ export const logout = () => API.get('/user/logout');
 
 export const sendFriendRequestAPI = (formData: { id: string }) =>
     API.post('/user/sendFriendRequest', formData);
+
+export const manageFriendRequestAPI = (formData: {
+    friendId: string;
+    finalStatus: boolean;
+}) => API.post('/user/manageFriendRequest', formData);

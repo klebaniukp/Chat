@@ -60,8 +60,8 @@ export const signup = async (req: Request, res: Response) => {
 
                 const friendObj = {
                     _id: defaultFriend._id,
-                    email: defaultFriend.email,
                     friendRequestStatus: true,
+                    senderId: defaultFriend._id,
                 };
 
                 const newUser: IUser = await UserModel.create({
@@ -75,8 +75,8 @@ export const signup = async (req: Request, res: Response) => {
 
                 const newUserObjectToUpdate = {
                     _id: newUser._id,
-                    email: newUser.email,
                     friendRequestStatus: true,
+                    senderId: friendObj._id,
                 };
 
                 await UserModel.findOneAndUpdate(
@@ -128,6 +128,7 @@ export const signup = async (req: Request, res: Response) => {
             }
         }
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ message: (error as Error).message });
     }
 };

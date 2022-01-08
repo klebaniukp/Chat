@@ -25,6 +25,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
         const friendList = user.friends.map(friend => {
             return {
                 friendRequestStatus: friend.friendRequestStatus,
+                senderId: friend.senderId,
             };
         });
 
@@ -53,6 +54,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
                         name: users[i].name,
                         lastName: users[i].lastName,
                         friendRequestStatus: friendList[i].friendRequestStatus,
+                        senderId: friendList[i].senderId,
                     };
 
                     convertedUsersList.push(user);

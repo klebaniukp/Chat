@@ -8,6 +8,7 @@ import { doesArrayContainFriends } from '../middleware/doesArrayContainFriends';
 import { updateUserData } from '../controllers/user/updateUserData';
 import { authentication } from '../middleware/authentication';
 import { generateFriendList } from '../controllers/user/generateFriendList';
+import { manageFriendRequest } from '../controllers/usersModifications/manageFriendList';
 
 export const userRouter = express.Router();
 
@@ -26,6 +27,9 @@ userRouter.post('/updateUser', authentication, updateUserData);
 userRouter.get('/generateFriendList', authentication, generateFriendList);
 userRouter.get('/logout', logout);
 userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
+userRouter.post('/manageFriendRequest', authentication, manageFriendRequest);
+
+// userRouter.post('deleteFriend', authentication, deleteFriend);
 
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token

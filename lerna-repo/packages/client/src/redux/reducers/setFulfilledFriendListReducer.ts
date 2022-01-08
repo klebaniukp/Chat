@@ -14,6 +14,8 @@ export const setFulfilledFriendListReducer = (
                         email: 'John@Doe.com',
                         name: 'John',
                         lastName: 'Doe',
+                        friendRequestStatus: true,
+                        senderId: 'not-real-id',
                     },
                 ];
             default:
@@ -25,6 +27,8 @@ export const setFulfilledFriendListReducer = (
                             email: 'John@Doe.com',
                             name: 'John',
                             lastName: 'Doe',
+                            friendRequestStatus: true,
+                            senderId: 'not-real-id',
                         },
                     ];
                 }

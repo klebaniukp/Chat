@@ -7,6 +7,8 @@ export interface IFullFriendData {
     email: string;
     name: string;
     lastName: string;
+    friendRequestStatus: boolean;
+    senderId: string;
 }
 
 export interface IUserData {
@@ -15,6 +17,7 @@ export interface IUserData {
     name: string;
     lastName: string;
     friends: IFriend[] | [];
+    isUserLoggedIn: boolean;
 }
 
 export interface ISearchedUser {

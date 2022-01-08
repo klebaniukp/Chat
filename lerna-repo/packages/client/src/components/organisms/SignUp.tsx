@@ -49,6 +49,7 @@ export const SignUp = ({
                                 name: res.data.result.name,
                                 lastName: res.data.result.lastName,
                                 friends: res.data.result.friends,
+                                isUserLoggedIn: true,
                             };
                             console.log(
                                 `userdata: ${JSON.stringify(userData)}`,
