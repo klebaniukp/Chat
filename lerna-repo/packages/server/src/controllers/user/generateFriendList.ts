@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IFriendList } from '../../types/types';
 
 export const generateFriendList = async (req: Request, res: Response) => {
     try {
@@ -22,10 +23,11 @@ export const generateFriendList = async (req: Request, res: Response) => {
                 .json({ message: 'Invalid jwt token, user not found' });
         }
 
-        const friendList: any = {};
+        const friendList: IFriendList = {};
 
         for (let i = 0; i < user.friends.length; i++) {
             friendList[user.friends[i]._id] = {
+                _id: user.friends[i]._id,
                 friendRequestStatus: user.friends[i].friendRequestStatus,
                 senderId: user.friends[i].senderId,
             };
@@ -33,7 +35,7 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
         const idsFriendList = user.friends.map(friend => friend._id);
 
-        if (friendList.length === 0) {
+        if (Object.keys(friendList).length === 0) {
             return res.status(200).json({
                 message: 'No friends',
                 friendList: [
@@ -48,8 +50,6 @@ export const generateFriendList = async (req: Request, res: Response) => {
 
         filledFriendList
             .then(users => {
-                console.log(`users: ${users}`);
-                console.log(`friendList: ${JSON.stringify(friendList)}`);
                 const convertedUsersList = [];
 
                 for (let i = 0; i < users.length; i++) {
@@ -66,7 +66,6 @@ export const generateFriendList = async (req: Request, res: Response) => {
                     convertedUsersList.push(user);
                 }
 
-                // console.log(convertedUsersList);
                 return res.status(200).json({ friendList: convertedUsersList });
             })
             .catch(err => {

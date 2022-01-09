@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
 import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
+import { DisabledInfoBtt } from '../atoms/Button/DisabledInfoBtt';
 import { DangerButton } from '../atoms/Button/DangerButton';
 import { AcceptButton } from '../atoms/Button/AcceptButton';
 import { RejectButton } from '../atoms/Button/RejectButton';
-import { manageFriendRequestAPI } from '../../api';
+import {
+    manageFriendRequestAPI,
+    generateFriendList,
+    removeFriendAPI,
+} from '../../api';
+import { IFullFriendData } from '../../types/types';
 
 export const FriendListModel = (props: {
     firstname: string;
@@ -20,13 +27,70 @@ export const FriendListModel = (props: {
 }) => {
     const [isHover, setIsHover] = useState(false);
 
-    useEffect(() => {
-        // console.log([
-        //     props.isUserSender,
-        //     props.friendRequestStatus,
-        //     props.lastname,
-        // ]);
-    }, []);
+    const dispatch = useDispatch();
+
+    const manageFriendRequest = (finalStatus: boolean) => {
+        manageFriendRequestAPI({
+            friendId: props.id,
+            finalStatus: finalStatus,
+        }).then(res => {
+            if (res.status === 200) {
+                generateFriendList()
+                    .then(response => {
+                        if (response.status === 200) {
+                            const friendList: IFullFriendData[] =
+                                response.data.friendList;
+
+                            if (friendList.length > 0) {
+                                dispatch({
+                                    type: 'SET_FULFILLED_FRIENDLIST',
+                                    payload: friendList,
+                                });
+                            } else {
+                                dispatch({
+                                    type: 'SET_FULFILLED_FRIENDLIST',
+                                    payload: [],
+                                });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        });
+    };
+
+    const removeFriend = () => {
+        removeFriendAPI({
+            friendId: props.id,
+        }).then(res => {
+            if (res.status === 200) {
+                generateFriendList()
+                    .then(response => {
+                        if (response.status === 200) {
+                            const friendList: IFullFriendData[] =
+                                response.data.friendList;
+
+                            if (friendList.length > 0) {
+                                dispatch({
+                                    type: 'SET_FULFILLED_FRIENDLIST',
+                                    payload: friendList,
+                                });
+                            } else {
+                                dispatch({
+                                    type: 'SET_FULFILLED_FRIENDLIST',
+                                    payload: [],
+                                });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        });
+    };
 
     const decideWhichButtonToRender = () => {
         if (props.friendRequestStatus) {
@@ -35,7 +99,7 @@ export const FriendListModel = (props: {
                     <div>
                         <DisabledSuccessBtt value='friend' />
                     </div>
-                    <div>
+                    <div onClick={() => removeFriend()}>
                         <DangerButton value='delete' />
                     </div>
                 </>
@@ -44,17 +108,22 @@ export const FriendListModel = (props: {
 
         if (props.isUserSender) {
             return (
-                <div>
-                    <DangerButton value={'cancel'} />
-                </div>
+                <>
+                    <div>
+                        <DisabledInfoBtt value='pending' />
+                    </div>
+                    <div onClick={() => manageFriendRequest(false)}>
+                        <DangerButton value={'cancel'} />
+                    </div>
+                </>
             );
         } else {
             return (
                 <>
-                    <div>
+                    <div onClick={() => manageFriendRequest(true)}>
                         <AcceptButton />
                     </div>
-                    <div>
+                    <div onClick={() => manageFriendRequest(false)}>
                         <RejectButton />
                     </div>
                 </>

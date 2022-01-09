@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserModel } from '../../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IFriendList } from '../../types/types';
 
 export const isIdInUserFriendList = async (
     req: Request,
@@ -20,13 +21,17 @@ export const isIdInUserFriendList = async (
             return res.status(404).json({ message: 'Unauthorized' });
         }
 
-        const friendList = user.friends.map(friend => {
-            return {
-                _id: friend._id,
-            };
-        });
+        const friendList: IFriendList = {};
 
-        if (friendList.includes(friendId)) {
+        for (let i = 0; i < user.friends.length; i++) {
+            friendList[user.friends[i]._id] = {
+                _id: user.friends[i]._id,
+                friendRequestStatus: user.friends[i].friendRequestStatus,
+                senderId: user.friends[i].senderId,
+            };
+        }
+
+        if (friendList[friendId]) {
             res.locals.user = user;
             next();
         } else {

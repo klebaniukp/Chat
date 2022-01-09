@@ -1,4 +1,4 @@
-import e from "express";
+import e from 'express';
 
 export interface IResUser {
     _id?: string;
@@ -44,4 +44,12 @@ export interface ISearchResult {
     name: string;
     lastName: string;
     friendRequestStatus: null | boolean;
+}
+
+export interface IFriendList {
+    [key: string]: {
+        _id: string;
+        friendRequestStatus: null | boolean;
+        senderId: string;
+    };
 }

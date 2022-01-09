@@ -44,3 +44,6 @@ export const manageFriendRequestAPI = (formData: {
     friendId: string;
     finalStatus: boolean;
 }) => API.post('/user/manageFriendRequest', formData);
+
+export const removeFriendAPI = (formData: { friendId: string }) =>
+    API.post('/user/removeFriend', formData);

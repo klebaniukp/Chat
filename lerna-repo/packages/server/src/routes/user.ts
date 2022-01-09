@@ -10,6 +10,7 @@ import { authentication } from '../middleware/auth/authentication';
 import { generateFriendList } from '../controllers/user/generateFriendList';
 import { manageFriendRequest } from '../controllers/usersModifications/manageFriendList';
 import { isIdInUserFriendList } from '../middleware/friendList/isIdInUserFriendList';
+import { removeFriend } from '../controllers/usersModifications/manageFriendList';
 
 export const userRouter = express.Router();
 
@@ -33,6 +34,12 @@ userRouter.post(
     authentication,
     isIdInUserFriendList,
     manageFriendRequest,
+);
+userRouter.post(
+    '/removeFriend',
+    authentication,
+    isIdInUserFriendList,
+    removeFriend,
 );
 
 // userRouter.post('deleteFriend', authentication, deleteFriend);
