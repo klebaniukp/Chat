@@ -16,7 +16,7 @@ export const Logout = () => {
 
     const logoutAction = () => {
         logout().then(() => {
-            dispatch({ type: 'SET_IS_LOGGED_IN', payload: false });
+            dispatch({ type: 'LOGOUT' });
             dispatch({ type: 'CLEAR_FULFILLED_FRIENDLIST' });
             history.push('/auth');
         });

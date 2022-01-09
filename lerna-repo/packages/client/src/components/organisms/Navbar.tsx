@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { IUserData } from '../../types/types';
 import { Logout } from '../molecules/Navbar/Logout';
+import logo from '../../img/logo.png';
 
 export const Navbar = () => {
     const userData: IUserData = useSelector(
@@ -19,7 +20,7 @@ export const Navbar = () => {
             className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-1'
             style={{ height: '10vh' }}>
             <div className='container-fluid'>
-                <Title value={'Klebaniukp Chat'} />
+                <Title value={'Chat'} logo={logo} />
                 <DropdownButton />
                 <DropdownList />
                 <SearchUser />

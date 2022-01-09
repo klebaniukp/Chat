@@ -1,14 +1,15 @@
 import express from 'express';
 import { signup, signin } from '../controllers/user/user';
 import { logout } from '../controllers/user/logout';
-import { auth } from '../middleware/auth';
+import { auth } from '../middleware/auth/auth';
 import { searchUser } from '../controllers/searchUser';
 import { sendFriendRequest } from '../controllers/usersModifications/sendFriendRequest';
-import { doesArrayContainFriends } from '../middleware/doesArrayContainFriends';
+import { doesArrayContainFriends } from '../middleware/friendList/doesArrayContainFriends';
 import { updateUserData } from '../controllers/user/updateUserData';
-import { authentication } from '../middleware/authentication';
+import { authentication } from '../middleware/auth/authentication';
 import { generateFriendList } from '../controllers/user/generateFriendList';
 import { manageFriendRequest } from '../controllers/usersModifications/manageFriendList';
+import { isIdInUserFriendList } from '../middleware/friendList/isIdInUserFriendList';
 
 export const userRouter = express.Router();
 
@@ -27,7 +28,12 @@ userRouter.post('/updateUser', authentication, updateUserData);
 userRouter.get('/generateFriendList', authentication, generateFriendList);
 userRouter.get('/logout', logout);
 userRouter.post('/sendFriendRequest', authentication, sendFriendRequest);
-userRouter.post('/manageFriendRequest', authentication, manageFriendRequest);
+userRouter.post(
+    '/manageFriendRequest',
+    authentication,
+    isIdInUserFriendList,
+    manageFriendRequest,
+);
 
 // userRouter.post('deleteFriend', authentication, deleteFriend);
 

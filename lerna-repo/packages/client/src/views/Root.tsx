@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { IUserData } from '../types/types';
 import { routes } from '../routes/index';
 import { auth } from '../services/auth';
 import { setFriendList } from '../services/setFriendList';
@@ -15,16 +17,25 @@ import { Friends } from './Friends';
 export const Root = () => {
     const dispatch = useDispatch();
 
+    const userData: IUserData = useSelector(
+        (state: RootState) => state.userData,
+    );
+
     useEffect(() => {
         auth().then(userData => {
-            dispatch({ type: 'SET_USER_DATA', payload: userData });
+            if (userData) {
+                dispatch({ type: 'SET_USER_DATA', payload: userData });
+            }
         });
-        setFriendList().then(friendList => {
-            dispatch({ type: 'SET_FULFILLED_FRIENDLIST', payload: friendList });
-        });
+        if (userData.isUserLoggedIn) {
+            setFriendList().then(friendList => {
+                dispatch({
+                    type: 'SET_FULFILLED_FRIENDLIST',
+                    payload: friendList,
+                });
+            });
+        }
     }, []);
-
-    // setFriendList(i);
 
     return (
         <BrowserRouter>

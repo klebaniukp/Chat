@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/User';
+import { UserModel } from '../../models/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { ISearchResult, IUser } from '../types/types';
-import { IUserFriend } from '../types/types';
+import { ISearchResult, IUser } from '../../types/types';
+import { IUserFriend } from '../../types/types';
 
 export const doesArrayContainFriends = async (req: Request, res: Response) => {
     try {

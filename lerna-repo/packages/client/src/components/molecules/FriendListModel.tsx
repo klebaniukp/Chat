@@ -4,7 +4,7 @@ import { DisabledSuccessBtt } from '../atoms/Button/DisabledSuccessBtt';
 import { DangerButton } from '../atoms/Button/DangerButton';
 import { AcceptButton } from '../atoms/Button/AcceptButton';
 import { RejectButton } from '../atoms/Button/RejectButton';
-import { ISearchedUser } from '../../types/types';
+import { manageFriendRequestAPI } from '../../api';
 
 export const FriendListModel = (props: {
     firstname: string;
@@ -16,20 +16,30 @@ export const FriendListModel = (props: {
     height: string;
     isUserSender: boolean;
     friendRequestStatus: boolean;
+    id: string;
 }) => {
     const [isHover, setIsHover] = useState(false);
 
     useEffect(() => {
-        console.log([
-            props.isUserSender,
-            props.friendRequestStatus,
-            props.lastname,
-        ]);
+        // console.log([
+        //     props.isUserSender,
+        //     props.friendRequestStatus,
+        //     props.lastname,
+        // ]);
     }, []);
 
     const decideWhichButtonToRender = () => {
         if (props.friendRequestStatus) {
-            return <DisabledSuccessBtt value='friend' />;
+            return (
+                <>
+                    <div>
+                        <DisabledSuccessBtt value='friend' />
+                    </div>
+                    <div>
+                        <DangerButton value='delete' />
+                    </div>
+                </>
+            );
         }
 
         if (props.isUserSender) {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/User';
-import { IUserFriend } from '../types/types';
-import jwt from 'jsonwebtoken';
+import { UserModel } from '../../models/User';
+import { IUserFriend } from '../../types/types';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 interface IUser {
     _id: string;
@@ -18,8 +18,8 @@ export const auth = async (req: Request, res: Response) => {
         const secretToken = process.env.JWT_SECRET_TOKEN as string;
 
         if (jwt.verify(token, secretToken)) {
-            const decodedToken = JSON.stringify(jwt.decode(token));
-            const userId = JSON.parse(decodedToken).id;
+            const decodedToken = jwt.decode(token) as JwtPayload;
+            const userId = decodedToken.id;
 
             UserModel.findOne({ _id: userId })
                 .then(response => {

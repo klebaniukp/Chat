@@ -23,19 +23,20 @@ const updateFriendList = async (_id: string, friendList: IUserFriend[]) => {
 
 export const manageFriendRequest = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.token;
-        const decodedToken = jwt.decode(token) as JwtPayload;
-        const userId = decodedToken.id;
-
         const { friendId, finalStatus } = req.body; // finalStatus is boolean
-        const user = await UserModel.findById(userId);
+        const user = res.locals.user;
+        const friend = await UserModel.findById(friendId);
 
         if (!user) {
             return res.status(404).json({ message: 'Unauthorized' });
         }
 
+        if (!friend) {
+            return res.status(404).json({ message: 'Friend not found' });
+        }
+
         if (finalStatus) {
-            const result = acceptFriendRequest(userId, friendId);
+            const result = acceptFriendRequest(user, friend);
             if (!result) {
                 return res.status(201).json({
                     message:
@@ -45,7 +46,7 @@ export const manageFriendRequest = async (req: Request, res: Response) => {
                 res.status(200).json({ message: 'Friend request accepted' });
             }
         } else if (!finalStatus) {
-            const result = rejectFriendRequest(userId, friendId);
+            const result = rejectFriendRequest(user, friend);
             if (!result) {
                 return res.status(201).json({
                     message:
@@ -60,12 +61,18 @@ export const manageFriendRequest = async (req: Request, res: Response) => {
     }
 };
 
-const acceptFriendRequest = (userId: string, friendId: string) => {
-     
+const acceptFriendRequest = (user: IUser, friend: IUser) => {
+    const userFriendList = user.friends;
+    const friendFriendList = friend.friends;
+
+    const userId = user._id;
+    const friendId = friend._id;
+
+    
 
     return true;
 };
 
-const rejectFriendRequest = (userId: string, friendId: string) => {
+const rejectFriendRequest = (user: IUser, friend: IUser) => {
     return false;
 };

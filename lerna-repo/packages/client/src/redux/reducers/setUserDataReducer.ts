@@ -18,6 +18,7 @@ export const setUserDataReducer = (
                         {
                             id: '1039274',
                             friendRequestStatus: false,
+                            senderId: '1039274',
                         },
                     ],
                     isUserLoggedIn: false,
@@ -35,6 +36,7 @@ export const setUserDataReducer = (
                             {
                                 id: '1039274',
                                 friendRequestStatus: false,
+                                senderId: '1039274',
                             },
                         ],
                         isUserLoggedIn: false,
