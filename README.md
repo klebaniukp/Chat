@@ -2,7 +2,12 @@
 
 APP IS NOT FINISHED YET
 
-CURRENT PROGRESS (things that I've done): - Singup / signin (with custom (but simple) id generating on signup) - Ability to edit users data such as email, firstname and lastname - Adding users to friends list and removing them ( you can send request and wait for someone to accept or reject it) - Searching users from whole app
+CURRENT PROGRESS (things that I've done):
+
+-   Singup / signin (with custom (but simple) id generating on signup)
+-   Ability to edit users data such as email, firstname and lastname
+-   Adding users to friends list and removing them ( you can send request and wait for someone to accept or reject it)
+-   Searching users from whole app
 
 ## Tech/framework used 🔧
 

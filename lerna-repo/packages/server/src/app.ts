@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import redis, { createClient } from 'redis';
+import nconf from 'nconf';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -50,6 +52,17 @@ app.use(
 
 app.use('/user', userRouter);
 
+// nconf.argv().env().file('key.json');
+
+const host = 'redis-13520.c124.us-central1-1.gce.cloud.redislabs.com';
+const port = '13520';
+const password = 'T2VyUJHB4rq1bKZgXnfPKHcdhrMlCC2S';
+
+const client = createClient({
+    url: 'redis://:' + password + '@' + host + ':' + port,
+});
+
+client.on('error', err => console.log('Redis Client Error', err));
 
 mongoose
     .connect(CONNECTION_URL)
