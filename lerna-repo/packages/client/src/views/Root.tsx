@@ -27,14 +27,12 @@ export const Root = () => {
                 dispatch({ type: 'SET_USER_DATA', payload: userData });
             }
         });
-        if (userData.isUserLoggedIn) {
-            setFriendList().then(friendList => {
-                dispatch({
-                    type: 'SET_FULFILLED_FRIENDLIST',
-                    payload: friendList,
-                });
+        setFriendList().then(friendList => {
+            dispatch({
+                type: 'SET_FULFILLED_FRIENDLIST',
+                payload: friendList,
             });
-        }
+        });
     }, []);
 
     return (

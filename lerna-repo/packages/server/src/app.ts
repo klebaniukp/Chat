@@ -51,19 +51,21 @@ app.use(
 
 app.use('/user', userRouter);
 
-(async () => {
-    await redisClient.connect();
-
-    redisClient.on('error', err => console.log('Redis Client Error', err));
-    const value = await redisClient.LRANGE('messages', 0, -1);
-    console.log(value);
-})();
-
 mongoose
     .connect(CONNECTION_URL)
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Server Running on: http://localhost:${PORT}`);
+            (async () => {
+                await redisClient.connect();
+
+                redisClient.on('error', err =>
+                    console.log('Redis Client Error', err),
+                );
+                const value = await redisClient.LRANGE('messages', 0, -1);
+                console.log(JSON.parse(value[0]));
+                console.log(JSON.parse(value[1]));
+            })();
         });
     })
     .catch(error => console.log(`${error} did not connect`));

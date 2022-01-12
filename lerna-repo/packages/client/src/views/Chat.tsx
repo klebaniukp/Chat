@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { searchUsers } from '../api';
+import React from 'react';
+import { SideBar } from '../components/organisms/SideBar';
 
 export const Chat = () => {
     return (
         <div>
-            <div>Chat</div>
+            <SideBar />
         </div>
     );
 };
