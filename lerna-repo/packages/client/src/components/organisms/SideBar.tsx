@@ -12,21 +12,23 @@ export const SideBar = () => {
 
     return (
         <div
-            className={`border-1 border-end float-start overflow-auto`}
+            className={`border-1 border-end float-start overflow-auto bg-light`}
             style={{ width: '30vw', height: '90vh' }}>
             {friendList.map(friend => {
-                if (friend.friendRequestStatus)
+                if (friend.friendRequestStatus && friend._id)
                     return (
-                        <ChatFriendModel
-                            firstname={friend.name}
-                            lastname={friend.lastName}
-                            email={friend.email}
-                            img={profile}
-                            imgHeight={'5'}
-                            height={'10'}
-                            width={'30'}
-                            id={friend._id}
-                        />
+                        <div key={friend._id}>
+                            <ChatFriendModel
+                                firstname={friend.name}
+                                lastname={friend.lastName}
+                                email={friend.email}
+                                img={profile}
+                                imgHeight={'5'}
+                                height={'10'}
+                                width={'30'}
+                                id={friend._id}
+                            />
+                        </div>
                     );
             })}
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
 
 export const ChatFriendModel = (props: {
@@ -13,10 +14,26 @@ export const ChatFriendModel = (props: {
 }) => {
     const [isHover, setIsHover] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const setChatData = () => {
+        dispatch({
+            type: 'SET_CURRENT_CHAT',
+            payload: {
+                _id: props.id,
+                name: props.firstname,
+                lastname: props.lastname,
+                email: props.email,
+                messages: [], //fetching data from db backend
+            },
+        });
+    };
+
     return (
         <div
-            className='d-flex justify-content-evenly mb-1 mt-1'
-            style={{ width: `${props.width}vw`, cursor: 'pointer' }}>
+            className='d-flex justify-content-evenly'
+            style={{ width: `${props.width}vw`, cursor: 'pointer' }}
+            onClick={() => setChatData()}>
             {isHover ? (
                 <div
                     className='d-flex flex-row justify-content-evenly align-items-center'

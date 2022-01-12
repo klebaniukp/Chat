@@ -33,3 +33,16 @@ export interface IReducedFriend {
     _id: string;
     password?: string;
 }
+
+export interface IChat {
+    _id: string;
+    name: string;
+    lastname: string;
+    email: string;
+    messages: IMessage[];
+}
+
+interface IMessage {
+    value: string;
+    senderId: string;
+}

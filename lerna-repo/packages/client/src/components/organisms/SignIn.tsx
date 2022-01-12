@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { signIn } from '../../api';
+import { setFriendList } from '../../services/setFriendList';
 import { FormField } from '../molecules/Form/FormField';
 import { Submit } from '../atoms/Button/Submit';
 import { ShowPassword } from '../molecules/Form/ShowPassword';
 import { AuthSwitchButton } from '../atoms/Button/AuthSwitchButton';
 import { Card } from '../atoms/Box/Card';
-import { signIn } from '../../api';
 import { useHistory } from 'react-router-dom';
 import { IUserData } from '../../types/types';
 
@@ -55,6 +56,14 @@ export const SignIn = ({
                                 type: 'SET_IS_LOGGED_IN',
                                 payload: true,
                             });
+
+                            setFriendList().then(friendList => {
+                                dispatch({
+                                    type: 'SET_FULFILLED_FRIENDLIST',
+                                    payload: friendList,
+                                });
+                            });
+
                             history.push('/chat');
                         }
                     })

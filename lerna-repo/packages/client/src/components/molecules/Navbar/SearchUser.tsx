@@ -63,6 +63,7 @@ export const SearchUser = () => {
                                 placeholder={'search user'}
                                 className={'rounded bg-secondary text-white'}
                                 style={{ height: '5vh', marginTop: '1.5vh' }}
+                                required
                             />
                         </div>
                         <div>

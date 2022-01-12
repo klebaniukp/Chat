@@ -3,7 +3,10 @@ import { IFullFriendData } from '../types/types';
 
 export const setFriendList = async () => {
     const res = await generateFriendList();
-    const friendList: IFullFriendData[] = res.data.friendList;
 
-    return friendList;
+    if (res.status === 200) {
+        const friendList: IFullFriendData[] = res.data.friendList;
+
+        return friendList;
+    }
 };
