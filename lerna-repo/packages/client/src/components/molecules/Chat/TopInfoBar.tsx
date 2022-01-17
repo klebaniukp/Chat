@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { IChat } from '../../types/types';
+import { RootState } from '../../../redux/store';
+import { IChat } from '../../../types/types';
 
 export const TopInfoBar = () => {
     const setCurrentChat: IChat = useSelector(

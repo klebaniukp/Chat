@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { IFullFriendData } from '../../types/types';
-import { ChatFriendModel } from '../molecules/ChatFriendModel';
+import { ChatFriendModel } from '../molecules/Chat/ChatFriendModel';
 import profile from '../../img/profilePicture.png';
 
 export const SideBar = () => {

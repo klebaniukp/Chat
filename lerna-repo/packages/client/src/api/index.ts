@@ -1,7 +1,6 @@
 import axios from 'axios';
-// import { IReducedFriend } from '../types/types';
 
-const url = 'http://localhost:8000/';
+const url = process.env.REACT_APP_BACKEND_URL;
 
 const API = axios.create({
     baseURL: url,

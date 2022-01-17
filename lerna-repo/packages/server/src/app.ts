@@ -1,4 +1,6 @@
 import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -51,10 +53,25 @@ app.use(
 
 app.use('/user', userRouter);
 
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        credentials: true,
+        origin,
+    },
+});
+
+io.on('connection', socket => {
+    socket.on('chat message', (msg: string) => {
+        console.log(msg);
+        io.emit('chat message', msg);
+    });
+});
+
 mongoose
     .connect(CONNECTION_URL)
     .then(() => {
-        app.listen(PORT, () => {
+        httpServer.listen(PORT, () => {
             console.log(`Server Running on: http://localhost:${PORT}`);
             (async () => {
                 await redisClient.connect();

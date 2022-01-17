@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { UserDataDisplay } from '../atoms/Card/UserDataDisplay';
+import { UserDataDisplay } from '../../atoms/Card/UserDataDisplay';
 
 export const ChatFriendModel = (props: {
     firstname: string;
