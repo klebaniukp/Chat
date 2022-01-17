@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import socketIO from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { SideBar } from '../components/organisms/SideBar';
 import { ChatScreen } from '../components/organisms/ChatScreen';
 import { TopInfoBar } from '../components/molecules/Chat/TopInfoBar';
 
 export const Chat = () => {
     const [response, setResponse] = useState('');
-    const url = 'http://localhost:8080/';
+    const endpoint = process.env.REACT_APP_BACKEND_URL;
+
     //initialize socket connection
     useEffect(() => {
-        const socket = socketIO.io(url);
+        if (endpoint) {
+            const socket = io(endpoint);
 
-        socket.emit('chat message', 'Hello from client');
+            socket.emit('chat message', 'Hello from client');
 
-        socket.on('chat message', (response: string) => {
-            setResponse(response);
-        });
+            socket.on('chat message', (res: string) => {
+                setResponse(response + res);
+            });
+        }
     }, []);
 
     return (
         <div>
-            <h1>{response}</h1>
-            {/* <SideBar />
+            <SideBar />
             <TopInfoBar />
-            <ChatScreen /> */}
+            <ChatScreen />
         </div>
     );
 };

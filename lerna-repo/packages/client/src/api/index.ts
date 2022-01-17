@@ -46,3 +46,6 @@ export const manageFriendRequestAPI = (formData: {
 
 export const removeFriendAPI = (formData: { friendId: string }) =>
     API.post('/user/removeFriend', formData);
+
+export const getMessageListAPI = (formData: { friendId: string }) =>
+    API.post('/user/getMessageList', formData);

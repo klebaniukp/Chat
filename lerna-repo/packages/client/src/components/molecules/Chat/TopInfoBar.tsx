@@ -5,7 +5,7 @@ import { IChat } from '../../../types/types';
 
 export const TopInfoBar = () => {
     const setCurrentChat: IChat = useSelector(
-        (state: RootState) => state.setCurrentChat,
+        (state: RootState) => state.currentChat,
     );
 
     return (

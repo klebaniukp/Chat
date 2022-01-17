@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const authentication = async (
     req: Request,
@@ -11,6 +11,7 @@ export const authentication = async (
         const secretToken = process.env.JWT_SECRET_TOKEN as string;
 
         if (jwt.verify(token, secretToken)) {
+            res.locals.userId = (jwt.decode(token) as JwtPayload).id;
             next();
         } else {
             res.status(401).json({ message: 'Unauthorized' });

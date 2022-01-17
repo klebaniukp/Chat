@@ -1,7 +1,7 @@
 import { IChat } from '../../types/types';
 
 export const setCurrentChatReducer = (
-    state: IChat[],
+    state: IChat,
     action: { type: string; payload: IChat },
 ) => {
     try {
@@ -15,7 +15,6 @@ export const setCurrentChatReducer = (
                     name: '',
                     lastname: '',
                     email: '',
-                    messages: [],
                 };
         }
     } catch (error) {

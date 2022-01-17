@@ -39,10 +39,10 @@ export interface IChat {
     name: string;
     lastname: string;
     email: string;
-    messages: IMessage[];
+    // messages: IMessage[];
 }
 
-interface IMessage {
+export interface IMessage {
     value: string;
     senderId: string;
 }

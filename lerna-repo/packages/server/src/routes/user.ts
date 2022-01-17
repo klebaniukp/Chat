@@ -11,6 +11,7 @@ import { generateFriendList } from '../controllers/user/generateFriendList';
 import { manageFriendRequest } from '../controllers/usersModifications/manageFriendList';
 import { isIdInUserFriendList } from '../middleware/friendList/isIdInUserFriendList';
 import { removeFriend } from '../controllers/usersModifications/manageFriendList';
+import { getMessageList } from '../middleware/chat/getMessageList';
 
 export const userRouter = express.Router();
 
@@ -40,6 +41,13 @@ userRouter.post(
     authentication,
     isIdInUserFriendList,
     removeFriend,
+);
+
+userRouter.post(
+    '/getMessageList',
+    authentication,
+    isIdInUserFriendList,
+    getMessageList,
 );
 
 userRouter.post('/getMessages'); //todo

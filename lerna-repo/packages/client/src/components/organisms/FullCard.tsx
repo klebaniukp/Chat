@@ -93,17 +93,19 @@ export const FullCard = (props: {
 
     return (
         <form onSubmit={e => updateUserDataAction(e)}>
-            <div className='d-flex card text-center'>
+            <div
+                className='d-flex  card text-center'
+                style={{ fontSize: '2vh' }}>
                 <div className='card-header'>
                     <h1>{props.headerValue}</h1>
                 </div>
-                <div className='d-flex justify-content-evenly  card-body'>
+                <div className='d-flex justify-content-center card-body'>
                     <img
                         src={props.img}
                         alt='profile'
                         style={{ height: '30vh' }}
                     />
-                    <div className='d-flex justify-content-center flex-column flex-column w-25 h-max'>
+                    <div className='d-flex justify-content-between flex-column flex-column w-50 h-full pt-2'>
                         <DataField
                             value={props.firstname}
                             label={'Firstname'}
@@ -125,11 +127,11 @@ export const FullCard = (props: {
                     </div>
 
                     {/* this friend list will be generated in another component after validation updated */}
-                    <div
+                    {/* <div
                         className='overflow-auto w-25'
                         style={{ height: '30vh' }}>
                         <UserFriendListDisplay />
-                    </div>
+                    </div> */}
                 </div>
                 <div className='card-footer text-muted'>
                     <i className='ms-5'>{props.footerValue}</i>

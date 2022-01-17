@@ -9,9 +9,11 @@ export const DataField = (props: {
 }) => {
     return (
         <div className='d-flex flex-row align-items-center justify-content-center'>
-            <h5 className='mb-3 me-2' style={{ width: '6vw' }}>
+            <p
+                className='mb-3 me-2'
+                style={{ width: '6vw', fontSize: '2.3vh' }}>
                 {props.label}:
-            </h5>
+            </p>
             <FloatingInput
                 name={props.name}
                 value={props.value}

@@ -61,7 +61,7 @@ const io = new Server(httpServer, {
     },
 });
 
-io.on('connection', socket => {
+io.on('connection', socket => {    
     socket.on('chat message', (msg: string) => {
         console.log(msg);
         io.emit('chat message', msg);

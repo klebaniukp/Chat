@@ -1,6 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { getMessageListAPI } from '../../../api';
 import { UserDataDisplay } from '../../atoms/Card/UserDataDisplay';
+
+interface IMessage {
+    message: string;
+    senderId: string;
+}
+
+const getMessageList = async (id: string) => {
+    const response = await getMessageListAPI({ friendId: id });
+
+    const messages: string[] = response.data.messages;
+
+    const convertedMessages = messages.map(message => {
+        const convertedMessage: IMessage = JSON.parse(message);
+        return {
+            value: convertedMessage.message,
+            senderId: convertedMessage.senderId,
+        };
+    });
+
+    console.log(convertedMessages);
+
+    return convertedMessages;
+};
 
 export const ChatFriendModel = (props: {
     firstname: string;
@@ -17,15 +41,23 @@ export const ChatFriendModel = (props: {
     const dispatch = useDispatch();
 
     const setChatData = () => {
+        const data = {
+            _id: props.id,
+            name: props.firstname,
+            lastname: props.lastname,
+            email: props.email,
+        };
+
         dispatch({
             type: 'SET_CURRENT_CHAT',
-            payload: {
-                _id: props.id,
-                name: props.firstname,
-                lastname: props.lastname,
-                email: props.email,
-                messages: [], //fetching data from db backend
-            },
+            payload: data,
+        });
+
+        getMessageList(props.id).then(messages => {
+            dispatch({
+                type: 'SET_MESSAGE_LIST',
+                payload: messages,
+            });
         });
     };
 
