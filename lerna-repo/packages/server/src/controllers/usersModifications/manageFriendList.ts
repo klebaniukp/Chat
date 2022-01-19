@@ -14,17 +14,12 @@ const updateFriendList = async (_id: string, friendList: IUserFriend[]) => {
         await UserModel.findOneAndUpdate(filter, update);
 
         return true;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
+    } catch (error) {}
 };
 
 export const manageFriendRequest = async (req: Request, res: Response) => {
     try {
         const { friendId, finalStatus } = req.body;
-
-        console.log(finalStatus);
 
         const user = res.locals.user;
         const friend = await UserModel.findById(friendId);

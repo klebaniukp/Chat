@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const AcceptButton = () => {
+export const AcceptButton = (props: { type: 'button' | 'submit' }) => {
     return (
-        <button type='button' className='btn btn-outline-success'>
+        <button type={props.type} className='btn btn-outline-success'>
             <i>accept</i>
         </button>
     );

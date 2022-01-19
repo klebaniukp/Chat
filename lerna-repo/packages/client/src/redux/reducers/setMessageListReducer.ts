@@ -8,6 +8,15 @@ export const setMessageListReducer = (
         switch (action.type) {
             case 'SET_MESSAGE_LIST':
                 return action.payload;
+            case 'ADD_MESSAGE':
+                return [...state, action.payload];
+            case 'CLEAR_MESSAGE_LIST':
+                return [
+                    {
+                        value: '',
+                        senderId: '',
+                    },
+                ];
             default:
                 if (state) return state;
                 return [

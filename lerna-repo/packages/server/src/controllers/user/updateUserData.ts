@@ -30,7 +30,6 @@ export const updateUserData = async (req: Request, res: Response) => {
         }
 
         if (takenData && userCheck.email !== email) {
-            console.log(takenData);
             return res
                 .status(201)
                 .json({ message: 'This email address is already taken' });

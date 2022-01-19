@@ -5,9 +5,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import cookie from 'cookie';
 import session from 'express-session';
 import { userRouter } from './routes/user';
 import { client as redisClient } from './redis/client';
+import { type } from 'os';
+import { send } from 'process';
 
 dotenv.config();
 
@@ -61,11 +64,24 @@ const io = new Server(httpServer, {
     },
 });
 
-io.on('connection', socket => {    
-    socket.on('chat message', (msg: string) => {
-        console.log(msg);
-        io.emit('chat message', msg);
-    });
+io.on('connection', (socket: any) => {
+    socket.on(
+        'send message',
+        (message: string, senderId: string, recieverId: string) => {
+            console.log([message, senderId, recieverId]);
+
+            console.log(`${senderId} -> ${recieverId}`);
+            io.emit(`${senderId}:${recieverId}`, {
+                message: message,
+                senderId: senderId,
+            });
+            console.log(`${recieverId} -> ${senderId}`);
+            io.emit(`${recieverId}:${senderId}`, {
+                message: message,
+                senderId: senderId,
+            });
+        },
+    );
 });
 
 mongoose
@@ -80,8 +96,8 @@ mongoose
                     console.log('Redis Client Error', err),
                 );
                 const value = await redisClient.LRANGE('messages', 0, -1);
-                console.log(JSON.parse(value[0]));
-                console.log(JSON.parse(value[1]));
+                // console.log(JSON.parse(value[0]));
+                // console.log(JSON.parse(value[1]));
             })();
         });
     })

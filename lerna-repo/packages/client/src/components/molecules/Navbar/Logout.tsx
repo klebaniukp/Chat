@@ -18,6 +18,8 @@ export const Logout = () => {
         logout().then(() => {
             dispatch({ type: 'LOGOUT' });
             dispatch({ type: 'CLEAR_FULFILLED_FRIENDLIST' });
+            dispatch({ type: 'CLEAR_CURRENT_CHAT' });
+            dispatch({ type: 'CLEAR_MESSAGE_LIST' });
             history.push('/auth');
         });
     };

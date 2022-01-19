@@ -21,8 +21,6 @@ const getMessageList = async (id: string) => {
         };
     });
 
-    console.log(convertedMessages);
-
     return convertedMessages;
 };
 

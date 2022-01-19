@@ -8,6 +8,13 @@ export const setCurrentChatReducer = (
         switch (action.type) {
             case 'SET_CURRENT_CHAT':
                 return action.payload;
+            case 'CLEAR_CURRENT_CHAT':
+                return {
+                    _id: '',
+                    name: '',
+                    lastname: '',
+                    email: '',
+                };
             default:
                 if (state) return state;
                 return {
