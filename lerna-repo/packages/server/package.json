@@ -3,7 +3,7 @@
         "start": "node dist/app.js",
         "dev": "nodemon ./src/app.ts",
         "postinstall": "tsc",
-        "deploy": "git add . && git commit -m Heroku && git push heroku master"
+        "deploy": "git add . && git commit -m 'Heroku' && git push heroku master"
     },
     "engines": {
         "node": "17.3.0"
