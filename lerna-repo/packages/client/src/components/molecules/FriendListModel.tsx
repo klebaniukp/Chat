@@ -121,7 +121,7 @@ export const FriendListModel = (props: {
             return (
                 <>
                     <div onClick={() => manageFriendRequest(true)}>
-                        <AcceptButton type='button' value='send' />
+                        <AcceptButton type='button' value='accept' />
                     </div>
                     <div onClick={() => manageFriendRequest(false)}>
                         <RejectButton />
