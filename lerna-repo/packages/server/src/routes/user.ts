@@ -50,7 +50,5 @@ userRouter.post(
     getMessageList,
 );
 
-// userRouter.post('deleteFriend', authentication, deleteFriend);
-
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token
