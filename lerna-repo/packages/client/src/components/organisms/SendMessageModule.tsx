@@ -35,13 +35,13 @@ export const SendMessageModule = () => {
 
             console.log('dispatch event ADD_MESSAGE', message, senderId);
 
-            dispatch({
-                type: 'ADD_MESSAGE',
-                payload: {
-                    value: message,
-                    senderId,
-                },
-            });
+            // dispatch({
+            //     type: 'ADD_MESSAGE',
+            //     payload: {
+            //         value: message,
+            //         senderId,
+            //     },
+            // });
 
             form.message.value = '';
         }
