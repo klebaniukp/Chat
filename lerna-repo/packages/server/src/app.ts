@@ -5,12 +5,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import cookie from 'cookie';
 import session from 'express-session';
 import { userRouter } from './routes/user';
 import { client as redisClient } from './redis/client';
-import { type } from 'os';
-import { send } from 'process';
 
 dotenv.config();
 
@@ -67,15 +64,31 @@ const io = new Server(httpServer, {
 io.on('connection', (socket: any) => {
     socket.on(
         'send message',
-        (message: string, senderId: string, recieverId: string) => {
-            console.log([message, senderId, recieverId]);
+        async (message: string, senderId: string, recieverId: string) => {
+            const key1 = `${senderId}:${recieverId}`;
+            const key2 = `${recieverId}:${senderId}`;
 
-            console.log(`${senderId} -> ${recieverId}`);
+            const conversation1 = await redisClient.lRange(key1, 0, -1);
+
+            const redisPayload =
+                '{"message": "' +
+                message +
+                '", "senderId":' +
+                '"' +
+                senderId +
+                '"' +
+                '}';
+
+            if (conversation1.length === 0) {
+                await redisClient.lPush(key2, redisPayload);
+            } else {
+                await redisClient.lPush(key1, redisPayload);
+            }
+
             io.emit(`${senderId}:${recieverId}`, {
                 message: message,
                 senderId: senderId,
             });
-            console.log(`${recieverId} -> ${senderId}`);
             io.emit(`${recieverId}:${senderId}`, {
                 message: message,
                 senderId: senderId,

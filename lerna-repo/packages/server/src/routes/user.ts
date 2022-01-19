@@ -50,9 +50,6 @@ userRouter.post(
     getMessageList,
 );
 
-userRouter.post('/getMessages'); //todo
-userRouter.post('/sendMessage'); //todo
-
 // userRouter.post('deleteFriend', authentication, deleteFriend);
 
 //authentication - check if token is valid and if so cast next()

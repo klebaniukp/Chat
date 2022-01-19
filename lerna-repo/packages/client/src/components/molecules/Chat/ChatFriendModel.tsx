@@ -14,6 +14,7 @@ const getMessageList = async (id: string) => {
     const messages: string[] = response.data.messages;
 
     const convertedMessages = messages.map(message => {
+        console.log(message);
         const convertedMessage: IMessage = JSON.parse(message);
         return {
             value: convertedMessage.message,
@@ -52,6 +53,7 @@ export const ChatFriendModel = (props: {
         });
 
         getMessageList(props.id).then(messages => {
+            console.log(messages);
             dispatch({
                 type: 'SET_MESSAGE_LIST',
                 payload: messages,

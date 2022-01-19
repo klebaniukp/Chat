@@ -62,7 +62,7 @@ export const SendMessageModule = () => {
                 <div
                     className='d-flex flex-column justify-content-center ps-2'
                     style={{ height: '7vh' }}>
-                    <AcceptButton type='submit' />
+                    <AcceptButton type='submit' value='send' />
                 </div>
             </div>
         </form>

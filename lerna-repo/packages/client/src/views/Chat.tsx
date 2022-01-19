@@ -33,8 +33,6 @@ export const Chat = () => {
             socket.on(
                 `${userData.id}:${currentChat._id}`,
                 (message: { message: string; senderId: string }) => {
-                    console.log(`connection established`);
-                    console.log(`message: ${message.message}`);
                     dispatch({
                         type: 'ADD_MESSAGE',
                         payload: {

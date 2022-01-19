@@ -10,8 +10,6 @@ export const authentication = async (
         const token = req.cookies.token;
         const secretToken = process.env.JWT_SECRET_TOKEN as string;
 
-        // console.log(jwt.decode(token) as JwtPayload);
-
         if (jwt.verify(token, secretToken)) {
             res.locals.userId = (jwt.decode(token) as JwtPayload).id;
             next();
