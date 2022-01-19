@@ -1,8 +1,12 @@
 {
     "scripts": {
-        "start": "ndoe ./.dist/app.js",
+        "start": "node dist/app.js",
         "dev": "nodemon ./src/app.ts",
-        "build": "tsc"
+        "postinstall": "tsc",
+        "deploy": "git add . && git commit -m Heroku && git push heroku master"
+    },
+    "engines": {
+        "node": "17.3.0"
     },
     "dependencies": {
         "@types/bcrypt": "^5.0.0",
