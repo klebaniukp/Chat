@@ -6,10 +6,10 @@ import { SideBar } from '../components/organisms/SideBar';
 import { ChatScreen } from '../components/organisms/ChatScreen';
 import { TopInfoBar } from '../components/molecules/Chat/TopInfoBar';
 import { SendMessageModule } from '../components/organisms/SendMessageModule';
-import { IChat, IUserData, IMessage } from '../types/types';
+import { IChat, IUserData } from '../types/types';
 
 export const Chat = () => {
-    const endpoint = process.env.REACT_APP_BACKEND_URL;
+    const endpoint = process.env.REACT_APP_BACKEND_URL_LOCAL;
     const dispatch = useDispatch();
 
     const currentChat: IChat = useSelector(
@@ -18,10 +18,6 @@ export const Chat = () => {
 
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
-    );
-
-    const messageList: IMessage[] = useSelector(
-        (state: RootState) => state.messageList,
     );
 
     //initialize & handle socket connection

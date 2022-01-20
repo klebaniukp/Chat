@@ -170,6 +170,9 @@ export const signin = async (req: Request, res: Response) => {
                         friends: response.friends,
                     };
 
+                    console.log('everything ok, logged in');
+                    console.log(user);
+
                     return res
                         .status(200)
                         .clearCookie('token')
@@ -192,24 +195,8 @@ export const signin = async (req: Request, res: Response) => {
                 console.log(error);
             });
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ message: (err as Error).message });
     }
 };
 
-export const isUserMyFriend = async (req: Request, res: Response) => {
-    try {
-        const { possibleFriendEmail } = req.body;
-        const token = req.cookies.token;
-
-        if (jwt.decode(token) === null) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        const decodedToken = jwt.decode(token) as JwtPayload;
-        const userId = decodedToken.id;
-
-        const user = await UserModel.findById(userId);
-    } catch (error) {
-        return res.status(500).json({ message: (error as Error).message });
-    }
-};

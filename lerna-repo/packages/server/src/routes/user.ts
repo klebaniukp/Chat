@@ -49,6 +49,9 @@ userRouter.post(
     isIdInUserFriendList,
     getMessageList,
 );
+userRouter.get('/', (req, res) => {
+    res.send('Hello World');
+});
 
 //authentication - check if token is valid and if so cast next()
 //auth - check if token is valid & if so generate new token & return user data from old token

@@ -108,9 +108,6 @@ mongoose
                 redisClient.on('error', err =>
                     console.log('Redis Client Error', err),
                 );
-                const value = await redisClient.LRANGE('messages', 0, -1);
-                // console.log(JSON.parse(value[0]));
-                // console.log(JSON.parse(value[1]));
             })();
         });
     })
