@@ -27,3 +27,21 @@ APP FUNCTIOALITIES:
 | [Axios](https://axios-http.com/docs/intro)     | Promise based HTTP client                 |
 | [Socket.io](https://socket.io/)                | Library for real-time communication (ws)  |
 | [Redis](https://redis.io/)                     | In-memory data structure store (for chat) |
+
+## Photos 📷
+
+### Live chatting with anyone on your friend list (chat data stored in redis)
+
+![chat](lerna-repo/packages/client/public/chat.png)
+
+### Editing and checking users profile data
+
+![profile](lerna-repo/packages/client/public/profile.png)
+
+### Managin your friend list
+
+![friendlist](lerna-repo/packages/client/public/friendlist.png)
+
+### Searching and sending requests to users
+
+![searchlist](lerna-repo/packages/client/public/searchlist.png)
