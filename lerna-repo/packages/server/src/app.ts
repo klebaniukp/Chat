@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import { userRouter } from './routes/user';
 import { client as redisClient } from './redis/client';
+import { UserModel } from './models/User';
 
 dotenv.config();
 
@@ -99,7 +100,9 @@ io.on('connection', (socket: any) => {
 
 mongoose
     .connect(CONNECTION_URL)
-    .then(() => {
+    .then(async () => {
+        const friend = await UserModel.findOne({ _id: '7cfd-e11b-b4a3-ce08-1468-f4b2abffe2a8' });
+        console.log(friend);
         httpServer.listen(PORT, () => {
             console.log(`Server Running on: http://localhost:${PORT}`);
             (async () => {

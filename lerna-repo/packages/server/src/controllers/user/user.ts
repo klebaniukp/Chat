@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { UserModel } from '../../models/User';
 import { passwordSchema } from '../../models/Password';
 import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { IUser } from '../../interfaces/IUser';
 
 const generateId = () => {
@@ -47,9 +47,11 @@ export const signup = async (req: Request, res: Response) => {
             const user = await UserModel.findOne({ _id: id });
 
             if (!user) {
+                const defFriendId = '7cfd-e11b-b4a3-ce08-1468-f4b2abffe2a8';
                 const defaultFriend = await UserModel.findOne({
-                    email: 'default@friend.com',
+                    _id: defFriendId,
                 });
+                console.log(defaultFriend)
 
                 if (!defaultFriend) {
                     return res.status(500).json({
