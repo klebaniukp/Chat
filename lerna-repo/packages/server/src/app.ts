@@ -70,6 +70,20 @@ io.on('connection', (socket: any) => {
             const key2 = `${recieverId}:${senderId}`;
 
             const conversation1 = await redisClient.lRange(key1, 0, -1);
+            //date in YYYY-MM-DD HH:MM:SS format
+            const date = new Date();
+            // .toLocaleString('en-US', {
+            //     year: 'numeric',
+            //     month: '2-digit',
+            //     day: '2-digit',
+            //     hour: '2-digit',
+            //     minute: '2-digit',
+            //     second: '2-digit',
+            //     hour12: false,
+            //     timeZone: 'UTC',
+            // });
+
+            console.log(date);
 
             const redisPayload =
                 '{"message": "' +
@@ -78,7 +92,10 @@ io.on('connection', (socket: any) => {
                 '"' +
                 senderId +
                 '"' +
-                '}';
+                ', "date":' +
+                '"' +
+                date +
+                '"}';
 
             if (conversation1.length === 0) {
                 await redisClient.lPush(key2, redisPayload);
@@ -101,7 +118,9 @@ io.on('connection', (socket: any) => {
 mongoose
     .connect(CONNECTION_URL)
     .then(async () => {
-        const friend = await UserModel.findOne({ _id: '7cfd-e11b-b4a3-ce08-1468-f4b2abffe2a8' });
+        const friend = await UserModel.findOne({
+            _id: '7cfd-e11b-b4a3-ce08-1468-f4b2abffe2a8',
+        });
         console.log(friend);
         httpServer.listen(PORT, () => {
             console.log(`Server Running on: http://localhost:${PORT}`);
