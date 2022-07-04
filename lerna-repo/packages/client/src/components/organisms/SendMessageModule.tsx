@@ -20,8 +20,6 @@ export const SendMessageModule = () => {
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log('submit');
-
         const form: HTMLFormElement = e.currentTarget;
         if (form !== null && form.message !== null) {
             const message = form.message.value;
@@ -32,17 +30,6 @@ export const SendMessageModule = () => {
 
                 socket.emit('send message', message, senderId, currentChat._id);
             }
-
-            console.log('dispatch event ADD_MESSAGE', message, senderId);
-
-            // dispatch({
-            //     type: 'ADD_MESSAGE',
-            //     payload: {
-            //         value: message,
-            //         senderId,
-            //     },
-            // });
-
             form.message.value = '';
         }
     };

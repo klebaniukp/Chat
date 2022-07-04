@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { MessageModel } from '../molecules/Chat/MessageModel';
@@ -9,6 +8,23 @@ export const ChatScreen = () => {
     const messageList: IMessage[] = useSelector(
         (state: RootState) => state.messageList,
     );
+    // console.log(messageList)
+    // //sort message list by date latest first
+    // const sortedMessageList: IMessage[] = messageList
+    //     .sort((a: IMessage, b: IMessage) => {
+    //         return b.date.getTime() - a.date.getTime();
+    //     }
+    //     )
+    //     .map(message => {
+    //         const convertedMessage: IMessage = JSON.parse(message);
+    //         return {
+    //             value: convertedMessage.message,
+    //             senderId: convertedMessage.senderId,
+    //             date: convertedMessage.date,
+    //         };
+    //     }
+    //     );
+    // console.log(sortedMessageList);
     const userData: IUserData = useSelector(
         (state: RootState) => state.userData,
     );
@@ -16,7 +32,23 @@ export const ChatScreen = () => {
     const generateMessage = () => {
         const jsxElement: JSX.Element[] = [];
 
-        for (let i = 0; i < messageList.length; i++) {
+        //sort messages by timestamp (descending)
+    //     const sortedMessages: IMessage[] = messageList
+    //     .map((message: string) => {
+    //         const messageData = JSON.parse(message);
+
+    //         return {
+    //             value: messageData.message,
+    //             senderId: messageData.senderId,
+    //             date: new Date(messageData.date),
+    //         };
+    //     })
+    //     .sort((a: IMessage, b: IMessage) => {
+    //         return b.date.getTime() - a.date.getTime();
+    //     });
+    // console.log(sortedMessages);
+
+        for (let i = messageList.length - 1; i >= 0; i--) {
             const message: IMessage = messageList[i];
 
             jsxElement.push(

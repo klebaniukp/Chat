@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getMessageListAPI } from '../../../api';
 import { UserDataDisplay } from '../../atoms/Card/UserDataDisplay';
@@ -6,6 +6,7 @@ import { UserDataDisplay } from '../../atoms/Card/UserDataDisplay';
 interface IMessage {
     message: string;
     senderId: string;
+    date: Date;
 }
 
 const getMessageList = async (id: string) => {
@@ -13,14 +14,31 @@ const getMessageList = async (id: string) => {
 
     const messages: string[] = response.data.messages;
 
+    //sort messages by date, latest first
+    const sortedMessages: IMessage[] = messages
+        .map((message: string) => {
+            const messageData = JSON.parse(message);
+
+            return {
+                message: messageData.message,
+                senderId: messageData.senderId,
+                date: new Date(messageData.date),
+            };
+        })
+        .sort((a: IMessage, b: IMessage) => {
+            return b.date.getTime() - a.date.getTime();
+        });
+    console.log(sortedMessages);
     const convertedMessages = messages.map(message => {
-        console.log(message);
+        // console.log(message);
         const convertedMessage: IMessage = JSON.parse(message);
         return {
             value: convertedMessage.message,
             senderId: convertedMessage.senderId,
+            date: convertedMessage.date,
         };
     });
+    console.log(convertedMessages);
 
     return convertedMessages;
 };

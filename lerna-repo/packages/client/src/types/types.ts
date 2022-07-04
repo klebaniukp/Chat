@@ -45,4 +45,5 @@ export interface IChat {
 export interface IMessage {
     value: string;
     senderId: string;
+    date: Date;
 }

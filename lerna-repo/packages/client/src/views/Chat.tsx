@@ -25,10 +25,12 @@ export const Chat = () => {
         if (endpoint) {
             const socket = io(endpoint);
 
-            console.log(`${userData.id} -> ${currentChat._id}`);
+            // console.log(`${userData.id} -> ${currentChat._id}`);
             socket.on(
                 `${userData.id}:${currentChat._id}`,
                 (message: { message: string; senderId: string }) => {
+
+
                     dispatch({
                         type: 'ADD_MESSAGE',
                         payload: {

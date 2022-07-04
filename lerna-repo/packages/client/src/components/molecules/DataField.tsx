@@ -11,7 +11,7 @@ export const DataField = (props: {
         <div className='d-flex flex-row align-items-center justify-content-center'>
             <p
                 className='mb-3 me-2'
-                style={{ width: '6vw', fontSize: '2.3vh' }}>
+                style={{ width: '7vw', fontSize: '2.3vh' }}>
                 {props.label}:
             </p>
             <FloatingInput
