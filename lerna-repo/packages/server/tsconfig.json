@@ -2,10 +2,10 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
-        "rootDir": "../server",
+        "outDir": "./dist",
+        "rootDir": "./src",
         "moduleResolution": "node",
         "typeRoots": ["@types", "./node_modules/@types"],
-        "outDir": "dist",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
