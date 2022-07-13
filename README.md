@@ -28,6 +28,8 @@ APP FUNCTIOALITIES:
 | [Socket.io](https://socket.io/)                | Library for real-time communication (ws)  |
 | [Redis](https://redis.io/)                     | In-memory data structure store (for chat) |
 
+# Server side uses nginx as reverse proxy for node server
+
 ## Photos 📷
 
 ### Live chatting with anyone on your friend list (chat data stored in redis)
