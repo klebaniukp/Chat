@@ -1,6 +1,6 @@
 # chat
 
-## Real-time chatt app like messenger 📲
+## Real-time chat app like messenger 📲
 
 ## Tech/framework used 🔧
 
@@ -22,11 +22,11 @@
 
 ## Photos 📷
 
-### Live chatting with anyone on your friend list (chat data stored in redis)
+### Live chatting with anyone on your friend list
 
 ![chat](lerna-repo/packages/client/public/chat.png)
 
-### Editing and checking users profile data
+<!-- ### Editing and checking users profile data
 
 ![profile](lerna-repo/packages/client/public/profile.png)
 
@@ -36,7 +36,7 @@
 
 ### Searching and sending requests to users
 
-![searchlist](lerna-repo/packages/client/public/searchlist.png)
+![searchlist](lerna-repo/packages/client/public/searchlist.png) -->
 
 ### Live 📍 
 http://chat.piotrklebaniuk.pl/
