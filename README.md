@@ -1,8 +1,6 @@
 # chat
 
-APP FINISHED
-
-APP FUNCTIOALITIES:
+##APP FUNCTIONALITIES:
 
 -   Singup / signin (with custom (but simple) id generating on signup)
 -   Ability to edit users data such as email, firstname and lastname
