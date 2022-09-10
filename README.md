@@ -40,5 +40,7 @@
 
 ### Live 📍 
 http://chat.piotrklebaniuk.pl/
-Test credentials: l: test@user.com p: ZAQ!2wsx
+
+### Test credentials #️⃣ 
+l: test@user.com p: ZAQ!2wsx
 
