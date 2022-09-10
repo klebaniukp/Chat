@@ -37,3 +37,8 @@
 ### Searching and sending requests to users
 
 ![searchlist](lerna-repo/packages/client/public/searchlist.png)
+
+### Live 📍 
+http://chat.piotrklebaniuk.pl/
+Test credentials: l: test@user.com p: ZAQ!2wsx
+
