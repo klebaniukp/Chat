@@ -51,10 +51,6 @@ export const SignUp = ({
                                 friends: res.data.result.friends,
                                 isUserLoggedIn: true,
                             };
-                            console.log(
-                                `userdata: ${JSON.stringify(userData)}`,
-                            );
-
                             dispatch({
                                 type: 'SET_USER_DATA',
                                 payload: userData,

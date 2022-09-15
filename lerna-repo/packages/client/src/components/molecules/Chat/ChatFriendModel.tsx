@@ -28,9 +28,7 @@ const getMessageList = async (id: string) => {
         .sort((a: IMessage, b: IMessage) => {
             return b.date.getTime() - a.date.getTime();
         });
-    console.log(sortedMessages);
     const convertedMessages = messages.map(message => {
-        // console.log(message);
         const convertedMessage: IMessage = JSON.parse(message);
         return {
             value: convertedMessage.message,
@@ -38,7 +36,6 @@ const getMessageList = async (id: string) => {
             date: convertedMessage.date,
         };
     });
-    console.log(convertedMessages);
 
     return convertedMessages;
 };
@@ -71,7 +68,6 @@ export const ChatFriendModel = (props: {
         });
 
         getMessageList(props.id).then(messages => {
-            console.log(messages);
             dispatch({
                 type: 'SET_MESSAGE_LIST',
                 payload: messages,

@@ -8,7 +8,7 @@ import { IChat, IUserData } from '../../types/types';
 
 export const SendMessageModule = () => {
     const dispatch = useDispatch();
-    const endpoint = process.env.REACT_APP_BACKEND_URL_LOCAL;
+    const endpoint = process.env.REACT_APP_BACKEND_URL;
 
     const currentChat: IChat = useSelector(
         (state: RootState) => state.currentChat,

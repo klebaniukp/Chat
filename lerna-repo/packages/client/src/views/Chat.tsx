@@ -9,7 +9,7 @@ import { SendMessageModule } from '../components/organisms/SendMessageModule';
 import { IChat, IUserData } from '../types/types';
 
 export const Chat = () => {
-    const endpoint = process.env.REACT_APP_BACKEND_URL_LOCAL;
+    const endpoint = process.env.REACT_APP_BACKEND_URL;
     const dispatch = useDispatch();
 
     const currentChat: IChat = useSelector(
@@ -24,8 +24,6 @@ export const Chat = () => {
     useEffect(() => {
         if (endpoint) {
             const socket = io(endpoint);
-
-            // console.log(`${userData.id} -> ${currentChat._id}`);
             socket.on(
                 `${userData.id}:${currentChat._id}`,
                 (message: { message: string; senderId: string }) => {

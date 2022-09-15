@@ -1,4 +1,3 @@
-import React from 'react';
 import { DropdownButton } from '../atoms/Button/DropdownButton';
 import { NavbarTitle as Title } from '../atoms/Navbar/NavbarTitle';
 import { DropdownList } from '../molecules/Navbar/DropdownList';
@@ -20,19 +19,19 @@ export const Navbar = () => {
             className='navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-0'
             style={{ height: '10vh' }}>
             <div className='container-fluid'>
-                <Title value={'Chat'} logo={logo} />
-                <DropdownButton />
-                <DropdownList />
-                <SearchUser />
                 {userData.isUserLoggedIn ? (
                     <>
+                        <Title value={'Chat'} logo={logo} link={'/chat'} />
+                        <DropdownButton />
+                        <DropdownList />
+                        <SearchUser />
                         <UserInfo email={userData.email} />
                         <Logout />
                     </>
                 ) : (
                     <>
-                        <UserInfo email={'john@doe.com'} />
-                        <Logout />r
+                        <Title value={'Chat'} logo={logo} link={'/auth'} />
+                        <Logout />
                     </>
                 )}
             </div>

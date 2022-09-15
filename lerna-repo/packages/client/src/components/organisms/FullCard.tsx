@@ -28,7 +28,6 @@ export const FullCard = (props: {
 
     const updateUserDataAction = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('activated');
         try {
             const form: HTMLFormElement = e.currentTarget;
             if (
@@ -76,7 +75,6 @@ export const FullCard = (props: {
                             setDisplay(true);
                             setIsUpdateBtn(false);
                         } else if (res.status === 201) {
-                            console.log(res.data.message);
                             alert(
                                 res.data.message + ' change to antoher email',
                             );

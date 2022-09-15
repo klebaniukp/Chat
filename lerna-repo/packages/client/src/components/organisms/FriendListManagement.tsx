@@ -19,7 +19,6 @@ export const FriendListManagement = () => {
             className={`d-flex flex-column justify-content 
             center card w-50 h-100 align-items-center overflow-auto m-auto`}>
             {friendList.map(friend => {
-                console.log(friend);
                 return (
                     <div key={friend.email}>
                         <FriendListModel

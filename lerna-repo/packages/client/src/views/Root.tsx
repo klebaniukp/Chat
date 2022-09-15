@@ -40,18 +40,31 @@ export const Root = () => {
             <div>
                 <Navbar />
                 <Switch>
+                    {userData.isUserLoggedIn && (
+                        <>
+                            <Route exact path={routes.chat} component={Chat} />
+                            <Route exact path={routes.auth} component={Auth} />
+                            <Route
+                                exact
+                                path={routes.profile}
+                                component={Profile}
+                            />
+                            <Route
+                                exact
+                                path={routes.searchUser}
+                                component={SearchUser}
+                            />
+                            <Route
+                                exact
+                                path={routes.friends}
+                                component={Friends}
+                            />
+                        </>
+                    )}
                     <Route exact path={routes.home} component={Main}>
                         <Redirect to={routes.auth} />
                     </Route>
-                    <Route exact path={routes.chat} component={Chat} />
                     <Route exact path={routes.auth} component={Auth} />
-                    <Route exact path={routes.profile} component={Profile} />
-                    <Route
-                        exact
-                        path={routes.searchUser}
-                        component={SearchUser}
-                    />
-                    <Route exact path={routes.friends} component={Friends} />
                 </Switch>
             </div>
         </BrowserRouter>
