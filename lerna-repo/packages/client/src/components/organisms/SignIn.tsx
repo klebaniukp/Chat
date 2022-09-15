@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { signIn } from '../../api';
@@ -30,9 +31,12 @@ export const SignIn = ({
             const form: HTMLFormElement = e.currentTarget;
             if (
                 form !== null &&
-                form.email !== null &&
-                form.password !== null
+                form.email.value !== null &&
+                form.email.value !== '' &&
+                form.password.value !== null &&
+                form.password.value !== ''
             ) {
+                const id = toast.loading('Please wait...');
                 signIn({
                     email: form.email.value.toString(),
                     password: form.password.value.toString(),
@@ -64,12 +68,25 @@ export const SignIn = ({
                                 });
                             });
 
+                            toast.dismiss();
                             history.push('/chat');
                         }
                     })
                     .catch(err => {
+                        toast.update(id, {
+                            render: `Invalid password`,
+                            type: 'info',
+                            isLoading: false,
+                        });
                         console.log(err);
                     });
+            } else {
+                toast.warning('Fill all the fields correctly', {
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
             }
         } catch (error) {
             console.log(error);

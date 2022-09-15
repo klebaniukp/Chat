@@ -1,7 +1,8 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { useHistory } from 'react-router-dom';
 import { signUp } from '../../api';
 import { FormField } from '../molecules/Form/FormField';
 import { Submit } from '../atoms/Button/Submit';
@@ -29,12 +30,17 @@ export const SignUp = ({
             const form: HTMLFormElement = e.currentTarget;
             if (
                 form !== null &&
-                form.username !== null &&
-                form.lastName !== null &&
-                form.email !== null &&
-                form.password !== null &&
+                form.username.value !== null &&
+                form.username.value !== '' &&
+                form.lastName.value !== null &&
+                form.lastName.value !== '' &&
+                form.email.value !== null &&
+                form.email.value !== '' &&
+                form.password.value !== null &&
+                form.password.value !== '' &&
                 passwordCheck(form)
             ) {
+                const id = toast.loading('Please wait...');
                 signUp({
                     email: form.email.value.toString(),
                     name: form.username.value.toString(),
@@ -55,22 +61,31 @@ export const SignUp = ({
                                 type: 'SET_USER_DATA',
                                 payload: userData,
                             });
-
                             dispatch({
                                 type: 'SET_IS_LOGGED_IN',
                                 payload: true,
                             });
 
+                            toast.dismiss();
                             history.push('/chat');
-                        } else {
-                            console.log(res);
                         }
                     })
                     .catch(err => {
+                        toast.update(id, {
+                            render: `Invalid password, password must contain 8 characters,
+                            1 special sign and 1 capital letter`,
+                            type: 'info',
+                            isLoading: false,
+                        });
                         console.log(err);
                     });
             } else {
-                alert('Fill all the fields correctly');
+                toast.warning('Fill all the fields correctly', {
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
             }
         } catch (error) {
             console.log(error);
@@ -83,6 +98,12 @@ export const SignUp = ({
 
         if (password == repeatedPassword) return true;
 
+        toast.error('Passwords must match', {
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+        });
         return false;
     };
 
